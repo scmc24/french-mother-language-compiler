@@ -1,0 +1,13 @@
+debut
+    entier a;
+    entier b;
+    
+    a <- 10;
+    b <- 5;
+    
+    si (a > b) alors
+        ecrire 1;
+    finsi
+    
+    ecrire 999;
+fin

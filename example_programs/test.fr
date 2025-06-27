@@ -1,0 +1,14 @@
+debut
+    entier a, b, somme;
+    
+    lire a;
+    lire b;
+    
+    somme <- a + b;
+    
+    ecrire somme;
+    
+    si (somme > 10) alors
+        ecrire 99;
+    finsi
+fin
