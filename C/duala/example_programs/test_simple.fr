@@ -1,0 +1,11 @@
+debut
+    entier a;
+    entier b;
+    entier somme;
+    
+    a <- 5;
+    b <- 3;
+    somme <- a + b;
+    
+    ecrire somme;
+fin

@@ -1,0 +1,15 @@
+debut
+    entier i;
+    entier somme;
+    
+    i <- 1;
+    somme <- 0;
+    
+    tant_que (i < 6) faire
+        somme <- somme + i;
+        ecrire somme;
+        i <- i + 1;
+    fintant
+    
+    ecrire 999;
+fin
