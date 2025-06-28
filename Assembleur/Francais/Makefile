@@ -15,6 +15,11 @@ francais.tab.c francais.h: francais.y
 francais.lex.c: francais.lex francais.h
 	$(FLEX) -o francais.lex.c francais.lex
 
+run: compilateur
+	nasm -f elf -o programme.o programme.asm
+	ld -s -o programme programme.o -melf_i386 -I/lib/ld-linux.so.2 -lc
+	./programme
+
 test: compilateur
 	@echo "=== Test du compilateur assembleur ==="
 	@echo "Contenu de test_avance.fr:"
@@ -28,7 +33,7 @@ test: compilateur
 
 clean:
 	rm -f francais.lex.c francais.tab.c francais.h
-	rm -f compilateur programme.asm
+	rm -f compilateur programme.asm programme.o programme
 	rm -f francais.output
 
 .PHONY: all test clean
