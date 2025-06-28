@@ -14,13 +14,32 @@ char current_id[100];
 "entier"        { return TYPE_ENTIER; }
 "lire"          { return LIRE; }
 "ecrire"        { return ECRIRE; }
+
+
 "si"            { return SI; }
 "alors"         { return ALORS; }
 "sinon"         { return SINON; }
 "finsi"         { return FINSI; }
+
+"selon"         { return SELON; }
+"cas"           { return CAS; }
+"defaut"        { return DEFAUT; }
+"finselon"      { return FINSELON; }
+"sortir"        { return SORTIR; }
+
+
 "tant_que"      { return TANT_QUE; }
 "faire"         { return FAIRE; }
 "fintant"       { return FINTANT; }
+
+"pour"          { return POUR; }
+"de"            { return DE; }
+"a"             { return A; }
+"pas"           { return PAS; }
+"finpour"       { return FINPOUR; }
+
+"repeter"       { return REPETER; }
+"jusqua"        { return JUSQUA; }
 
 "<-"            { return AFFECTATION; }
 "=="            { return EGAL; }
@@ -33,11 +52,14 @@ char current_id[100];
 "-"             { return MOINS; }
 "*"             { return FOIS; }
 "/"             { return DIVISE; }
+"%"             { return MODULO; }
 
 ";"             { return POINT_VIRGULE; }
 ","             { return VIRGULE; }
 "("             { return PAREN_OUV; }
 ")"             { return PAREN_FERM; }
+":"             { return DEUX_POINTS; }
+
 
 [0-9]+          { yylval.ival = atoi(yytext); return NOMBRE_ENTIER; }
 [a-zA-Z][a-zA-Z0-9_]* { 

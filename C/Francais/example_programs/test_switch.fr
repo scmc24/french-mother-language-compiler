@@ -1,0 +1,27 @@
+debut
+    entier choix;
+    entier resultat;
+    
+    lire choix;
+    
+    selon (choix)
+        cas 1:
+            resultat <- 100;
+            ecrire resultat;
+            sortir;
+        cas 2:
+            resultat <- 200;
+            ecrire resultat;
+            sortir;
+        cas 3:
+            resultat <- 300;
+            ecrire resultat;
+            sortir;
+        defaut:
+            resultat <- 999;
+            ecrire resultat;
+            sortir;
+    finselon
+    
+    ecrire 42;
+fin
