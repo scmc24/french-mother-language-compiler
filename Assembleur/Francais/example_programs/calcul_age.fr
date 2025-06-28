@@ -1,0 +1,11 @@
+debut
+    entier annee_naissance;
+    entier annee_actuelle;
+    entier age;
+    
+    lire annee_naissance;
+    lire annee_actuelle;
+    
+    age <- annee_actuelle - annee_naissance;
+    ecrire age;
+fin

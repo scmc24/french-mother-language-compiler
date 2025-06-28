@@ -1,0 +1,15 @@
+mbɔmbɔ
+    ndambo nombre;
+    
+    yɛnɛ nombre;
+    
+    sɔ (nombre > 0) tɛ
+        kɔma 1;
+    sɔnon
+        sɔ (nombre < 0) tɛ
+            kɔma 0;
+        sɔnon
+            kɔma 2;
+        sukasɔ
+    sukasɔ
+suka

@@ -1,0 +1,16 @@
+debut
+    entier a;
+    entier b;
+    entier temp;
+    
+    lire a;
+    lire b;
+    
+    tant_que (b != 0) faire
+        temp <- a - (a / b) * b;
+        a <- b;
+        b <- temp;
+    fintant
+    
+    ecrire a;
+fin

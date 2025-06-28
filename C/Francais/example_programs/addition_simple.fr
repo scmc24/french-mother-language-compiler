@@ -1,0 +1,10 @@
+debut
+    entier a;
+    entier b;
+    entier somme;
+    
+    a <- 10;
+    b <- 20;
+    somme <- a + b;
+    ecrire somme;
+fin

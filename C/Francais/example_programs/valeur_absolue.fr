@@ -1,0 +1,14 @@
+debut
+    entier nombre;
+    entier absolu;
+    
+    lire nombre;
+    
+    si (nombre >= 0) alors
+        absolu <- nombre;
+    sinon
+        absolu <- 0 - nombre;
+    finsi
+    
+    ecrire absolu;
+fin

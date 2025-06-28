@@ -1,0 +1,20 @@
+debut
+    entier a;
+    entier b;
+    entier c;
+    entier max;
+    
+    lire a;
+    lire b;
+    lire c;
+    
+    max <- a;
+    si (b > max) alors
+        max <- b;
+    finsi
+    si (c > max) alors
+        max <- c;
+    finsi
+    
+    ecrire max;
+fin

@@ -1,0 +1,10 @@
+mbɔmbɔ
+    ndambo dividende;
+    ndambo diviseur;
+    ndambo quotient;
+    
+    yɛnɛ dividende;
+    yɛnɛ diviseur;
+    quotient <- dividende / diviseur;
+    kɔma quotient;
+suka

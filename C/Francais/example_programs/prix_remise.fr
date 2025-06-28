@@ -1,0 +1,13 @@
+debut
+    entier prix_initial;
+    entier pourcentage_remise;
+    entier remise;
+    entier prix_final;
+    
+    lire prix_initial;
+    lire pourcentage_remise;
+    
+    remise <- (prix_initial * pourcentage_remise) / 100;
+    prix_final <- prix_initial - remise;
+    ecrire prix_final;
+fin

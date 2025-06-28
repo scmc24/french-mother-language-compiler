@@ -1,0 +1,13 @@
+mbɔmbɔ
+    ndambo a;
+    ndambo b;
+    
+    a <- 10;
+    b <- 5;
+    
+    sɔ (a > b) tɛ
+        kɔma 1;
+    sukasɔ
+    
+    kɔma 999;
+suka

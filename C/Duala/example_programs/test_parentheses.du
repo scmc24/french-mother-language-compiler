@@ -1,0 +1,16 @@
+mbɔmbɔ
+    ndambo x;
+    ndambo y;
+    ndambo z;
+    ndambo resultat;
+    
+    x <- 6;
+    y <- 4;
+    z <- 2;
+    
+    resultat <- (x + y) * z;
+    kɔma resultat;
+    
+    resultat <- x * (y + z);
+    kɔma resultat;
+suka

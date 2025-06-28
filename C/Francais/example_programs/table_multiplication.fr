@@ -1,0 +1,14 @@
+debut
+    entier nombre;
+    entier i;
+    entier resultat;
+    
+    lire nombre;
+    i <- 1;
+    
+    tant_que (i <= 10) faire
+        resultat <- nombre * i;
+        ecrire resultat;
+        i <- i + 1;
+    fintant
+fin

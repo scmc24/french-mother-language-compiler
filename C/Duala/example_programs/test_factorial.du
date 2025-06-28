@@ -1,0 +1,17 @@
+mbɔmbɔ
+    ndambo n;
+    ndambo fact;
+    ndambo i;
+    
+    yɛnɛ n;
+    
+    fact <- 1;
+    i <- 1;
+    
+    mbɛlɛ (i < n + 1) sala
+        fact <- fact * i;
+        i <- i + 1;
+    sukatant
+    
+    kɔma fact;
+suka

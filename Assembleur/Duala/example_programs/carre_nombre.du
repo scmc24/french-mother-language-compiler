@@ -1,0 +1,8 @@
+mbɔmbɔ
+    ndambo nombre;
+    ndambo carre;
+    
+    yɛnɛ nombre;
+    carre <- nombre * nombre;
+    kɔma carre;
+suka

@@ -1,0 +1,10 @@
+debut
+    entier dividende;
+    entier diviseur;
+    entier quotient;
+    
+    lire dividende;
+    lire diviseur;
+    quotient <- dividende / diviseur;
+    ecrire quotient;
+fin

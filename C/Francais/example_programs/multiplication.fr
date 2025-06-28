@@ -1,0 +1,10 @@
+debut
+    entier a;
+    entier b;
+    entier produit;
+    
+    lire a;
+    lire b;
+    produit <- a * b;
+    ecrire produit;
+fin

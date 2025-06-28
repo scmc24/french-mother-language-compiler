@@ -1,0 +1,19 @@
+mbɔmbɔ
+    ndambo nombre;
+    ndambo binaire;
+    ndambo puissance;
+    ndambo reste;
+    
+    yɛnɛ nombre;
+    binaire <- 0;
+    puissance <- 1;
+    
+    mbɛlɛ (nombre > 0) sala
+        reste <- nombre - (nombre / 2) * 2;
+        binaire <- binaire + reste * puissance;
+        puissance <- puissance * 10;
+        nombre <- nombre / 2;
+    sukatant
+    
+    kɔma binaire;
+suka

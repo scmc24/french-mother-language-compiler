@@ -1,0 +1,10 @@
+mbɔmbɔ
+    ndambo longueur;
+    ndambo largeur;
+    ndambo aire;
+    
+    yɛnɛ longueur;
+    yɛnɛ largeur;
+    aire <- longueur * largeur;
+    kɔma aire;
+suka

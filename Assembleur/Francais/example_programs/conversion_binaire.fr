@@ -1,0 +1,19 @@
+debut
+    entier nombre;
+    entier binaire;
+    entier puissance;
+    entier reste;
+    
+    lire nombre;
+    binaire <- 0;
+    puissance <- 1;
+    
+    tant_que (nombre > 0) faire
+        reste <- nombre - (nombre / 2) * 2;
+        binaire <- binaire + reste * puissance;
+        puissance <- puissance * 10;
+        nombre <- nombre / 2;
+    fintant
+    
+    ecrire binaire;
+fin

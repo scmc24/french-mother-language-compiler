@@ -1,0 +1,14 @@
+mbɔmbɔ
+    ndambo nombre;
+    ndambo i;
+    ndambo resultat;
+    
+    yɛnɛ nombre;
+    i <- 1;
+    
+    mbɛlɛ (i <= 10) sala
+        resultat <- nombre * i;
+        kɔma resultat;
+        i <- i + 1;
+    sukatant
+suka

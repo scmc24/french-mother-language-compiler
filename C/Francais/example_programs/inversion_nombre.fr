@@ -1,0 +1,16 @@
+debut
+    entier nombre;
+    entier inverse;
+    entier chiffre;
+    
+    lire nombre;
+    inverse <- 0;
+    
+    tant_que (nombre > 0) faire
+        chiffre <- nombre - (nombre / 10) * 10;
+        inverse <- inverse * 10 + chiffre;
+        nombre <- nombre / 10;
+    fintant
+    
+    ecrire inverse;
+fin

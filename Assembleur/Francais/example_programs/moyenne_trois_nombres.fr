@@ -1,0 +1,15 @@
+debut
+    entier a;
+    entier b;
+    entier c;
+    entier somme;
+    entier moyenne;
+    
+    lire a;
+    lire b;
+    lire c;
+    
+    somme <- a + b + c;
+    moyenne <- somme / 3;
+    ecrire moyenne;
+fin

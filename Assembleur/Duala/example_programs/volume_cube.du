@@ -1,0 +1,8 @@
+mbɔmbɔ
+    ndambo cote;
+    ndambo volume;
+    
+    yɛnɛ cote;
+    volume <- cote * cote * cote;
+    kɔma volume;
+suka
