@@ -1,0 +1,15 @@
+mbɔmbɔ
+    ndambo i;
+    ndambo somme;
+    
+    i <- 1;
+    somme <- 0;
+    
+    mbɛlɛ (i <= 5) sala
+        somme <- somme + i;
+        kɔma somme;
+        i <- i + 1;
+    sukambɛlɛ
+    
+    kɔma somme;
+suka

@@ -13,6 +13,4 @@ debut
         max <- b;
         ecrire max;
     finsi
-    
-    ecrire 999;
 fin

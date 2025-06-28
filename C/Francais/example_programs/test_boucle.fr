@@ -10,6 +10,4 @@ debut
         ecrire somme;
         i <- i + 1;
     fintant
-    
-    ecrire 999;
 fin
