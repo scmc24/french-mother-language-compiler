@@ -1,0 +1,18 @@
+debut
+    entier i;
+    entier somme;
+    entier limite;
+    entier carre;
+    
+    lire limite;
+    i <- 1;
+    somme <- 0;
+    
+    tant_que (i <= limite) faire
+        carre <- i * i;
+        somme <- somme + carre;
+        i <- i + 1;
+    fintant
+    
+    ecrire somme;
+fin

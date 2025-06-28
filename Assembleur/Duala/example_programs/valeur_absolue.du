@@ -1,0 +1,14 @@
+mbɔmbɔ
+    ndambo nombre;
+    ndambo absolu;
+    
+    yɛnɛ nombre;
+    
+    sɔ (nombre >= 0) tɛ
+        absolu <- nombre;
+    sɔnon
+        absolu <- 0 - nombre;
+    sukasɔ
+    
+    kɔma absolu;
+suka

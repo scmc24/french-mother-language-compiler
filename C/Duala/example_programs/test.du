@@ -1,0 +1,14 @@
+mbɔmbɔ
+    ndambo a, b, somme;
+    
+    yɛnɛ a;
+    yɛnɛ b;
+    
+    somme <- a + b;
+    
+    kɔma somme;
+    
+    sɔ (somme > 10) tɛ
+        kɔma 99;
+    sukasɔ
+suka

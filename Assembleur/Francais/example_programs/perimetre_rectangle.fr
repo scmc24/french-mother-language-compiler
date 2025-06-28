@@ -1,0 +1,10 @@
+debut
+    entier longueur;
+    entier largeur;
+    entier perimetre;
+    
+    lire longueur;
+    lire largeur;
+    perimetre <- 2 * (longueur + largeur);
+    ecrire perimetre;
+fin

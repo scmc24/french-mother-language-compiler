@@ -1,0 +1,22 @@
+mbɔmbɔ
+    ndambo nombre;
+    ndambo i;
+    ndambo divisɔble;
+    
+    yɛnɛ nombre;
+    i <- 2;
+    divisɔble <- 0;
+    
+    mbɛlɛ (i < nombre) sala
+        sɔ ((nombre / i) * i == nombre) tɛ
+            divisɔble <- 1;
+        sukasɔ
+        i <- i + 1;
+    sukatant
+    
+    sɔ (divisɔble == 0) tɛ
+        kɔma 1;
+    sɔnon
+        kɔma 0;
+    sukasɔ
+suka

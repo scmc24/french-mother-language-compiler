@@ -7,5 +7,7 @@ mbɔmbɔ
     b <- 3;
     somme <- a + b;
     
+    kɔma a;
+    kɔma b;
     kɔma somme;
 suka

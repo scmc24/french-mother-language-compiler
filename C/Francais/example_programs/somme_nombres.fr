@@ -1,13 +1,16 @@
 debut
     entier i;
     entier somme;
+    entier limite;
     
+    lire limite;
     i <- 1;
     somme <- 0;
     
-    tant_que (i < 6) faire
+    tant_que (i <= limite) faire
         somme <- somme + i;
-        ecrire somme;
         i <- i + 1;
     fintant
+    
+    ecrire somme;
 fin

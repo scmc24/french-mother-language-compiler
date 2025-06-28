@@ -1,0 +1,8 @@
+debut
+    entier rayon;
+    entier aire;
+    
+    lire rayon;
+    aire <- 3 * rayon * rayon;
+    ecrire aire;
+fin

@@ -1,0 +1,18 @@
+debut
+    entier premier;
+    entier raison;
+    entier n;
+    entier i;
+    entier terme;
+    
+    lire premier;
+    lire raison;
+    lire n;
+    
+    i <- 0;
+    tant_que (i < n) faire
+        terme <- premier + i * raison;
+        ecrire terme;
+        i <- i + 1;
+    fintant
+fin

@@ -1,0 +1,10 @@
+mbɔmbɔ
+    ndambo a;
+    ndambo b;
+    ndambo produit;
+    
+    yɛnɛ a;
+    yɛnɛ b;
+    produit <- a * b;
+    kɔma produit;
+suka

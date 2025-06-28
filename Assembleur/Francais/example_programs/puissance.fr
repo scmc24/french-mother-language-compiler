@@ -1,0 +1,19 @@
+debut
+    entier base;
+    entier exposant;
+    entier resultat;
+    entier i;
+    
+    lire base;
+    lire exposant;
+    
+    resultat <- 1;
+    i <- 1;
+    
+    tant_que (i <= exposant) faire
+        resultat <- resultat * base;
+        i <- i + 1;
+    fintant
+    
+    ecrire resultat;
+fin

@@ -1,0 +1,8 @@
+debut
+    entier cote;
+    entier volume;
+    
+    lire cote;
+    volume <- cote * cote * cote;
+    ecrire volume;
+fin

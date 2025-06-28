@@ -1,0 +1,11 @@
+mbɔmbɔ
+    ndambo annee_naissance;
+    ndambo annee_actuelle;
+    ndambo age;
+    
+    yɛnɛ annee_naissance;
+    yɛnɛ annee_actuelle;
+    
+    age <- annee_actuelle - annee_naissance;
+    kɔma age;
+suka

@@ -1,0 +1,10 @@
+mbɔmbɔ
+    ndambo a;
+    ndambo b;
+    ndambo difference;
+    
+    yɛnɛ a;
+    yɛnɛ b;
+    difference <- a - b;
+    kɔma difference;
+suka

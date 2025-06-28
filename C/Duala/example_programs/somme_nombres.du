@@ -1,13 +1,16 @@
 mbɔmbɔ
     ndambo i;
     ndambo somme;
+    ndambo limite;
     
+    yɛnɛ limite;
     i <- 1;
     somme <- 0;
     
-    mbɛlɛ (i < 6) sala
+    mbɛlɛ (i <= limite) sala
         somme <- somme + i;
-        kɔma somme;
         i <- i + 1;
     sukatant
+    
+    kɔma somme;
 suka

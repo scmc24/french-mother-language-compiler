@@ -1,0 +1,10 @@
+debut
+    entier longueur;
+    entier largeur;
+    entier aire;
+    
+    lire longueur;
+    lire largeur;
+    aire <- longueur * largeur;
+    ecrire aire;
+fin

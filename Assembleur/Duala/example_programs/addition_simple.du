@@ -3,9 +3,8 @@ mbɔmbɔ
     ndambo b;
     ndambo somme;
     
-    a <- 5;
-    b <- 3;
+    a <- 10;
+    b <- 20;
     somme <- a + b;
-    
     kɔma somme;
 suka

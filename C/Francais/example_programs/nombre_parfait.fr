@@ -1,0 +1,22 @@
+debut
+    entier nombre;
+    entier i;
+    entier somme;
+    
+    lire nombre;
+    i <- 1;
+    somme <- 0;
+    
+    tant_que (i < nombre) faire
+        si ((nombre / i) * i == nombre) alors
+            somme <- somme + i;
+        finsi
+        i <- i + 1;
+    fintant
+    
+    si (somme == nombre) alors
+        ecrire 1;
+    sinon
+        ecrire 0;
+    finsi
+fin

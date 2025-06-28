@@ -1,0 +1,10 @@
+debut
+    entier a;
+    entier b;
+    entier difference;
+    
+    lire a;
+    lire b;
+    difference <- a - b;
+    ecrire difference;
+fin

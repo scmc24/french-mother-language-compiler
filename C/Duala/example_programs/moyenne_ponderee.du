@@ -1,0 +1,19 @@
+mbɔmbɔ
+    ndambo note1;
+    ndambo coeff1;
+    ndambo note2;
+    ndambo coeff2;
+    ndambo somme_notes;
+    ndambo somme_coeff;
+    ndambo moyenne;
+    
+    yɛnɛ note1;
+    yɛnɛ coeff1;
+    yɛnɛ note2;
+    yɛnɛ coeff2;
+    
+    somme_notes <- (note1 * coeff1) + (note2 * coeff2);
+    somme_coeff <- coeff1 + coeff2;
+    moyenne <- somme_notes / somme_coeff;
+    kɔma moyenne;
+suka

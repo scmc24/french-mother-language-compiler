@@ -1,0 +1,9 @@
+mbɔmbɔ
+    ndambo i;
+    
+    i <- 10;
+    mbɛlɛ (i >= 1) sala
+        kɔma i;
+        i <- i - 1;
+    sukatant
+suka

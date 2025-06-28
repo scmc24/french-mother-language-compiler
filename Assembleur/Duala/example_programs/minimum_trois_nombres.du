@@ -1,0 +1,20 @@
+mbɔmbɔ
+    ndambo a;
+    ndambo b;
+    ndambo c;
+    ndambo min;
+    
+    yɛnɛ a;
+    yɛnɛ b;
+    yɛnɛ c;
+    
+    min <- a;
+    sɔ (b < min) tɛ
+        min <- b;
+    sukasɔ
+    sɔ (c < min) tɛ
+        min <- c;
+    sukasɔ
+    
+    kɔma min;
+suka
