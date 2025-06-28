@@ -126,3 +126,7 @@ Le compilateur affiche des messages en français et duala:
 ## Extension de fichiers
 - Programmes Duala: `.du`
 - Programmes Français: `.fr`
+
+
+## Contributeurs
+- ZOGO ABOUMA ZOZIME ACHAIRE (https://github.com/Achaire-Zogo)
