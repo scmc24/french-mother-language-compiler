@@ -1,10 +1,10 @@
 debut
-    entier a;
+    entier c;
     entier b;
     entier difference;
     
-    lire a;
+    lire c;
     lire b;
-    difference <- a - b;
+    difference <- c - b;
     ecrire difference;
 fin

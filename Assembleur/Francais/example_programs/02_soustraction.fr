@@ -1,10 +1,10 @@
 debut
-    entier a;
+    entier c;
     entier b;
     entier resultat;
     
-    lire a;
+    lire c;
     lire b;
-    resultat <- a - b;
+    resultat <- c - b;
     ecrire resultat;
 fin

@@ -1,8 +1,11 @@
 debut
-    entier nombre;
+    entier nombre ;
+    entier compteur;
+    compteur <- 5;
     
     repeter
         lire nombre;
         ecrire nombre;
-    jusqua (nombre == 0);
+        compteur <- compteur - 1;
+    jusqua (compteur == 0);
 fin

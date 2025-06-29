@@ -3,16 +3,16 @@ debut
     
     lire choix;
     selon (choix)
-        cas 1:
+        cas 1 :
             ecrire "Option un";
             sortir;
-        cas 2:
+        cas 2 :
             ecrire "Option deux";
             sortir;
-        cas 3:
+        cas 3 :
             ecrire "Option trois";
             sortir;
-        defaut:
+        defaut :
             ecrire "Option inconnue";
     finselon
 fin

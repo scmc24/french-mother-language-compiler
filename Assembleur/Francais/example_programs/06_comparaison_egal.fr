@@ -1,10 +1,10 @@
 debut
-    entier a;
+    entier c;
     entier b;
     
-    lire a;
+    lire c;
     lire b;
-    si (a == b) alors
+    si (c == b) alors
         ecrire "Les nombres sont egaux";
     sinon
         ecrire "Les nombres sont differents";

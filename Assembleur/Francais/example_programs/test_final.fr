@@ -1,13 +1,13 @@
 debut
-    entier a;
+    entier c;
     entier b;
     entier somme;
     
-    a <- 5;
+    c <- 5;
     b <- 3;
-    somme <- a + b;
+    somme <- c + b;
     
-    ecrire a;
+    ecrire c;
     ecrire b;
     ecrire somme;
 fin

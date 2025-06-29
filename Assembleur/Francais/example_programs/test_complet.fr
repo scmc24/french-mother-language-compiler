@@ -25,17 +25,11 @@ debut
             repeter
                 resultat <- resultat + i;
                 i <- i + 1;
-            jusqu_a (i > nombre);
+            jusqua (i > nombre);
             ecrire resultat;
             sortir;
             
-        cas 3:
-            ecrire 3000;
-            pour i de 2 a 20 pas 2 faire
-                ecrire i;
-            finpour
-            sortir;
-            
+        
         defaut:
             ecrire 9999;
             sortir;

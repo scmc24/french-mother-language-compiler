@@ -1,9 +1,0 @@
-debut
-    entier i;
-    
-    i <- 10;
-    tant_que (i >= 1) faire
-        ecrire i;
-        i <- i - 1;
-    fintant
-fin

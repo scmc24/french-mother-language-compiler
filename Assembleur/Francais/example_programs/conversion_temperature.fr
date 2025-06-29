@@ -1,8 +1,0 @@
-debut
-    entier celsius;
-    entier fahrenheit;
-    
-    lire celsius;
-    fahrenheit <- (celsius * 9) / 5 + 32;
-    ecrire fahrenheit;
-fin

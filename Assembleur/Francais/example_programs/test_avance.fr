@@ -1,13 +1,13 @@
 debut
-    entier a;
+    entier c;
     entier b;
     entier max;
     
-    lire a;
+    lire c;
     lire b;
     
-    si (a > b) alors
-        max <- a;
+    si (c > b) alors
+        max <- c;
         ecrire max;
     sinon
         max <- b;

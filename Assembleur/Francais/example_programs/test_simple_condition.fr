@@ -1,11 +1,11 @@
 debut
-    entier a;
+    entier d;
     entier b;
     
-    a <- 10;
+    d <- 10;
     b <- 5;
     
-    si (a > b) alors
+    si (d > b) alors
         ecrire 1;
     finsi
     

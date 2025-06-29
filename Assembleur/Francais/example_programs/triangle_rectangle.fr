@@ -1,16 +1,16 @@
 debut
-    entier a;
+    entier d;
     entier b;
     entier c;
     entier carre_a;
     entier carre_b;
     entier carre_c;
     
-    lire a;
+    lire d;
     lire b;
     lire c;
     
-    carre_a <- a * a;
+    carre_a <- d * d;
     carre_b <- b * b;
     carre_c <- c * c;
     

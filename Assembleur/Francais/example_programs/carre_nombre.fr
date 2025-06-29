@@ -1,8 +1,0 @@
-debut
-    entier nombre;
-    entier carre;
-    
-    lire nombre;
-    carre <- nombre * nombre;
-    ecrire carre;
-fin

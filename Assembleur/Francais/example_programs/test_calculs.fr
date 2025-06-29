@@ -1,19 +1,19 @@
 debut
-    entier a;
+    entier d;
     entier b;
     entier c;
     entier resultat;
     
-    a <- 10;
+    d <- 10;
     b <- 5;
     c <- 2;
     
-    resultat <- a + b * c;
+    resultat <- d + b * c;
     ecrire resultat;
     
-    resultat <- a - b;
+    resultat <- d - b;
     ecrire resultat;
     
-    resultat <- a * b;
+    resultat <- d * b;
     ecrire resultat;
 fin

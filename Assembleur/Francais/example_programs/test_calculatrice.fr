@@ -1,23 +1,23 @@
 debut
-    entier a;
+    entier c;
     entier b;
     entier choix;
     entier resultat;
     
-    lire a;
+    lire c;
     lire b;
     lire choix;
     
     si (choix == 1) alors
-        resultat <- a + b;
+        resultat <- c + b;
     finsi
     
     si (choix == 2) alors
-        resultat <- a - b;
+        resultat <- c - b;
     finsi
     
     si (choix == 3) alors
-        resultat <- a * b;
+        resultat <- c * b;
     finsi
     
     ecrire resultat;

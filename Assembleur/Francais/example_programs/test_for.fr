@@ -6,15 +6,13 @@ debut
     somme <- 0;
     
     pour i de 1 a 5 faire
-        somme <- somme + i;
+        somme <- somme;
         ecrire somme;
     finpour
     
     ecrire 999;
     
-    pour j de 0 a 10 pas 2 faire
-        ecrire j;
-    finpour
+   
     
     ecrire 888;
 fin
