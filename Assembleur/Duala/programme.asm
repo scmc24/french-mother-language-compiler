@@ -5,7 +5,17 @@ section .data
     input_msg db 'Tɔlɛ ndambo: ', 0
     a dd 0
     b dd 0
-    max dd 0
+    resultat dd 0
+
+section .text
+    global _start
+    extern printf, scanf
+_start:
+    call main
+    mov eax, 1
+    mov ebx, 0
+    int 0x80
+main:
     ; Lecture de a
     push input_msg
     call printf
@@ -26,62 +36,20 @@ section .data
     push dword [a]
     ; Variable b
     push dword [b]
-    ; Comparaison >
+    ; Addition
     pop ebx
     pop eax
-    cmp eax, ebx
-    setg al
-    movzx eax, al
+    add eax, ebx
     push eax
-    ; Debut SI
+    ; Affectation a resultat
     pop eax
-    test eax, eax
-    jz fin_si_0
-    ; Variable a
-    push dword [a]
-    ; Affectation a max
-    pop eax
-    mov [max], eax
-    ; Variable max
-    push dword [max]
+    mov [resultat], eax
+    ; Variable resultat
+    push dword [resultat]
     ; Ecriture
     pop eax
     push eax
     push format_int
     call printf
     add esp, 8
-    jmp fin_si_0
-sinon_0:
-    ; Variable b
-    push dword [b]
-    ; Affectation a max
-    pop eax
-    mov [max], eax
-    ; Variable max
-    push dword [max]
-    ; Ecriture
-    pop eax
-    push eax
-    push format_int
-    call printf
-    add esp, 8
-fin_si_0:
-    ; Fin SI
-    ; Constante 999
-    push 999
-    ; Ecriture
-    pop eax
-    push eax
-    push format_int
-    call printf
-    add esp, 8
-
-section .text
-    global _start
-    extern printf, scanf
-_start:
-    call main
-    mov eax, 1
-    mov ebx, 0
-    int 0x80
-main:
+    ret

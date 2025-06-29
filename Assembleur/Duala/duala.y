@@ -43,6 +43,14 @@ programme:
     } 
     bloc 
     FIN { 
+        fprintf(fichier_asm, "    ret\n");
+        fclose(fichier_asm);
+        printf("Compilation suka na malamu!\n"); 
+    }
+    ;
+
+bloc:
+    declarations { 
         fprintf(fichier_asm, "\nsection .text\n");
         fprintf(fichier_asm, "    global _start\n");
         fprintf(fichier_asm, "    extern printf, scanf\n");
@@ -52,13 +60,7 @@ programme:
         fprintf(fichier_asm, "    mov ebx, 0\n");
         fprintf(fichier_asm, "    int 0x80\n");
         fprintf(fichier_asm, "main:\n");
-        fclose(fichier_asm);
-        printf("Compilation suka na malamu!\n"); 
-    }
-    ;
-
-bloc:
-    declarations instructions
+    } instructions
     ;
 
 declarations:

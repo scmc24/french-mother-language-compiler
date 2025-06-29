@@ -35,8 +35,8 @@
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
 
-#ifndef YY_YY_DUALA_H_INCLUDED
-# define YY_YY_DUALA_H_INCLUDED
+#ifndef YY_YY_FRANCAIS_H_INCLUDED
+# define YY_YY_FRANCAIS_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -66,37 +66,23 @@ extern int yydebug;
     TANT_QUE = 267,                /* TANT_QUE  */
     FAIRE = 268,                   /* FAIRE  */
     FINTANT = 269,                 /* FINTANT  */
-    SELON = 270,                   /* SELON  */
-    CAS = 271,                     /* CAS  */
-    DEFAUT = 272,                  /* DEFAUT  */
-    FINSELON = 273,                /* FINSELON  */
-    SORTIR = 274,                  /* SORTIR  */
-    POUR = 275,                    /* POUR  */
-    DE = 276,                      /* DE  */
-    A = 277,                       /* A  */
-    PAS = 278,                     /* PAS  */
-    FINPOUR = 279,                 /* FINPOUR  */
-    REPETER = 280,                 /* REPETER  */
-    JUSQUA = 281,                  /* JUSQUA  */
-    AFFECTATION = 282,             /* AFFECTATION  */
-    EGAL = 283,                    /* EGAL  */
-    DIFFERENT = 284,               /* DIFFERENT  */
-    SUP_EGAL = 285,                /* SUP_EGAL  */
-    INF_EGAL = 286,                /* INF_EGAL  */
-    SUPERIEUR = 287,               /* SUPERIEUR  */
-    INFERIEUR = 288,               /* INFERIEUR  */
-    PLUS = 289,                    /* PLUS  */
-    MOINS = 290,                   /* MOINS  */
-    FOIS = 291,                    /* FOIS  */
-    DIVISE = 292,                  /* DIVISE  */
-    MODULO = 293,                  /* MODULO  */
-    POINT_VIRGULE = 294,           /* POINT_VIRGULE  */
-    VIRGULE = 295,                 /* VIRGULE  */
-    PAREN_OUV = 296,               /* PAREN_OUV  */
-    PAREN_FERM = 297,              /* PAREN_FERM  */
-    DEUX_POINTS = 298,             /* DEUX_POINTS  */
-    NOMBRE_ENTIER = 299,           /* NOMBRE_ENTIER  */
-    IDENTIFICATEUR = 300           /* IDENTIFICATEUR  */
+    AFFECTATION = 270,             /* AFFECTATION  */
+    EGAL = 271,                    /* EGAL  */
+    DIFFERENT = 272,               /* DIFFERENT  */
+    SUP_EGAL = 273,                /* SUP_EGAL  */
+    INF_EGAL = 274,                /* INF_EGAL  */
+    SUPERIEUR = 275,               /* SUPERIEUR  */
+    INFERIEUR = 276,               /* INFERIEUR  */
+    PLUS = 277,                    /* PLUS  */
+    MOINS = 278,                   /* MOINS  */
+    FOIS = 279,                    /* FOIS  */
+    DIVISE = 280,                  /* DIVISE  */
+    POINT_VIRGULE = 281,           /* POINT_VIRGULE  */
+    VIRGULE = 282,                 /* VIRGULE  */
+    PAREN_OUV = 283,               /* PAREN_OUV  */
+    PAREN_FERM = 284,              /* PAREN_FERM  */
+    NOMBRE_ENTIER = 285,           /* NOMBRE_ENTIER  */
+    IDENTIFICATEUR = 286           /* IDENTIFICATEUR  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -115,4 +101,4 @@ extern YYSTYPE yylval;
 int yyparse (void);
 
 
-#endif /* !YY_YY_DUALA_H_INCLUDED  */
+#endif /* !YY_YY_FRANCAIS_H_INCLUDED  */
