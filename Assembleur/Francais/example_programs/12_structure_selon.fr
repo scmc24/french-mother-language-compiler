@@ -1,0 +1,18 @@
+debut
+    entier choix;
+    
+    lire choix;
+    selon (choix)
+        cas 1:
+            ecrire "Option un";
+            sortir;
+        cas 2:
+            ecrire "Option deux";
+            sortir;
+        cas 3:
+            ecrire "Option trois";
+            sortir;
+        defaut:
+            ecrire "Option inconnue";
+    finselon
+fin

@@ -32,9 +32,21 @@ french-mother-language-compiler/
 | `tant_que` | `mbɛlɛ` | tant que/aussi longtemps que |
 | `faire` | `sala` | faire/fabriquer |
 | `fintant` | `sukambɛlɛ` | fin tant que |
+| `selon` | `ndɔŋ` | selon/suivant |
+| `cas` | `kɛs` | cas/situation |
+| `defaut` | `bɔsɔ` | défaut/normal |
+| `finselon` | `sukandɔŋ` | fin selon |
+| `sortir` | `bima` | sortir/partir |
+| `pour` | `pɔ` | pour |
+| `de` | `na` | de/depuis |
+| `a` | `tɛ` | à/vers |
+| `pas` | `mbɛn` | pas/étape |
+| `finpour` | `sukapɔ` | fin pour |
+| `repeter` | `sɔŋɔlɔ` | répéter/refaire |
+| `jusqua` | `tɛmbɛlɛ` | jusqu'à/tant que |
 
 ## Opérateurs
-Les opérateurs restent identiques: `<-`, `==`, `!=`, `>=`, `<=`, `>`, `<`, `+`, `-`, `*`, `/`
+Les opérateurs restent identiques: `<-`, `==`, `!=`, `>=`, `<=`, `>`, `<`, `+`, `-`, `*`, `/`, `%`
 
 ## Exemples de programmes
 
@@ -71,18 +83,50 @@ suka
 ```duala
 mbɔmbɔ
     ndambo i;
-    ndambo somme;
-    
     i <- 1;
-    somme <- 0;
-    
     mbɛlɛ (i <= 5) sala
-        somme <- somme + i;
-        kɔma somme;
+        kɔma i;
         i <- i + 1;
     sukambɛlɛ
-    
-    kɔma somme;
+suka
+```
+
+### Programme avec structure selon (switch-case)
+```duala
+mbɔmbɔ
+    ndambo choix;
+    yɛnɛ choix;
+    ndɔŋ (choix)
+        kɛs 1:
+            kɔma "Option 1";
+            bima;
+        kɛs 2:
+            kɔma "Option 2";
+            bima;
+        bɔsɔ:
+            kɔma "Option inconnue";
+    sukandɔŋ
+suka
+```
+
+### Programme avec boucle pour
+```duala
+mbɔmbɔ
+    ndambo i;
+    pɔ i na 1 tɛ 10 sala
+        kɔma i;
+    sukapɔ
+suka
+```
+
+### Programme avec boucle répéter-jusqu'à
+```duala
+mbɔmbɔ
+    ndambo nombre;
+    sɔŋɔlɔ
+        yɛnɛ nombre;
+        kɔma nombre;
+    tɛmbɛlɛ (nombre == 0);
 suka
 ```
 

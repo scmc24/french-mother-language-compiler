@@ -16,14 +16,17 @@ int stack_ptr = 0;
 
 %token DEBUT FIN TYPE_ENTIER LIRE ECRIRE 
 %token SI ALORS SINON FINSI TANT_QUE FAIRE FINTANT
+%token SELON CAS DEFAUT FINSELON SORTIR 
+%token POUR DE A PAS FINPOUR
+%token REPETER JUSQUA
 %token AFFECTATION EGAL DIFFERENT SUP_EGAL INF_EGAL SUPERIEUR INFERIEUR
-%token PLUS MOINS FOIS DIVISE
-%token POINT_VIRGULE VIRGULE PAREN_OUV PAREN_FERM
+%token PLUS MOINS FOIS DIVISE MODULO
+%token POINT_VIRGULE VIRGULE PAREN_OUV PAREN_FERM DEUX_POINTS
 %token NOMBRE_ENTIER IDENTIFICATEUR
 
 %nonassoc INFERIEUR SUPERIEUR EGAL DIFFERENT SUP_EGAL INF_EGAL
 %left PLUS MOINS
-%left FOIS DIVISE
+%left FOIS DIVISE MODULO
 %nonassoc PAREN_OUV PAREN_FERM
 
 %%
@@ -80,7 +83,11 @@ instruction:
     | lecture
     | ecriture
     | conditionnelle
+    | structure_selon
+    | sortir_instruction
     | boucle_tant_que
+    | boucle_pour
+    | boucle_repeter
     ;
 
 affectation:
@@ -163,6 +170,14 @@ terme:
         fprintf(fichier_asm, "    cdq\n");
         fprintf(fichier_asm, "    idiv ebx\n");
         fprintf(fichier_asm, "    push eax\n");
+    }
+    | terme MODULO facteur {
+        fprintf(fichier_asm, "    ; Modulo\n");
+        fprintf(fichier_asm, "    pop ebx\n");
+        fprintf(fichier_asm, "    pop eax\n");
+        fprintf(fichier_asm, "    cdq\n");
+        fprintf(fichier_asm, "    idiv ebx\n");
+        fprintf(fichier_asm, "    push edx\n");
     }
     ;
 
@@ -253,6 +268,90 @@ ecriture:
         fprintf(fichier_asm, "    call printf\n");
         fprintf(fichier_asm, "    add esp, 8\n");
         printf("Kɔma expression\n");
+    }
+    ;
+
+structure_selon:
+    SELON PAREN_OUV expression PAREN_FERM {
+        fprintf(fichier_asm, "    ; NDƆŊ (switch)\n");
+        fprintf(fichier_asm, "    pop eax\n");
+        etiquette_counter++;
+        etiquette_stack[stack_ptr++] = etiquette_counter;
+        printf("🔀 NDƆŊ (switch)\n");
+    } liste_cas partie_defaut_opt FINSELON {
+        int etiq = etiquette_stack[--stack_ptr];
+        fprintf(fichier_asm, "fin_selon_%d:\n", etiq);
+        printf("🔚 Suka NDƆŊ\n");
+    }
+    ;
+
+liste_cas: 
+    /* vide */ 
+    | liste_cas cas_simple
+    ;
+
+cas_simple:
+    CAS expression DEUX_POINTS {
+        int etiq = etiquette_stack[stack_ptr-1];
+        fprintf(fichier_asm, "    cmp eax, %s\n", "valeur_cas");
+        fprintf(fichier_asm, "    jne cas_suivant_%d\n", etiq);
+        printf("📋 KƐS\n");
+    } instructions
+    ;
+
+partie_defaut_opt:
+    /* vide */
+    | DEFAUT DEUX_POINTS {
+        fprintf(fichier_asm, "    ; CAS DEFAUT\n");
+        printf("📋 KƐS BƆSƆ\n");
+    } instructions
+    ;
+
+sortir_instruction:
+    SORTIR POINT_VIRGULE {
+        int etiq = etiquette_stack[stack_ptr-1];
+        fprintf(fichier_asm, "    jmp fin_selon_%d\n", etiq);
+        printf("🚪 BIMA (break)\n");
+    }
+    ;
+
+boucle_pour:
+    POUR IDENTIFICATEUR DE expression A expression {
+        char *var = current_id;
+        etiquette_counter++;
+        etiquette_stack[stack_ptr++] = etiquette_counter;
+        int etiq = etiquette_counter;
+        fprintf(fichier_asm, "    ; PƆ %s\n", var);
+        fprintf(fichier_asm, "    pop eax\n");
+        fprintf(fichier_asm, "    mov [%s], eax\n", var);
+        fprintf(fichier_asm, "debut_pour_%d:\n", etiq);
+        fprintf(fichier_asm, "    mov eax, [%s]\n", var);
+        fprintf(fichier_asm, "    cmp eax, [limite_pour_%d]\n", etiq);
+        fprintf(fichier_asm, "    jg fin_pour_%d\n", etiq);
+        printf("🔄 PƆ %s\n", var);
+    } FAIRE instructions FINPOUR {
+        int etiq = etiquette_stack[--stack_ptr];
+        char *var = current_id;
+        fprintf(fichier_asm, "    inc dword [%s]\n", var);
+        fprintf(fichier_asm, "    jmp debut_pour_%d\n", etiq);
+        fprintf(fichier_asm, "fin_pour_%d:\n", etiq);
+        printf("🔚 Suka PƆ\n");
+    }
+    ;
+
+boucle_repeter:
+    REPETER {
+        etiquette_counter++;
+        etiquette_stack[stack_ptr++] = etiquette_counter;
+        int etiq = etiquette_counter;
+        fprintf(fichier_asm, "debut_repeter_%d:\n", etiq);
+        printf("🔄 SƆŊƆLƆ (do-while)\n");
+    } instructions JUSQUA PAREN_OUV expression PAREN_FERM POINT_VIRGULE {
+        int etiq = etiquette_stack[--stack_ptr];
+        fprintf(fichier_asm, "    pop eax\n");
+        fprintf(fichier_asm, "    cmp eax, 0\n");
+        fprintf(fichier_asm, "    jne debut_repeter_%d\n", etiq);
+        printf("🔚 TƐMBƐLƐ (condition)\n");
     }
     ;
 

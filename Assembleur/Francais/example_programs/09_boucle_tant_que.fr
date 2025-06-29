@@ -1,0 +1,11 @@
+debut
+    entier i;
+    entier limite;
+    
+    lire limite;
+    i <- 1;
+    tant_que (i <= limite) faire
+        ecrire i;
+        i <- i + 1;
+    fintant
+fin

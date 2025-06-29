@@ -1,0 +1,12 @@
+debut
+    entier a;
+    entier b;
+    
+    lire a;
+    lire b;
+    si (a > b) alors
+        ecrire "Premier nombre plus grand";
+    sinon
+        ecrire "Premier nombre plus petit ou egal";
+    finsi
+fin

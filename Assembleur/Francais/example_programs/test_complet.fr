@@ -1,0 +1,45 @@
+debut
+    entier menu;
+    entier nombre;
+    entier resultat;
+    entier i;
+    
+    lire menu;
+    
+    selon (menu)
+        cas 1:
+            ecrire 1000;
+            lire nombre;
+            resultat <- 1;
+            pour i de 1 a nombre faire
+                resultat <- resultat * i;
+            finpour
+            ecrire resultat;
+            sortir;
+            
+        cas 2:
+            ecrire 2000;
+            lire nombre;
+            resultat <- 0;
+            i <- 1;
+            repeter
+                resultat <- resultat + i;
+                i <- i + 1;
+            jusqu_a (i > nombre);
+            ecrire resultat;
+            sortir;
+            
+        cas 3:
+            ecrire 3000;
+            pour i de 2 a 20 pas 2 faire
+                ecrire i;
+            finpour
+            sortir;
+            
+        defaut:
+            ecrire 9999;
+            sortir;
+    finselon
+    
+    ecrire 42;
+fin

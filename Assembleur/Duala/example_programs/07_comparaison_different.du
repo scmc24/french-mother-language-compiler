@@ -1,0 +1,12 @@
+mbɔmbɔ
+    ndambo a;
+    ndambo b;
+    
+    yɛnɛ a;
+    yɛnɛ b;
+    sɔ (a != b) tɛ
+        kɔma "Les nombres sont differents";
+    kɛma
+        kɔma "Les nombres sont egaux";
+    sukasi
+suka

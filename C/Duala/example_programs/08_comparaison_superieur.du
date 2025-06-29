@@ -1,0 +1,12 @@
+mbɔmbɔ
+    ndambo a;
+    ndambo b;
+    
+    yɛnɛ a;
+    yɛnɛ b;
+    sɔ (a > b) tɛ
+        kɔma "Premier nombre plus grand";
+    kɛma
+        kɔma "Premier nombre plus petit ou egal";
+    sukasi
+suka

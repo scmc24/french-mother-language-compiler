@@ -1,0 +1,9 @@
+debut
+    entier i;
+    entier limite;
+    
+    lire limite;
+    pour i de 1 a limite faire
+        ecrire i;
+    finpour
+fin

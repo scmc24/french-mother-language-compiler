@@ -1,0 +1,10 @@
+debut
+    entier a;
+    entier b;
+    entier resultat;
+    
+    lire a;
+    lire b;
+    resultat <- a + b;
+    ecrire resultat;
+fin

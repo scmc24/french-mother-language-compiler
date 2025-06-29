@@ -1,0 +1,10 @@
+mbɔmbɔ
+    ndambo a;
+    ndambo b;
+    ndambo resultat;
+    
+    yɛnɛ a;
+    yɛnɛ b;
+    resultat <- a % b;
+    kɔma resultat;
+suka

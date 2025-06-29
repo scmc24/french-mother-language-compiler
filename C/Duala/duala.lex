@@ -22,6 +22,21 @@ char current_id[100];
 "sala"          { return FAIRE; }
 "sukambɛlɛ"     { return FINTANT; }
 
+"ndɔŋ"          { return SELON; }
+"kɛs"           { return CAS; }
+"bɔsɔ"          { return DEFAUT; }
+"sukandɔŋ"      { return FINSELON; }
+"bima"          { return SORTIR; }
+
+"pɔ"            { return POUR; }
+"na"            { return DE; }
+"tɛ"            { return A; }
+"mbɛn"          { return PAS; }
+"sukapɔ"        { return FINPOUR; }
+
+"sɔŋɔlɔ"        { return REPETER; }
+"tɛmbɛlɛ"       { return JUSQUA; }
+
 "<-"            { return AFFECTATION; }
 "=="            { return EGAL; }
 "!="            { return DIFFERENT; }
@@ -33,11 +48,13 @@ char current_id[100];
 "-"             { return MOINS; }
 "*"             { return FOIS; }
 "/"             { return DIVISE; }
+"%"             { return MODULO; }
 
 ";"             { return POINT_VIRGULE; }
 ","             { return VIRGULE; }
 "("             { return PAREN_OUV; }
 ")"             { return PAREN_FERM; }
+":"             { return DEUX_POINTS; }
 
 [0-9]+          { yylval.ival = atoi(yytext); return NOMBRE_ENTIER; }
 [a-zA-Z][a-zA-Z0-9_]* { 

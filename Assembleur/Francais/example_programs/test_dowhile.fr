@@ -1,0 +1,23 @@
+debut
+    entier compteur;
+    entier limite;
+    
+    compteur <- 1;
+    limite <- 5;
+    
+    repeter
+        ecrire compteur;
+        compteur <- compteur + 1;
+    jusqua (compteur > limite);
+    
+    ecrire 999;
+    
+    compteur <- 10;
+    
+    repeter
+        ecrire compteur;
+        compteur <- compteur - 1;
+    jusqua (compteur < 7);
+    
+    ecrire 888;
+fin

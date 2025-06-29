@@ -20,9 +20,12 @@ int label_counter = 0;
 
 %token DEBUT FIN TYPE_ENTIER LIRE ECRIRE 
 %token SI ALORS SINON FINSI TANT_QUE FAIRE FINTANT
+%token SELON CAS DEFAUT FINSELON SORTIR 
+%token POUR DE A PAS FINPOUR
+%token REPETER JUSQUA
 %token AFFECTATION EGAL DIFFERENT SUP_EGAL INF_EGAL SUPERIEUR INFERIEUR
-%token PLUS MOINS FOIS DIVISE
-%token POINT_VIRGULE VIRGULE PAREN_OUV PAREN_FERM
+%token PLUS MOINS FOIS DIVISE MODULO
+%token POINT_VIRGULE VIRGULE PAREN_OUV PAREN_FERM DEUX_POINTS
 %token <ival> NOMBRE_ENTIER
 %token <sval> IDENTIFICATEUR
 
@@ -30,7 +33,7 @@ int label_counter = 0;
 
 %left EGAL DIFFERENT SUP_EGAL INF_EGAL SUPERIEUR INFERIEUR
 %left PLUS MOINS
-%left FOIS DIVISE
+%left FOIS DIVISE MODULO
 
 %%
 
@@ -78,7 +81,11 @@ instruction:
     | lecture
     | ecriture
     | conditionnelle
+    | structure_selon
+    | sortir_instruction
     | boucle_tant_que
+    | boucle_pour
+    | boucle_repeter
     ;
 
 affectation:
@@ -161,6 +168,12 @@ terme:
         free($1);
         free($3);
     }
+    | terme MODULO facteur {
+        $$ = malloc(100);
+        sprintf($$, "(%s %% %s)", $1, $3);
+        free($1);
+        free($3);
+    }
     ;
 
 facteur:
@@ -224,6 +237,79 @@ ecriture:
         fprintf(fichier_c, "    printf(\"Résultat: %%d\\n\", %s);\n", $2);
         printf("📤 Kɔma expression\n");
         free($2);
+    }
+    ;
+
+structure_selon:
+    SELON PAREN_OUV expression PAREN_FERM {
+        fprintf(fichier_c, "    switch (%s) {\n", $3);
+        printf("🔀 NDƆŊ (switch)\n");
+        free($3);
+    } liste_cas partie_defaut_opt FINSELON {
+        fprintf(fichier_c, "    } // Suka NDƆŊ\n");
+        printf("🔚 Suka NDƆŊ\n");
+    }
+    ;
+
+liste_cas: 
+    /* vide */ 
+    | liste_cas cas_simple
+    ;
+
+cas_simple:
+    CAS expression DEUX_POINTS {
+        fprintf(fichier_c, "        case %s:\n", $2);
+        printf("📋 KƐS %s\n", $2);
+        free($2);
+    } instructions
+    ;
+
+partie_defaut_opt:
+    /* vide */
+    | DEFAUT DEUX_POINTS {
+        fprintf(fichier_c, "        default:\n");
+        printf("📋 KƐS BƆSƆ\n");
+    } instructions
+    ;
+
+sortir_instruction:
+    SORTIR POINT_VIRGULE {
+        fprintf(fichier_c, "        break;\n");
+        printf("🚪 BIMA (break)\n");
+    }
+    ;
+
+boucle_pour:
+    POUR IDENTIFICATEUR DE expression A expression {
+        char *var = current_id;
+        fprintf(fichier_c, "    for (%s = %s; %s <= %s; %s++) {\n", 
+                var, $4, var, $6, var);
+        printf("🔄 PƆ %s na %s tɛ %s\n", var, $4, $6);
+        free($4); free($6);
+    } FAIRE instructions FINPOUR {
+        fprintf(fichier_c, "    }  // Suka PƆ\n");
+        printf("🔚 Suka PƆ\n");
+    }
+    | POUR IDENTIFICATEUR DE expression A expression PAS expression {
+        char *var = current_id;
+        fprintf(fichier_c, "    for (%s = %s; %s <= %s; %s += %s) {\n", 
+                var, $4, var, $6, var, $8);
+        printf("🔄 PƆ %s na %s tɛ %s mbɛn %s\n", var, $4, $6, $8);
+        free($4); free($6); free($8);
+    } FAIRE instructions FINPOUR {
+        fprintf(fichier_c, "    }  // Suka PƆ na mbɛn\n");
+        printf("🔚 Suka PƆ na mbɛn\n");
+    }
+    ;
+
+boucle_repeter:
+    REPETER {
+        fprintf(fichier_c, "    do {\n");
+        printf("🔄 SƆŊƆLƆ (do-while)\n");
+    } instructions JUSQUA PAREN_OUV expression PAREN_FERM POINT_VIRGULE {
+        fprintf(fichier_c, "    } while (%s);\n", $6);
+        printf("🔚 TƐMBƐLƐ (condition)\n");
+        free($6);
     }
     ;
 

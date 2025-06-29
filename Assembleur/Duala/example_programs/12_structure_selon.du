@@ -1,0 +1,18 @@
+mbɔmbɔ
+    ndambo choix;
+    
+    yɛnɛ choix;
+    ndɔŋ (choix)
+        kɛs 1:
+            kɔma "Option un";
+            bima;
+        kɛs 2:
+            kɔma "Option deux";
+            bima;
+        kɛs 3:
+            kɔma "Option trois";
+            bima;
+        bɔsɔ:
+            kɔma "Option inconnue";
+    sukandɔŋ
+suka

@@ -1,0 +1,8 @@
+debut
+    entier nombre;
+    
+    repeter
+        lire nombre;
+        ecrire nombre;
+    jusqua (nombre == 0);
+fin

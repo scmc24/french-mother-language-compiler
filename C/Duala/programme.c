@@ -16,7 +16,6 @@ int main() {
     max = b;
     printf("Résultat: %d\n", max);
     }  // Suka SƆ
-    printf("Résultat: %d\n", 999);
     printf("\n--- Suka programme ---\n");
     return 0;
 }

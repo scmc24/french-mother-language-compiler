@@ -1,0 +1,11 @@
+mbɔmbɔ
+    ndambo i;
+    ndambo limite;
+    
+    yɛnɛ limite;
+    i <- 1;
+    mbɛlɛ (i <= limite) sala
+        kɔma i;
+        i <- i + 1;
+    sukambɛlɛ
+suka
