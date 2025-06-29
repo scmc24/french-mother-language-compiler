@@ -1,10 +1,10 @@
-; Programme en duala compile
+; Programme en francais compile
 section .data
     format_int db '%d', 10, 0
-    format_str db '%s', 10, 0
     input_format db '%d', 0
-    input_msg db 'Tɔlɛ ndambo: ', 0
-    choix dd 0
+    input_msg db 'Entrez un nombre: ', 0
+    i dd 0
+    limite dd 0
 
 section .text
     global _start
@@ -15,17 +15,11 @@ _start:
     mov ebx, 0
     int 0x80
 main:
-    ; Lecture de choix
+    ; Lecture de limite
     push input_msg
     call printf
     add esp, 4
-    push choix
+    push limite
     push input_format
     call scanf
     add esp, 8
-    ; Variable choix
-    push dword [choix]
-    ; NDƆŊ (switch)
-    pop eax
-    ; Constante 1
-    push 1

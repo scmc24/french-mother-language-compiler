@@ -76,6 +76,9 @@
 void yyerror(const char *s);
 int yylex(void);
 
+/* Line number tracking */
+extern int yylineno;
+
 FILE *fichier_asm;
 extern char current_id[100];
 char affectation_var[100];
@@ -83,7 +86,17 @@ int etiquette_counter = 0;
 int etiquette_stack[10];
 int stack_ptr = 0;
 
-#line 87 "duala.tab.c"
+/* String literal handling */
+char string_literals[100][256];
+char string_labels[100][50];
+int is_string_expression = 0;
+int string_count = 0;
+
+/* For loop limit variables tracking */
+int for_limit_count = 0;
+int for_limit_labels[50];
+
+#line 100 "duala.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -123,9 +136,9 @@ enum yysymbol_kind_t
   YYSYMBOL_ALORS = 9,                      /* ALORS  */
   YYSYMBOL_SINON = 10,                     /* SINON  */
   YYSYMBOL_FINSI = 11,                     /* FINSI  */
-  YYSYMBOL_TANT_QUE = 12,                  /* TANT_QUE  */
-  YYSYMBOL_FAIRE = 13,                     /* FAIRE  */
-  YYSYMBOL_FINTANT = 14,                   /* FINTANT  */
+  YYSYMBOL_MBELE = 12,                     /* MBELE  */
+  YYSYMBOL_SALA = 13,                      /* SALA  */
+  YYSYMBOL_SUKAMBELESE = 14,               /* SUKAMBELESE  */
   YYSYMBOL_SELON = 15,                     /* SELON  */
   YYSYMBOL_CAS = 16,                       /* CAS  */
   YYSYMBOL_DEFAUT = 17,                    /* DEFAUT  */
@@ -157,43 +170,49 @@ enum yysymbol_kind_t
   YYSYMBOL_DEUX_POINTS = 43,               /* DEUX_POINTS  */
   YYSYMBOL_NOMBRE_ENTIER = 44,             /* NOMBRE_ENTIER  */
   YYSYMBOL_IDENTIFICATEUR = 45,            /* IDENTIFICATEUR  */
-  YYSYMBOL_YYACCEPT = 46,                  /* $accept  */
-  YYSYMBOL_programme = 47,                 /* programme  */
-  YYSYMBOL_48_1 = 48,                      /* $@1  */
-  YYSYMBOL_bloc = 49,                      /* bloc  */
-  YYSYMBOL_50_2 = 50,                      /* $@2  */
-  YYSYMBOL_declarations = 51,              /* declarations  */
-  YYSYMBOL_declaration = 52,               /* declaration  */
-  YYSYMBOL_instructions = 53,              /* instructions  */
-  YYSYMBOL_instruction = 54,               /* instruction  */
-  YYSYMBOL_affectation = 55,               /* affectation  */
-  YYSYMBOL_56_3 = 56,                      /* $@3  */
-  YYSYMBOL_expression = 57,                /* expression  */
-  YYSYMBOL_expression_arith = 58,          /* expression_arith  */
-  YYSYMBOL_expression_comp = 59,           /* expression_comp  */
-  YYSYMBOL_terme = 60,                     /* terme  */
-  YYSYMBOL_facteur = 61,                   /* facteur  */
-  YYSYMBOL_conditionnelle = 62,            /* conditionnelle  */
-  YYSYMBOL_63_4 = 63,                      /* $@4  */
-  YYSYMBOL_partie_sinon_opt = 64,          /* partie_sinon_opt  */
-  YYSYMBOL_65_5 = 65,                      /* $@5  */
-  YYSYMBOL_boucle_tant_que = 66,           /* boucle_tant_que  */
-  YYSYMBOL_67_6 = 67,                      /* $@6  */
+  YYSYMBOL_STRING_LITERAL = 46,            /* STRING_LITERAL  */
+  YYSYMBOL_YYACCEPT = 47,                  /* $accept  */
+  YYSYMBOL_programme = 48,                 /* programme  */
+  YYSYMBOL_49_1 = 49,                      /* $@1  */
+  YYSYMBOL_bloc = 50,                      /* bloc  */
+  YYSYMBOL_51_2 = 51,                      /* $@2  */
+  YYSYMBOL_declarations = 52,              /* declarations  */
+  YYSYMBOL_declaration = 53,               /* declaration  */
+  YYSYMBOL_instructions = 54,              /* instructions  */
+  YYSYMBOL_instruction = 55,               /* instruction  */
+  YYSYMBOL_affectation = 56,               /* affectation  */
+  YYSYMBOL_57_3 = 57,                      /* $@3  */
+  YYSYMBOL_expression = 58,                /* expression  */
+  YYSYMBOL_expression_arith = 59,          /* expression_arith  */
+  YYSYMBOL_60_4 = 60,                      /* $@4  */
+  YYSYMBOL_expression_comp = 61,           /* expression_comp  */
+  YYSYMBOL_62_5 = 62,                      /* $@5  */
+  YYSYMBOL_terme = 63,                     /* terme  */
+  YYSYMBOL_facteur = 64,                   /* facteur  */
+  YYSYMBOL_conditionnelle = 65,            /* conditionnelle  */
+  YYSYMBOL_66_6 = 66,                      /* $@6  */
+  YYSYMBOL_partie_sinon_opt = 67,          /* partie_sinon_opt  */
   YYSYMBOL_68_7 = 68,                      /* $@7  */
-  YYSYMBOL_lecture = 69,                   /* lecture  */
-  YYSYMBOL_ecriture = 70,                  /* ecriture  */
-  YYSYMBOL_structure_selon = 71,           /* structure_selon  */
-  YYSYMBOL_72_8 = 72,                      /* $@8  */
-  YYSYMBOL_liste_cas = 73,                 /* liste_cas  */
-  YYSYMBOL_cas_simple = 74,                /* cas_simple  */
-  YYSYMBOL_75_9 = 75,                      /* $@9  */
-  YYSYMBOL_partie_defaut_opt = 76,         /* partie_defaut_opt  */
-  YYSYMBOL_77_10 = 77,                     /* $@10  */
-  YYSYMBOL_sortir_instruction = 78,        /* sortir_instruction  */
-  YYSYMBOL_boucle_pour = 79,               /* boucle_pour  */
-  YYSYMBOL_80_11 = 80,                     /* $@11  */
-  YYSYMBOL_boucle_repeter = 81,            /* boucle_repeter  */
-  YYSYMBOL_82_12 = 82                      /* $@12  */
+  YYSYMBOL_boucle_tant_que = 69,           /* boucle_tant_que  */
+  YYSYMBOL_70_8 = 70,                      /* $@8  */
+  YYSYMBOL_fin_boucle = 71,                /* fin_boucle  */
+  YYSYMBOL_lecture = 72,                   /* lecture  */
+  YYSYMBOL_ecriture = 73,                  /* ecriture  */
+  YYSYMBOL_74_9 = 74,                      /* $@9  */
+  YYSYMBOL_75_10 = 75,                     /* $@10  */
+  YYSYMBOL_structure_selon = 76,           /* structure_selon  */
+  YYSYMBOL_77_11 = 77,                     /* $@11  */
+  YYSYMBOL_liste_cas = 78,                 /* liste_cas  */
+  YYSYMBOL_cas_simple = 79,                /* cas_simple  */
+  YYSYMBOL_80_12 = 80,                     /* $@12  */
+  YYSYMBOL_partie_defaut_opt = 81,         /* partie_defaut_opt  */
+  YYSYMBOL_82_13 = 82,                     /* $@13  */
+  YYSYMBOL_sortir_instruction = 83,        /* sortir_instruction  */
+  YYSYMBOL_boucle_pour = 84,               /* boucle_pour  */
+  YYSYMBOL_pas_opt = 85,                   /* pas_opt  */
+  YYSYMBOL_boucle_pour_init = 86,          /* boucle_pour_init  */
+  YYSYMBOL_boucle_repeter = 87,            /* boucle_repeter  */
+  YYSYMBOL_88_14 = 88                      /* $@14  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -310,7 +329,7 @@ typedef int yytype_uint16;
 
 
 /* Stored state numbers (used for stacks). */
-typedef yytype_int8 yy_state_t;
+typedef yytype_uint8 yy_state_t;
 
 /* State numbers in computations.  */
 typedef int yy_state_fast_t;
@@ -521,19 +540,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   144
+#define YYLAST   160
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  46
+#define YYNTOKENS  47
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  37
+#define YYNNTS  42
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  60
+#define YYNRULES  68
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  119
+#define YYNSTATES  131
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   300
+#define YYMAXUTOK   301
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -577,20 +596,20 @@ static const yytype_int8 yytranslate[] =
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
       35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
-      45
+      45,    46
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    35,    35,    35,    53,    53,    66,    68,    72,    78,
-      80,    84,    85,    86,    87,    88,    89,    90,    91,    92,
-      96,    96,   107,   108,   112,   113,   120,   130,   139,   148,
-     160,   161,   168,   176,   187,   192,   197,   201,   201,   217,
-     219,   219,   230,   236,   230,   251,   265,   277,   277,   290,
-     292,   296,   296,   304,   306,   306,   313,   321,   321,   345,
-     345
+       0,    48,    48,    48,   114,   114,   127,   129,   133,   139,
+     141,   145,   146,   147,   148,   149,   150,   151,   152,   153,
+     157,   157,   168,   169,   173,   174,   174,   181,   191,   191,
+     200,   209,   221,   222,   229,   237,   248,   253,   258,   274,
+     281,   281,   297,   299,   299,   310,   310,   323,   330,   340,
+     354,   357,   354,   378,   378,   392,   393,   397,   397,   413,
+     415,   415,   422,   430,   442,   446,   454,   483,   483
 };
 #endif
 
@@ -608,19 +627,20 @@ static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "DEBUT", "FIN",
   "TYPE_ENTIER", "LIRE", "ECRIRE", "SI", "ALORS", "SINON", "FINSI",
-  "TANT_QUE", "FAIRE", "FINTANT", "SELON", "CAS", "DEFAUT", "FINSELON",
+  "MBELE", "SALA", "SUKAMBELESE", "SELON", "CAS", "DEFAUT", "FINSELON",
   "SORTIR", "POUR", "DE", "A", "PAS", "FINPOUR", "REPETER", "JUSQUA",
   "AFFECTATION", "EGAL", "DIFFERENT", "SUP_EGAL", "INF_EGAL", "SUPERIEUR",
   "INFERIEUR", "PLUS", "MOINS", "FOIS", "DIVISE", "MODULO",
   "POINT_VIRGULE", "VIRGULE", "PAREN_OUV", "PAREN_FERM", "DEUX_POINTS",
-  "NOMBRE_ENTIER", "IDENTIFICATEUR", "$accept", "programme", "$@1", "bloc",
-  "$@2", "declarations", "declaration", "instructions", "instruction",
-  "affectation", "$@3", "expression", "expression_arith",
-  "expression_comp", "terme", "facteur", "conditionnelle", "$@4",
-  "partie_sinon_opt", "$@5", "boucle_tant_que", "$@6", "$@7", "lecture",
-  "ecriture", "structure_selon", "$@8", "liste_cas", "cas_simple", "$@9",
-  "partie_defaut_opt", "$@10", "sortir_instruction", "boucle_pour", "$@11",
-  "boucle_repeter", "$@12", YY_NULLPTR
+  "NOMBRE_ENTIER", "IDENTIFICATEUR", "STRING_LITERAL", "$accept",
+  "programme", "$@1", "bloc", "$@2", "declarations", "declaration",
+  "instructions", "instruction", "affectation", "$@3", "expression",
+  "expression_arith", "$@4", "expression_comp", "$@5", "terme", "facteur",
+  "conditionnelle", "$@6", "partie_sinon_opt", "$@7", "boucle_tant_que",
+  "$@8", "fin_boucle", "lecture", "ecriture", "$@9", "$@10",
+  "structure_selon", "$@11", "liste_cas", "cas_simple", "$@12",
+  "partie_defaut_opt", "$@13", "sortir_instruction", "boucle_pour",
+  "pas_opt", "boucle_pour_init", "boucle_repeter", "$@14", YY_NULLPTR
 };
 
 static const char *
@@ -630,12 +650,12 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-48)
+#define YYPACT_NINF (-42)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
 
-#define YYTABLE_NINF (-1)
+#define YYTABLE_NINF (-59)
 
 #define yytable_value_is_error(Yyn) \
   0
@@ -644,18 +664,20 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -2,   -48,    13,   -48,   -48,    11,    12,   -48,   -11,   -48,
-     -48,    17,    99,   -48,     6,    -9,    16,   -48,    22,    19,
-      21,   -48,   -48,   -48,   -48,   -48,   -48,   -48,   -48,   -48,
-     -48,   -48,   -48,    25,    -9,   -48,   -48,    28,   -12,   -48,
-     -10,   -48,    -9,    38,    -9,   -48,     9,   -48,    49,   -48,
-      39,   -48,    -9,    -9,    -9,    -9,    -9,    -9,    -9,    -9,
-      45,    -9,    47,    -9,    -1,    -9,   -48,   -31,   -31,   -31,
-     -10,   -10,   -48,   -48,   -48,    82,    50,   -48,    72,    54,
-      57,   -48,    86,   -48,    -9,    -9,   -48,   -48,   -48,    -8,
-     -48,    58,    35,   -48,    -9,    61,   -48,    83,    96,    71,
-     -48,   101,    63,    70,   -48,   -48,   -48,   -48,   -48,   -48,
-     -48,   -48,   -48,    78,    99,   -48,    99,   -48,    99
+      -2,   -42,    20,   -42,   -42,     8,    17,   -42,   -21,   -42,
+     -42,    -4,   100,   -42,    10,   -42,    16,    21,    25,    39,
+      43,   -42,   -42,   -42,   -42,   -42,   -42,   -42,   -42,   -42,
+     -42,   -42,    47,   -42,    50,   -30,   -30,   -30,   -30,   -42,
+      69,   -42,    65,   -30,    82,   -42,   -30,   -42,   -42,   -42,
+     -42,   -26,   -42,     6,   -42,    54,    55,    58,   -30,    11,
+     -30,   -42,   -42,    59,    64,   -30,   -30,   -30,   -30,   -30,
+     -30,   -30,   -30,    96,    97,   -42,    87,    70,    74,    26,
+     -42,   -42,    -6,    -6,    -6,     6,     6,   -42,   -42,   -42,
+     -42,   -42,    98,   -30,   -30,   -42,   -42,   -42,   -42,   -42,
+     -42,   -30,    23,   -42,   -42,    75,    57,    79,    73,    83,
+     -42,   110,    90,   -42,   107,    92,   -42,   -42,   -42,   -42,
+     -42,   -42,   -42,   -42,   -42,   -42,   100,   115,   100,    93,
+      31
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -664,106 +686,116 @@ static const yytype_int8 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        0,     2,     0,     6,     1,     0,     4,     3,     0,     9,
-       7,     0,     5,     8,     0,     0,     0,    42,     0,     0,
-       0,    59,    20,    10,    11,    14,    17,    12,    13,    15,
-      16,    18,    19,     0,     0,    34,    35,     0,    22,    23,
-      24,    30,     0,     0,     0,    56,     0,     9,     0,    45,
-       0,    46,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,    36,    29,    27,    28,
-      25,    26,    31,    32,    33,     0,     0,    47,     0,     0,
-       0,    37,     0,    49,     0,     0,    21,     9,    43,    53,
-      57,     0,    39,     9,     0,     0,    50,     0,     0,     0,
-      40,     0,     0,     0,    54,    48,     9,    60,     9,    38,
-      44,    51,     9,     0,    41,     9,    55,    58,    52
+       7,     0,     5,     8,     0,    50,     0,     0,     0,     0,
+       0,    67,    20,    10,    11,    14,    17,    12,    13,    15,
+      16,    18,    64,    19,     0,     0,     0,     0,     0,    62,
+       0,     9,     0,     0,     0,    49,     0,    36,    37,    38,
+      51,    22,    23,    24,    32,     0,     0,     0,     0,     0,
+       0,    65,     9,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,    53,     0,     0,     0,     0,
+      39,    52,    31,    28,    30,    25,    27,    33,    34,    35,
+      40,    45,     0,     0,     0,    21,    63,    29,    26,     9,
+       9,     0,    59,    55,    66,     0,    42,     0,     0,     0,
+      56,     0,     0,    43,     0,    47,    57,    60,    54,    68,
+       9,    41,    48,    46,     9,     9,    44,     0,    61,     0,
+      62
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -48,   -48,   -48,   -48,   -48,   -48,   -48,   -47,   -48,   -48,
-     -48,   -32,   -15,   -48,    -7,    15,   -48,   -48,   -48,   -48,
-     -48,   -48,   -48,   -48,   -48,   -48,   -48,   -48,   -48,   -48,
-     -48,   -48,   -48,   -48,   -48,   -48,   -48
+     -42,   -42,   -42,   -42,   -42,   -42,   -42,   -41,   -42,   -42,
+     -42,   -33,   -13,   -42,   -42,   -42,    12,     3,   -42,   -42,
+     -42,   -42,   -42,   -42,   -42,   -42,   -42,   -42,   -42,   -42,
+     -42,   -42,    34,   -42,   -42,   -42,   -42,   -42,   -42,   -42,
+     -42,   -42
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
        0,     2,     3,     5,     9,     6,    10,    12,    23,    24,
-      48,    37,    38,    39,    40,    41,    25,    87,   101,   108,
-      26,    43,    93,    27,    28,    29,    83,    89,    96,   115,
-      97,   112,    30,    31,    98,    32,    47
+      42,    50,    51,    98,    52,    97,    53,    54,    25,    99,
+     114,   120,    26,   100,   123,    27,    28,    35,    64,    29,
+      92,   102,   103,   124,   111,   125,    30,    31,    44,    32,
+      33,    41
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
    positive, shift that token.  If negative, reduce the rule whose
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
-static const yytype_int8 yytable[] =
+static const yytype_int16 yytable[] =
 {
-      64,     1,    50,    55,    56,    14,    15,    16,    94,    95,
-      60,    17,    62,     4,    18,     7,    52,     8,    19,    20,
-      53,    54,    55,    56,    21,    79,    57,    58,    59,    76,
-      63,    78,    34,    80,    11,    35,    36,    67,    68,    69,
-      92,    14,    15,    16,    22,   100,   102,    17,    70,    71,
-      18,    33,    90,    91,    19,    20,    13,    42,    45,   113,
-      21,   114,   103,    44,    49,   116,    46,    51,   118,    14,
-      15,    16,    72,    73,    74,    17,    65,   110,    18,    61,
-      22,    66,    19,    20,    14,    15,    16,    75,    21,    77,
-      17,    81,    82,    18,    84,    85,    86,    19,    20,    88,
-      99,   105,   117,    21,   104,    14,    15,    16,    22,   106,
-     107,    17,   109,   111,    18,     0,     0,     0,    19,    20,
-       0,     0,     0,    22,    21,     0,     0,     0,     0,     0,
+      59,     1,    65,    55,    56,    57,    66,    67,    68,    69,
+      61,    46,     7,    63,    47,    48,    49,    14,    15,    16,
+       4,    79,     8,    17,    11,    76,    18,    78,    68,    69,
+      19,    20,    14,    15,    16,    13,    21,    77,    17,   101,
+     109,    18,    70,    71,    72,    19,    20,   -58,   -58,   -58,
+      96,    21,    82,    83,    84,    34,    22,    36,   106,   107,
+     104,   105,    37,    14,    15,    16,    38,   113,   108,    17,
+      43,    22,    18,    87,    88,    89,    19,    20,    39,   126,
+      85,    86,    21,   127,   128,    14,    15,    16,    40,    45,
+      58,    17,    60,   115,    18,    62,    73,    74,    19,    20,
+      75,    80,    22,    81,    21,    90,    14,    15,    16,    93,
+      91,    94,    17,    95,   101,    18,   116,   112,   121,    19,
+      20,    14,    15,    16,    22,    21,   117,    17,   118,   119,
+      18,   122,   130,     0,   129,    20,   110,     0,     0,     0,
+      21,     0,     0,     0,     0,    22,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,    22
+      22
 };
 
 static const yytype_int8 yycheck[] =
 {
-      47,     3,    34,    34,    35,     6,     7,     8,    16,    17,
-      42,    12,    44,     0,    15,     4,    28,     5,    19,    20,
-      32,    33,    34,    35,    25,    26,    36,    37,    38,    61,
-      21,    63,    41,    65,    45,    44,    45,    52,    53,    54,
-      87,     6,     7,     8,    45,    10,    93,    12,    55,    56,
-      15,    45,    84,    85,    19,    20,    39,    41,    39,   106,
-      25,   108,    94,    41,    39,   112,    45,    39,   115,     6,
-       7,     8,    57,    58,    59,    12,    27,    14,    15,    41,
-      45,    42,    19,    20,     6,     7,     8,    42,    25,    42,
-      12,     9,    42,    15,    22,    41,    39,    19,    20,    13,
-      42,    18,    24,    25,    43,     6,     7,     8,    45,    13,
-      39,    12,    11,    43,    15,    -1,    -1,    -1,    19,    20,
-      -1,    -1,    -1,    45,    25,    -1,    -1,    -1,    -1,    -1,
+      41,     3,    28,    36,    37,    38,    32,    33,    34,    35,
+      43,    41,     4,    46,    44,    45,    46,     6,     7,     8,
+       0,    62,     5,    12,    45,    58,    15,    60,    34,    35,
+      19,    20,     6,     7,     8,    39,    25,    26,    12,    16,
+      17,    15,    36,    37,    38,    19,    20,    16,    17,    18,
+      24,    25,    65,    66,    67,    45,    45,    41,    99,   100,
+      93,    94,    41,     6,     7,     8,    41,    10,   101,    12,
+      23,    45,    15,    70,    71,    72,    19,    20,    39,   120,
+      68,    69,    25,   124,   125,     6,     7,     8,    45,    39,
+      21,    12,    27,    14,    15,    13,    42,    42,    19,    20,
+      42,    42,    45,    39,    25,     9,     6,     7,     8,    22,
+      13,    41,    12,    39,    16,    15,    43,    42,    11,    19,
+      20,     6,     7,     8,    45,    25,    43,    12,    18,    39,
+      15,    39,    39,    -1,    19,    20,   102,    -1,    -1,    -1,
+      25,    -1,    -1,    -1,    -1,    45,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    45
+      45
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,    47,    48,     0,    49,    51,     4,     5,    50,
-      52,    45,    53,    39,     6,     7,     8,    12,    15,    19,
-      20,    25,    45,    54,    55,    62,    66,    69,    70,    71,
-      78,    79,    81,    45,    41,    44,    45,    57,    58,    59,
-      60,    61,    41,    67,    41,    39,    45,    82,    56,    39,
-      57,    39,    28,    32,    33,    34,    35,    36,    37,    38,
-      57,    41,    57,    21,    53,    27,    42,    58,    58,    58,
-      60,    60,    61,    61,    61,    42,    57,    42,    57,    26,
-      57,     9,    42,    72,    22,    41,    39,    63,    13,    73,
-      57,    57,    53,    68,    16,    17,    74,    76,    80,    42,
-      10,    64,    53,    57,    43,    18,    13,    39,    65,    11,
-      14,    43,    77,    53,    53,    75,    53,    24,    53
+       0,     3,    48,    49,     0,    50,    52,     4,     5,    51,
+      53,    45,    54,    39,     6,     7,     8,    12,    15,    19,
+      20,    25,    45,    55,    56,    65,    69,    72,    73,    76,
+      83,    84,    86,    87,    45,    74,    41,    41,    41,    39,
+      45,    88,    57,    23,    85,    39,    41,    44,    45,    46,
+      58,    59,    61,    63,    64,    58,    58,    58,    21,    54,
+      27,    58,    13,    58,    75,    28,    32,    33,    34,    35,
+      36,    37,    38,    42,    42,    42,    58,    26,    58,    54,
+      42,    39,    59,    59,    59,    63,    63,    64,    64,    64,
+       9,    13,    77,    22,    41,    39,    24,    62,    60,    66,
+      70,    16,    78,    79,    58,    58,    54,    54,    58,    17,
+      79,    81,    42,    10,    67,    14,    43,    43,    18,    39,
+      68,    11,    39,    71,    80,    82,    54,    54,    54,    19,
+      39
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    46,    48,    47,    50,    49,    51,    51,    52,    53,
-      53,    54,    54,    54,    54,    54,    54,    54,    54,    54,
-      56,    55,    57,    57,    58,    58,    58,    59,    59,    59,
-      60,    60,    60,    60,    61,    61,    61,    63,    62,    64,
-      65,    64,    67,    68,    66,    69,    70,    72,    71,    73,
-      73,    75,    74,    76,    77,    76,    78,    80,    79,    82,
-      81
+       0,    47,    49,    48,    51,    50,    52,    52,    53,    54,
+      54,    55,    55,    55,    55,    55,    55,    55,    55,    55,
+      57,    56,    58,    58,    59,    60,    59,    59,    62,    61,
+      61,    61,    63,    63,    63,    63,    64,    64,    64,    64,
+      66,    65,    67,    68,    67,    70,    69,    71,    71,    72,
+      74,    75,    73,    77,    76,    78,    78,    80,    79,    81,
+      82,    81,    83,    84,    85,    85,    86,    88,    87
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -771,11 +803,11 @@ static const yytype_int8 yyr2[] =
 {
        0,     2,     0,     4,     0,     3,     0,     2,     3,     0,
        2,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       0,     5,     1,     1,     1,     3,     3,     3,     3,     3,
-       1,     3,     3,     3,     1,     1,     3,     0,     9,     0,
-       0,     3,     0,     0,     9,     3,     3,     0,     8,     0,
-       2,     0,     5,     0,     0,     4,     2,     0,    10,     0,
-       8
+       0,     5,     1,     1,     1,     0,     4,     3,     0,     4,
+       3,     3,     1,     3,     3,     3,     1,     1,     1,     3,
+       0,     9,     0,     0,     3,     0,     9,     0,     1,     3,
+       0,     0,     5,     0,     8,     1,     2,     0,     7,     0,
+       0,     4,     2,     5,     0,     2,     6,     0,     8
 };
 
 
@@ -1239,31 +1271,79 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* $@1: %empty  */
-#line 35 "duala.y"
+#line 48 "duala.y"
           { 
         fichier_asm = fopen("programme.asm", "w");
         fprintf(fichier_asm, "; Programme en duala compile\n");
         fprintf(fichier_asm, "section .data\n");
         fprintf(fichier_asm, "    format_int db '%%d', 10, 0\n");
+        fprintf(fichier_asm, "    format_str db '%%s', 10, 0\n");
         fprintf(fichier_asm, "    input_format db '%%d', 0\n");
         fprintf(fichier_asm, "    input_msg db 'Tɔlɛ ndambo: ', 0\n");
         printf("Mbɔmbɔ compilation...\n");
     }
-#line 1253 "duala.tab.c"
+#line 1286 "duala.tab.c"
     break;
 
   case 3: /* programme: DEBUT $@1 bloc FIN  */
-#line 45 "duala.y"
+#line 59 "duala.y"
         { 
         fprintf(fichier_asm, "    ret\n");
-        fclose(fichier_asm);
+        
+        /* Add string literals and for loop variables to data section by reopening and inserting */
+        if (string_count > 0 || for_limit_count > 0) {
+            fclose(fichier_asm);
+            
+            /* Read the entire file */
+            FILE *read_file = fopen("programme.asm", "r");
+            fseek(read_file, 0, SEEK_END);
+            long file_size = ftell(read_file);
+            fseek(read_file, 0, SEEK_SET);
+            
+            char *content = malloc(file_size + 1);
+            fread(content, 1, file_size, read_file);
+            content[file_size] = '\0';
+            fclose(read_file);
+            
+            /* Find where to insert strings (before section .text) */
+            char *text_section = strstr(content, "section .text");
+            if (text_section) {
+                /* Rewrite file with strings and variables */
+                fichier_asm = fopen("programme.asm", "w");
+                
+                /* Write everything before section .text */
+                size_t before_text = text_section - content;
+                fwrite(content, 1, before_text, fichier_asm);
+                
+                /* Add string definitions */
+                for (int i = 0; i < string_count; i++) {
+                    fprintf(fichier_asm, "    %s db %s, 0\n", string_labels[i], string_literals[i]);
+                }
+                
+                /* Add for loop limit and step variables */
+                for (int i = 0; i < for_limit_count; i++) {
+                    fprintf(fichier_asm, "    limite_pour_%d dd 0\n", for_limit_labels[i]);
+                    fprintf(fichier_asm, "    pas_pour_%d dd 0\n", for_limit_labels[i]);
+                }
+                
+                fprintf(fichier_asm, "\n");
+                
+                /* Write the rest (section .text onwards) */
+                fprintf(fichier_asm, "%s", text_section);
+                
+                fclose(fichier_asm);
+            }
+            free(content);
+        } else {
+            fclose(fichier_asm);
+        }
         printf("Compilation suka na malamu!\n"); 
     }
-#line 1263 "duala.tab.c"
+#line 1343 "duala.tab.c"
     break;
 
   case 4: /* $@2: %empty  */
-#line 53 "duala.y"
+#line 114 "duala.y"
                  { 
         fprintf(fichier_asm, "\nsection .text\n");
         fprintf(fichier_asm, "    global _start\n");
@@ -1275,51 +1355,75 @@ yyreduce:
         fprintf(fichier_asm, "    int 0x80\n");
         fprintf(fichier_asm, "main:\n");
     }
-#line 1279 "duala.tab.c"
+#line 1359 "duala.tab.c"
     break;
 
   case 8: /* declaration: TYPE_ENTIER IDENTIFICATEUR POINT_VIRGULE  */
-#line 72 "duala.y"
+#line 133 "duala.y"
                                              {
         fprintf(fichier_asm, "    %s dd 0\n", current_id);
         printf("Variable declaree: %s\n", current_id);
     }
-#line 1288 "duala.tab.c"
+#line 1368 "duala.tab.c"
     break;
 
   case 20: /* $@3: %empty  */
-#line 96 "duala.y"
+#line 157 "duala.y"
                    {
         strcpy(affectation_var, current_id);
     }
-#line 1296 "duala.tab.c"
+#line 1376 "duala.tab.c"
     break;
 
   case 21: /* affectation: IDENTIFICATEUR $@3 AFFECTATION expression POINT_VIRGULE  */
-#line 98 "duala.y"
+#line 159 "duala.y"
                                            {
         fprintf(fichier_asm, "    ; Affectation a %s\n", affectation_var);
         fprintf(fichier_asm, "    pop eax\n");
         fprintf(fichier_asm, "    mov [%s], eax\n", affectation_var);
         printf("Affectation a: %s\n", affectation_var);
     }
-#line 1307 "duala.tab.c"
+#line 1387 "duala.tab.c"
     break;
 
-  case 25: /* expression_arith: expression_arith PLUS terme  */
-#line 113 "duala.y"
-                                  {
+  case 22: /* expression: expression_arith  */
+#line 168 "duala.y"
+                     { printf("PARSER: expression -> expression_arith\n"); }
+#line 1393 "duala.tab.c"
+    break;
+
+  case 23: /* expression: expression_comp  */
+#line 169 "duala.y"
+                      { printf("PARSER: expression -> expression_comp\n"); }
+#line 1399 "duala.tab.c"
+    break;
+
+  case 24: /* expression_arith: terme  */
+#line 173 "duala.y"
+          { printf("PARSER: expression_arith -> terme\n"); }
+#line 1405 "duala.tab.c"
+    break;
+
+  case 25: /* $@4: %empty  */
+#line 174 "duala.y"
+                                  { printf("PARSER: expression_arith -> expression_arith PLUS terme\n"); }
+#line 1411 "duala.tab.c"
+    break;
+
+  case 26: /* expression_arith: expression_arith PLUS terme $@4  */
+#line 174 "duala.y"
+                                                                                                           {
         fprintf(fichier_asm, "    ; Addition\n");
         fprintf(fichier_asm, "    pop ebx\n");
         fprintf(fichier_asm, "    pop eax\n");
         fprintf(fichier_asm, "    add eax, ebx\n");
         fprintf(fichier_asm, "    push eax\n");
     }
-#line 1319 "duala.tab.c"
+#line 1423 "duala.tab.c"
     break;
 
-  case 26: /* expression_arith: expression_arith MOINS terme  */
-#line 120 "duala.y"
+  case 27: /* expression_arith: expression_arith MOINS terme  */
+#line 181 "duala.y"
                                    {
         fprintf(fichier_asm, "    ; Soustraction\n");
         fprintf(fichier_asm, "    pop ebx\n");
@@ -1327,12 +1431,18 @@ yyreduce:
         fprintf(fichier_asm, "    sub eax, ebx\n");
         fprintf(fichier_asm, "    push eax\n");
     }
-#line 1331 "duala.tab.c"
+#line 1435 "duala.tab.c"
     break;
 
-  case 27: /* expression_comp: expression_arith SUPERIEUR expression_arith  */
-#line 130 "duala.y"
-                                                {
+  case 28: /* $@5: %empty  */
+#line 191 "duala.y"
+                                                { printf("PARSER: expression_comp -> expression_arith SUPERIEUR expression_arith\n"); }
+#line 1441 "duala.tab.c"
+    break;
+
+  case 29: /* expression_comp: expression_arith SUPERIEUR expression_arith $@5  */
+#line 191 "duala.y"
+                                                                                                                                        {
         fprintf(fichier_asm, "    ; Comparaison >\n");
         fprintf(fichier_asm, "    pop ebx\n");
         fprintf(fichier_asm, "    pop eax\n");
@@ -1341,11 +1451,11 @@ yyreduce:
         fprintf(fichier_asm, "    movzx eax, al\n");
         fprintf(fichier_asm, "    push eax\n");
     }
-#line 1345 "duala.tab.c"
+#line 1455 "duala.tab.c"
     break;
 
-  case 28: /* expression_comp: expression_arith INFERIEUR expression_arith  */
-#line 139 "duala.y"
+  case 30: /* expression_comp: expression_arith INFERIEUR expression_arith  */
+#line 200 "duala.y"
                                                   {
         fprintf(fichier_asm, "    ; Comparaison <\n");
         fprintf(fichier_asm, "    pop ebx\n");
@@ -1355,11 +1465,11 @@ yyreduce:
         fprintf(fichier_asm, "    movzx eax, al\n");
         fprintf(fichier_asm, "    push eax\n");
     }
-#line 1359 "duala.tab.c"
+#line 1469 "duala.tab.c"
     break;
 
-  case 29: /* expression_comp: expression_arith EGAL expression_arith  */
-#line 148 "duala.y"
+  case 31: /* expression_comp: expression_arith EGAL expression_arith  */
+#line 209 "duala.y"
                                              {
         fprintf(fichier_asm, "    ; Comparaison ==\n");
         fprintf(fichier_asm, "    pop ebx\n");
@@ -1369,11 +1479,11 @@ yyreduce:
         fprintf(fichier_asm, "    movzx eax, al\n");
         fprintf(fichier_asm, "    push eax\n");
     }
-#line 1373 "duala.tab.c"
+#line 1483 "duala.tab.c"
     break;
 
-  case 31: /* terme: terme FOIS facteur  */
-#line 161 "duala.y"
+  case 33: /* terme: terme FOIS facteur  */
+#line 222 "duala.y"
                          {
         fprintf(fichier_asm, "    ; Multiplication\n");
         fprintf(fichier_asm, "    pop ebx\n");
@@ -1381,11 +1491,11 @@ yyreduce:
         fprintf(fichier_asm, "    imul eax, ebx\n");
         fprintf(fichier_asm, "    push eax\n");
     }
-#line 1385 "duala.tab.c"
+#line 1495 "duala.tab.c"
     break;
 
-  case 32: /* terme: terme DIVISE facteur  */
-#line 168 "duala.y"
+  case 34: /* terme: terme DIVISE facteur  */
+#line 229 "duala.y"
                            {
         fprintf(fichier_asm, "    ; Division\n");
         fprintf(fichier_asm, "    pop ebx\n");
@@ -1394,11 +1504,11 @@ yyreduce:
         fprintf(fichier_asm, "    idiv ebx\n");
         fprintf(fichier_asm, "    push eax\n");
     }
-#line 1398 "duala.tab.c"
+#line 1508 "duala.tab.c"
     break;
 
-  case 33: /* terme: terme MODULO facteur  */
-#line 176 "duala.y"
+  case 35: /* terme: terme MODULO facteur  */
+#line 237 "duala.y"
                            {
         fprintf(fichier_asm, "    ; Modulo\n");
         fprintf(fichier_asm, "    pop ebx\n");
@@ -1407,31 +1517,61 @@ yyreduce:
         fprintf(fichier_asm, "    idiv ebx\n");
         fprintf(fichier_asm, "    push edx\n");
     }
-#line 1411 "duala.tab.c"
+#line 1521 "duala.tab.c"
     break;
 
-  case 34: /* facteur: NOMBRE_ENTIER  */
-#line 187 "duala.y"
+  case 36: /* facteur: NOMBRE_ENTIER  */
+#line 248 "duala.y"
                   {
         fprintf(fichier_asm, "    ; Constante %d\n", yylval);
         fprintf(fichier_asm, "    push %d\n", yylval);
         printf("Constante: %d\n", yylval);
     }
-#line 1421 "duala.tab.c"
+#line 1531 "duala.tab.c"
     break;
 
-  case 35: /* facteur: IDENTIFICATEUR  */
-#line 192 "duala.y"
+  case 37: /* facteur: IDENTIFICATEUR  */
+#line 253 "duala.y"
                      {
         fprintf(fichier_asm, "    ; Variable %s\n", current_id);
         fprintf(fichier_asm, "    push dword [%s]\n", current_id);
         printf("Variable utilisee: %s\n", current_id);
     }
-#line 1431 "duala.tab.c"
+#line 1541 "duala.tab.c"
     break;
 
-  case 37: /* $@4: %empty  */
-#line 201 "duala.y"
+  case 38: /* facteur: STRING_LITERAL  */
+#line 258 "duala.y"
+                     {
+        char string_label[50];
+        sprintf(string_label, "str_%d", string_count);
+        
+        /* Store string literal for later addition to data section */
+        strcpy(string_literals[string_count], current_id);
+        strcpy(string_labels[string_count], string_label);
+        string_count++;
+        
+        /* Mark this as a string expression */
+        is_string_expression = 1;
+        
+        fprintf(fichier_asm, "    ; Chaine %s\n", current_id);
+        fprintf(fichier_asm, "    push %s\n", string_label);
+        printf("Chaine: %s\n", current_id);
+    }
+#line 1562 "duala.tab.c"
+    break;
+
+  case 39: /* facteur: PAREN_OUV expression PAREN_FERM  */
+#line 274 "duala.y"
+                                      {
+        /* Parenthesized expression - nothing extra to do */
+        printf("Expression parenthesee\n");
+    }
+#line 1571 "duala.tab.c"
+    break;
+
+  case 40: /* $@6: %empty  */
+#line 281 "duala.y"
                                              {
         int etiq = etiquette_counter++;
         etiquette_stack[stack_ptr++] = etiq;
@@ -1441,76 +1581,80 @@ yyreduce:
         fprintf(fichier_asm, "    jz fin_si_%d\n", etiq);
         printf("Mbɔmbɔ condition SƆ\n");
     }
-#line 1445 "duala.tab.c"
+#line 1585 "duala.tab.c"
     break;
 
-  case 38: /* conditionnelle: SI PAREN_OUV expression PAREN_FERM ALORS $@4 instructions partie_sinon_opt FINSI  */
-#line 209 "duala.y"
+  case 41: /* conditionnelle: SI PAREN_OUV expression PAREN_FERM ALORS $@6 instructions partie_sinon_opt FINSI  */
+#line 289 "duala.y"
                                           {
         int etiq = etiquette_stack[--stack_ptr];
         fprintf(fichier_asm, "fin_si_%d:\n", etiq);
         fprintf(fichier_asm, "    ; Fin SI\n");
         printf("Suka condition SƆ\n");
     }
-#line 1456 "duala.tab.c"
+#line 1596 "duala.tab.c"
     break;
 
-  case 40: /* $@5: %empty  */
-#line 219 "duala.y"
+  case 43: /* $@7: %empty  */
+#line 299 "duala.y"
             {
         int etiq = etiquette_stack[stack_ptr-1];
         fprintf(fichier_asm, "    jmp fin_si_%d\n", etiq);
         fprintf(fichier_asm, "sinon_%d:\n", etiq);
         printf("Partie KƐMA\n");
     }
-#line 1467 "duala.tab.c"
+#line 1607 "duala.tab.c"
     break;
 
-  case 41: /* partie_sinon_opt: SINON $@5 instructions  */
-#line 224 "duala.y"
+  case 44: /* partie_sinon_opt: SINON $@7 instructions  */
+#line 304 "duala.y"
                    {
         // La partie sinon est terminée, on va vers fin_si
     }
-#line 1475 "duala.tab.c"
+#line 1615 "duala.tab.c"
     break;
 
-  case 42: /* $@6: %empty  */
-#line 230 "duala.y"
-             {
+  case 45: /* $@8: %empty  */
+#line 310 "duala.y"
+                                               {
         int etiq = etiquette_counter++;
         etiquette_stack[stack_ptr++] = etiq;
         fprintf(fichier_asm, "debut_boucle_%d:\n", etiq);
-        fprintf(fichier_asm, "    ; Debut TANT_QUE\n");
-        printf("Mbɔmbɔ boucle MBƐLƐ\n");
-    }
-#line 1487 "duala.tab.c"
-    break;
-
-  case 43: /* $@7: %empty  */
-#line 236 "duala.y"
-                                            {
-        int etiq = etiquette_stack[stack_ptr-1];
+        fprintf(fichier_asm, "    ; Debut MBELE\n");
         fprintf(fichier_asm, "    pop eax\n");
         fprintf(fichier_asm, "    test eax, eax\n");
         fprintf(fichier_asm, "    jz fin_boucle_%d\n", etiq);
+        printf("Mbombɔ boucle MBELE\n");
     }
-#line 1498 "duala.tab.c"
+#line 1630 "duala.tab.c"
     break;
 
-  case 44: /* boucle_tant_que: TANT_QUE $@6 PAREN_OUV expression PAREN_FERM FAIRE $@7 instructions FINTANT  */
-#line 241 "duala.y"
-                           {
+  case 47: /* fin_boucle: %empty  */
+#line 323 "duala.y"
+                {
         int etiq = etiquette_stack[--stack_ptr];
         fprintf(fichier_asm, "    jmp debut_boucle_%d\n", etiq);
         fprintf(fichier_asm, "fin_boucle_%d:\n", etiq);
-        fprintf(fichier_asm, "    ; Fin TANT_QUE\n");
-        printf("Suka boucle MBƐLƐ\n");
+        fprintf(fichier_asm, "    ; Fin MBELE\n");
+        printf("Suka boucle MBELE\n");
     }
-#line 1510 "duala.tab.c"
+#line 1642 "duala.tab.c"
     break;
 
-  case 45: /* lecture: LIRE IDENTIFICATEUR POINT_VIRGULE  */
-#line 251 "duala.y"
+  case 48: /* fin_boucle: POINT_VIRGULE  */
+#line 330 "duala.y"
+                    {
+        int etiq = etiquette_stack[--stack_ptr];
+        fprintf(fichier_asm, "    jmp debut_boucle_%d\n", etiq);
+        fprintf(fichier_asm, "fin_boucle_%d:\n", etiq);
+        fprintf(fichier_asm, "    ; Fin MBELE\n");
+        printf("Suka boucle MBELE (with semicolon)\n");
+    }
+#line 1654 "duala.tab.c"
+    break;
+
+  case 49: /* lecture: LIRE IDENTIFICATEUR POINT_VIRGULE  */
+#line 340 "duala.y"
                                       {
         fprintf(fichier_asm, "    ; Lecture de %s\n", current_id);
         fprintf(fichier_asm, "    push input_msg\n");
@@ -1522,25 +1666,49 @@ yyreduce:
         fprintf(fichier_asm, "    add esp, 8\n");
         printf("Yɛnɛ: %s\n", current_id);
     }
-#line 1526 "duala.tab.c"
+#line 1670 "duala.tab.c"
     break;
 
-  case 46: /* ecriture: ECRIRE expression POINT_VIRGULE  */
-#line 265 "duala.y"
-                                    {
+  case 50: /* $@9: %empty  */
+#line 354 "duala.y"
+           { 
+        printf("PARSER: [ECRIRE] Start of ECRIRE statement at line %d\n", yylineno);
+        printf("PARSER: [ECRIRE] Current token: %d\n", yychar);
+    }
+#line 1679 "duala.tab.c"
+    break;
+
+  case 51: /* $@10: %empty  */
+#line 357 "duala.y"
+                 { 
+        printf("PARSER: [ECRIRE] Successfully parsed expression\n");
+        printf("PARSER: [ECRIRE] Next token (expecting POINT_VIRGULE): %d\n", yychar);
+    }
+#line 1688 "duala.tab.c"
+    break;
+
+  case 52: /* ecriture: ECRIRE $@9 expression $@10 POINT_VIRGULE  */
+#line 360 "duala.y"
+                    {
+        printf("PARSER: [ECRIRE] Found POINT_VIRGULE after expression\n");
         fprintf(fichier_asm, "    ; Ecriture\n");
         fprintf(fichier_asm, "    pop eax\n");
         fprintf(fichier_asm, "    push eax\n");
-        fprintf(fichier_asm, "    push format_int\n");
+        if (is_string_expression) {
+            fprintf(fichier_asm, "    push format_str\n");
+            is_string_expression = 0; /* Reset flag */
+        } else {
+            fprintf(fichier_asm, "    push format_int\n");
+        }
         fprintf(fichier_asm, "    call printf\n");
         fprintf(fichier_asm, "    add esp, 8\n");
         printf("Kɔma expression\n");
     }
-#line 1540 "duala.tab.c"
+#line 1708 "duala.tab.c"
     break;
 
-  case 47: /* $@8: %empty  */
-#line 277 "duala.y"
+  case 53: /* $@11: %empty  */
+#line 378 "duala.y"
                                           {
         fprintf(fichier_asm, "    ; NDƆŊ (switch)\n");
         fprintf(fichier_asm, "    pop eax\n");
@@ -1548,83 +1716,131 @@ yyreduce:
         etiquette_stack[stack_ptr++] = etiquette_counter;
         printf("🔀 NDƆŊ (switch)\n");
     }
-#line 1552 "duala.tab.c"
+#line 1720 "duala.tab.c"
     break;
 
-  case 48: /* structure_selon: SELON PAREN_OUV expression PAREN_FERM $@8 liste_cas partie_defaut_opt FINSELON  */
-#line 283 "duala.y"
+  case 54: /* structure_selon: SELON PAREN_OUV expression PAREN_FERM $@11 liste_cas partie_defaut_opt FINSELON  */
+#line 384 "duala.y"
                                            {
         int etiq = etiquette_stack[--stack_ptr];
         fprintf(fichier_asm, "fin_selon_%d:\n", etiq);
         printf("🔚 Suka NDƆŊ\n");
     }
-#line 1562 "duala.tab.c"
+#line 1730 "duala.tab.c"
     break;
 
-  case 51: /* $@9: %empty  */
-#line 296 "duala.y"
+  case 57: /* $@12: %empty  */
+#line 397 "duala.y"
                                {
         int etiq = etiquette_stack[stack_ptr-1];
-        fprintf(fichier_asm, "    cmp eax, %s\n", "valeur_cas");
-        fprintf(fichier_asm, "    jne cas_suivant_%d\n", etiq);
+        fprintf(fichier_asm, "    ; Cas\n");
+        fprintf(fichier_asm, "    pop ebx\n");
+        fprintf(fichier_asm, "    cmp eax, ebx\n");
+        etiquette_counter++;
+        fprintf(fichier_asm, "    jne cas_suivant_%d\n", etiquette_counter);
         printf("📋 KƐS\n");
     }
-#line 1573 "duala.tab.c"
+#line 1744 "duala.tab.c"
     break;
 
-  case 54: /* $@10: %empty  */
-#line 306 "duala.y"
+  case 58: /* cas_simple: CAS expression DEUX_POINTS $@12 instructions SORTIR POINT_VIRGULE  */
+#line 405 "duala.y"
+                                        {
+        int etiq = etiquette_stack[stack_ptr-1];
+        fprintf(fichier_asm, "    jmp fin_selon_%d\n", etiq);
+        fprintf(fichier_asm, "cas_suivant_%d:\n", etiquette_counter);
+        printf("🙪 BIMA (break)\n");
+    }
+#line 1755 "duala.tab.c"
+    break;
+
+  case 60: /* $@13: %empty  */
+#line 415 "duala.y"
                          {
         fprintf(fichier_asm, "    ; CAS DEFAUT\n");
         printf("📋 KƐS BƆSƆ\n");
     }
-#line 1582 "duala.tab.c"
+#line 1764 "duala.tab.c"
     break;
 
-  case 56: /* sortir_instruction: SORTIR POINT_VIRGULE  */
-#line 313 "duala.y"
+  case 62: /* sortir_instruction: SORTIR POINT_VIRGULE  */
+#line 422 "duala.y"
                          {
         int etiq = etiquette_stack[stack_ptr-1];
         fprintf(fichier_asm, "    jmp fin_selon_%d\n", etiq);
         printf("🚪 BIMA (break)\n");
     }
-#line 1592 "duala.tab.c"
+#line 1774 "duala.tab.c"
     break;
 
-  case 57: /* $@11: %empty  */
-#line 321 "duala.y"
+  case 63: /* boucle_pour: boucle_pour_init pas_opt SALA instructions FINPOUR  */
+#line 430 "duala.y"
+                                                       {
+        int etiq = etiquette_stack[--stack_ptr];
+        char *var = current_id;
+        /* Use the step value */
+        fprintf(fichier_asm, "    mov eax, [pas_pour_%d]\n", etiq);
+        fprintf(fichier_asm, "    add [%s], eax\n", var);
+        fprintf(fichier_asm, "    jmp debut_pour_%d\n", etiq);
+        fprintf(fichier_asm, "fin_pour_%d:\n", etiq);
+        printf("<- Fin POUR\n");
+    }
+#line 1789 "duala.tab.c"
+    break;
+
+  case 64: /* pas_opt: %empty  */
+#line 442 "duala.y"
+                                        {
+        int etiq = etiquette_stack[stack_ptr-1];
+        fprintf(fichier_asm, "    ; Using default step of 1\n");
+    }
+#line 1798 "duala.tab.c"
+    break;
+
+  case 65: /* pas_opt: PAS expression  */
+#line 446 "duala.y"
+                     {
+        /* Handle step value */
+        int etiq = etiquette_stack[stack_ptr-1];
+        fprintf(fichier_asm, "    pop eax\n");  /* step value */
+        fprintf(fichier_asm, "    mov [pas_pour_%d], eax\n", etiq);
+    }
+#line 1809 "duala.tab.c"
+    break;
+
+  case 66: /* boucle_pour_init: POUR IDENTIFICATEUR DE expression A expression  */
+#line 454 "duala.y"
                                                    {
         char *var = current_id;
         etiquette_counter++;
         etiquette_stack[stack_ptr++] = etiquette_counter;
         int etiq = etiquette_counter;
-        fprintf(fichier_asm, "    ; PƆ %s\n", var);
-        fprintf(fichier_asm, "    pop eax\n");
+        
+        /* Track this for loop limit variable */
+        for_limit_labels[for_limit_count++] = etiq;
+        
+        fprintf(fichier_asm, "    ; POUR %s\n", var);
+        
+        /* Store the limit value */
+        fprintf(fichier_asm, "    pop ebx\n");  /* limit */
+        fprintf(fichier_asm, "    pop eax\n");  /* start value */
         fprintf(fichier_asm, "    mov [%s], eax\n", var);
+        fprintf(fichier_asm, "    mov [limite_pour_%d], ebx\n", etiq);
+        /* Default step is 1 */
+        fprintf(fichier_asm, "    mov dword [pas_pour_%d], 1\n", etiq);
+        
         fprintf(fichier_asm, "debut_pour_%d:\n", etiq);
         fprintf(fichier_asm, "    mov eax, [%s]\n", var);
         fprintf(fichier_asm, "    cmp eax, [limite_pour_%d]\n", etiq);
+        /* Check if we've passed the limit (handles both incrementing and decrementing) */
         fprintf(fichier_asm, "    jg fin_pour_%d\n", etiq);
-        printf("🔄 PƆ %s\n", var);
+        printf("-> POUR %s\n", var);
     }
-#line 1611 "duala.tab.c"
+#line 1840 "duala.tab.c"
     break;
 
-  case 58: /* boucle_pour: POUR IDENTIFICATEUR DE expression A expression $@11 FAIRE instructions FINPOUR  */
-#line 334 "duala.y"
-                                 {
-        int etiq = etiquette_stack[--stack_ptr];
-        char *var = current_id;
-        fprintf(fichier_asm, "    inc dword [%s]\n", var);
-        fprintf(fichier_asm, "    jmp debut_pour_%d\n", etiq);
-        fprintf(fichier_asm, "fin_pour_%d:\n", etiq);
-        printf("🔚 Suka PƆ\n");
-    }
-#line 1624 "duala.tab.c"
-    break;
-
-  case 59: /* $@12: %empty  */
-#line 345 "duala.y"
+  case 67: /* $@14: %empty  */
+#line 483 "duala.y"
             {
         etiquette_counter++;
         etiquette_stack[stack_ptr++] = etiquette_counter;
@@ -1632,11 +1848,11 @@ yyreduce:
         fprintf(fichier_asm, "debut_repeter_%d:\n", etiq);
         printf("🔄 SƆŊƆLƆ (do-while)\n");
     }
-#line 1636 "duala.tab.c"
+#line 1852 "duala.tab.c"
     break;
 
-  case 60: /* boucle_repeter: REPETER $@12 instructions JUSQUA PAREN_OUV expression PAREN_FERM POINT_VIRGULE  */
-#line 351 "duala.y"
+  case 68: /* boucle_repeter: REPETER $@14 instructions JUSQUA PAREN_OUV expression PAREN_FERM POINT_VIRGULE  */
+#line 489 "duala.y"
                                                                         {
         int etiq = etiquette_stack[--stack_ptr];
         fprintf(fichier_asm, "    pop eax\n");
@@ -1644,11 +1860,11 @@ yyreduce:
         fprintf(fichier_asm, "    jne debut_repeter_%d\n", etiq);
         printf("🔚 TƐMBƐLƐ (condition)\n");
     }
-#line 1648 "duala.tab.c"
+#line 1864 "duala.tab.c"
     break;
 
 
-#line 1652 "duala.tab.c"
+#line 1868 "duala.tab.c"
 
       default: break;
     }
@@ -1841,7 +2057,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 360 "duala.y"
+#line 498 "duala.y"
 
 
 void yyerror(const char *s) {

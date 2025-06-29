@@ -27,7 +27,7 @@ int label_counter = 0;
 %token PLUS MOINS FOIS DIVISE MODULO
 %token POINT_VIRGULE VIRGULE PAREN_OUV PAREN_FERM DEUX_POINTS
 %token <ival> NOMBRE_ENTIER
-%token <sval> IDENTIFICATEUR
+%token <sval> IDENTIFICATEUR CHAINE_CARACTERE
 
 %type <sval> expression terme facteur
 
@@ -86,6 +86,11 @@ instruction:
     | boucle_tant_que
     | boucle_pour
     | boucle_repeter
+    | expression POINT_VIRGULE {
+        fprintf(fichier_c, "    %s;\n", $1);
+        printf("📝 Expression évaluée: %s\n", $1);
+        free($1);
+    }
     ;
 
 affectation:
@@ -154,6 +159,7 @@ expression:
 
 terme:
     facteur { 
+        printf("DEBUG: terme -> facteur: %s\n", $1);
         $$ = $1; 
     }
     | terme FOIS facteur {
@@ -163,6 +169,7 @@ terme:
         free($3);
     }
     | terme DIVISE facteur {
+        printf("DEBUG: Division de %s par %s\n", $1, $3);
         $$ = malloc(100);
         sprintf($$, "(%s / %s)", $1, $3);
         free($1);
@@ -178,6 +185,7 @@ terme:
 
 facteur:
     NOMBRE_ENTIER {
+        printf("DEBUG: facteur -> NOMBRE_ENTIER: %d\n", $1);
         $$ = malloc(20);
         sprintf($$, "%d", $1);
         printf("🔢 Constante: %d\n", $1);
@@ -214,15 +222,16 @@ partie_sinon_opt:
     ;
 
 boucle_tant_que:
-    TANT_QUE PAREN_OUV expression PAREN_FERM FAIRE {
-        fprintf(fichier_c, "    while (%s) {\n", $3);
+    TANT_QUE expression FAIRE {
+        fprintf(fichier_c, "    while (%s) {\n", $2);
         printf("🔄 Mbɔmbɔ boucle MBƐLƐ\n");
-        free($3);
+        free($2);
     } instructions FINTANT {
         fprintf(fichier_c, "    }  // Suka MBƐLƐ\n");
         printf("🔚 Suka boucle MBƐLƐ\n");
     }
     ;
+
 
 lecture:
     LIRE IDENTIFICATEUR POINT_VIRGULE {
@@ -234,8 +243,13 @@ lecture:
 
 ecriture:
     ECRIRE expression POINT_VIRGULE {
-        fprintf(fichier_c, "    printf(\"Résultat: %%d\\n\", %s);\n", $2);
+        fprintf(fichier_c, "    printf(\"%%d\\n\", %s);\n", $2);
         printf("📤 Kɔma expression\n");
+        free($2);
+    }
+    | ECRIRE CHAINE_CARACTERE POINT_VIRGULE {
+        fprintf(fichier_c, "    printf(\"%s\\n\");\n", $2);
+        printf("📤 Kɔma chaine: %s\n", $2);
         free($2);
     }
     ;
@@ -251,6 +265,7 @@ structure_selon:
     }
     ;
 
+
 liste_cas: 
     /* vide */ 
     | liste_cas cas_simple
@@ -264,6 +279,7 @@ cas_simple:
     } instructions
     ;
 
+
 partie_defaut_opt:
     /* vide */
     | DEFAUT DEUX_POINTS {
@@ -271,6 +287,7 @@ partie_defaut_opt:
         printf("📋 KƐS BƆSƆ\n");
     } instructions
     ;
+
 
 sortir_instruction:
     SORTIR POINT_VIRGULE {
@@ -280,27 +297,32 @@ sortir_instruction:
     ;
 
 boucle_pour:
-    POUR IDENTIFICATEUR DE expression A expression {
-        char *var = current_id;
+    POUR IDENTIFICATEUR DE expression A expression FAIRE {
+        char *var = strdup($2);  // Copie de l'identifiant
         fprintf(fichier_c, "    for (%s = %s; %s <= %s; %s++) {\n", 
                 var, $4, var, $6, var);
         printf("🔄 PƆ %s na %s tɛ %s\n", var, $4, $6);
-        free($4); free($6);
-    } FAIRE instructions FINPOUR {
+        free($2); free($4); free($6);
+        strcpy(affectation_var, var); // utile si réutilisation
+        free(var);
+    } instructions FINPOUR {
         fprintf(fichier_c, "    }  // Suka PƆ\n");
         printf("🔚 Suka PƆ\n");
     }
-    | POUR IDENTIFICATEUR DE expression A expression PAS expression {
-        char *var = current_id;
+    |
+    POUR IDENTIFICATEUR DE expression JUSQUA expression PAS expression {
+        char *var = strdup($2);  // Copie de l'identifiant
         fprintf(fichier_c, "    for (%s = %s; %s <= %s; %s += %s) {\n", 
                 var, $4, var, $6, var, $8);
-        printf("🔄 PƆ %s na %s tɛ %s mbɛn %s\n", var, $4, $6, $8);
-        free($4); free($6); free($8);
+        printf("🔄 PƆ %s na %s tɛmbɛlɛ %s mbɛn %s\n", var, $4, $6, $8);
+        free($2); free($4); free($6); free($8);
+        free(var);
     } FAIRE instructions FINPOUR {
         fprintf(fichier_c, "    }  // Suka PƆ na mbɛn\n");
         printf("🔚 Suka PƆ na mbɛn\n");
     }
     ;
+
 
 boucle_repeter:
     REPETER {
@@ -312,6 +334,7 @@ boucle_repeter:
         free($6);
     }
     ;
+
 
 %%
 

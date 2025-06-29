@@ -30,7 +30,7 @@ char current_id[100];
 
 "pɔ"            { return POUR; }
 "na"            { return DE; }
-"tɛ"            { return A; }
+"kɛ"            { return A; }
 "mbɛn"          { return PAS; }
 "sukapɔ"        { return FINPOUR; }
 
@@ -57,6 +57,7 @@ char current_id[100];
 ":"             { return DEUX_POINTS; }
 
 [0-9]+          { yylval = atoi(yytext); return NOMBRE_ENTIER; }
+\"[^\"]*\"        { strcpy(current_id, yytext); return STRING_LITERAL; }
 [a-zA-Z][a-zA-Z0-9_]* { strcpy(current_id, yytext); return IDENTIFICATEUR; }
 
 [ \t\n]+        { /* ignorer espaces */ }

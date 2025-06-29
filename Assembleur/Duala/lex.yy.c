@@ -1,6 +1,5 @@
-#line 2 "duala.lex.c"
 
-#line 4 "duala.lex.c"
+#line 3 "lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -526,8 +525,8 @@ char *yytext;
 
 extern int yylineno;
 char current_id[100];
-#line 530 "duala.lex.c"
-#line 531 "duala.lex.c"
+#line 529 "lex.yy.c"
+#line 530 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -747,7 +746,7 @@ YY_DECL
 #line 11 "duala.lex"
 
 
-#line 751 "duala.lex.c"
+#line 750 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1036,7 +1035,7 @@ YY_RULE_SETUP
 #line 67 "duala.lex"
 ECHO;
 	YY_BREAK
-#line 1040 "duala.lex.c"
+#line 1039 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 

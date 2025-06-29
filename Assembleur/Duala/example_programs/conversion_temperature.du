@@ -1,8 +1,0 @@
-mbɔmbɔ
-    ndambo celsɔus;
-    ndambo fahrenheit;
-    
-    yɛnɛ celsɔus;
-    fahrenheit <- (celsɔus * 9) / 5 + 32;
-    kɔma fahrenheit;
-suka
