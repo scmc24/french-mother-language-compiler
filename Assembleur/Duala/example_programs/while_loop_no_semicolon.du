@@ -1,9 +1,0 @@
-mbɔmbɔ
-    ndambo compteur;
-    compteur <- 0;
-    
-    mbɛlɛ (compteur < 5) sala
-        kɔma compteur;
-        compteur <- compteur + 1;
-    sukambɛlɛ
-suka

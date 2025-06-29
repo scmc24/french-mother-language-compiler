@@ -189,8 +189,9 @@ enum yysymbol_kind_t
   YYSYMBOL_boucle_pour = 76,               /* boucle_pour  */
   YYSYMBOL_77_9 = 77,                      /* $@9  */
   YYSYMBOL_78_10 = 78,                     /* $@10  */
-  YYSYMBOL_boucle_repeter = 79,            /* boucle_repeter  */
-  YYSYMBOL_80_11 = 80                      /* $@11  */
+  YYSYMBOL_79_11 = 79,                     /* $@11  */
+  YYSYMBOL_boucle_repeter = 80,            /* boucle_repeter  */
+  YYSYMBOL_81_12 = 81                      /* $@12  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -518,16 +519,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   336
+#define YYLAST   395
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  47
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  34
+#define YYNNTS  35
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  63
+#define YYNRULES  65
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  131
+#define YYNSTATES  137
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   301
@@ -586,8 +587,8 @@ static const yytype_int16 yyrline[] =
       97,    97,   107,   110,   116,   122,   128,   134,   140,   146,
      152,   161,   165,   171,   178,   187,   193,   198,   206,   206,
      216,   218,   218,   225,   225,   237,   245,   250,   258,   258,
-     269,   271,   275,   275,   283,   285,   285,   293,   300,   300,
-     313,   313,   328,   328
+     269,   271,   275,   275,   283,   285,   285,   293,   301,   301,
+     315,   315,   328,   328,   343,   343
 };
 #endif
 
@@ -616,8 +617,8 @@ static const char *const yytname[] =
   "terme", "facteur", "conditionnelle", "$@3", "partie_sinon_opt", "$@4",
   "boucle_tant_que", "$@5", "lecture", "ecriture", "structure_selon",
   "$@6", "liste_cas", "cas_simple", "$@7", "partie_defaut_opt", "$@8",
-  "sortir_instruction", "boucle_pour", "$@9", "$@10", "boucle_repeter",
-  "$@11", YY_NULLPTR
+  "sortir_instruction", "boucle_pour", "$@9", "$@10", "$@11",
+  "boucle_repeter", "$@12", YY_NULLPTR
 };
 
 static const char *
@@ -627,7 +628,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-44)
+#define YYPACT_NINF (-36)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -641,20 +642,20 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-       6,   -44,     1,   -44,   -44,    10,    24,   -44,   -30,   -44,
-     142,     2,    13,   -19,    18,   -33,    21,    25,    20,   -44,
-     -33,   -44,    36,   -44,   -44,   257,   -17,   -44,   -44,   -44,
-     -44,   -44,   -44,   -44,   -44,   -44,   -44,    28,   -44,    29,
-     269,   -33,     3,   -33,   -44,    48,   -44,   176,    43,   -33,
-     -33,   -33,   -33,   -33,   -33,   -33,   -33,   -44,   -33,   -33,
-     -33,   -44,   -44,   -44,   191,   -44,   206,   -33,    -2,   -44,
-     -33,   -17,   -17,   -17,   -17,   -17,   -17,   -17,   -17,   -44,
-     -44,   -44,    63,   -44,   -44,   236,    32,   281,   -44,    41,
-     -44,   -33,   -33,   -33,   -44,   -44,   -44,    34,   145,   249,
-     221,    85,   -33,    33,   -44,    57,   -44,   -33,    44,   -44,
-      76,   160,   -44,   -44,   -44,   293,   -44,   -44,   -44,   -44,
-     -44,   100,    75,   142,   -44,   142,   -44,   -44,   142,   127,
-     -44
+      -2,   -36,     6,   -36,   -36,     4,    24,   -36,     1,   -36,
+     177,     8,     7,   -31,     2,   -20,    12,    16,    11,   -36,
+     -20,   -36,    22,   -36,   -36,   316,   -18,   -36,   -36,   -36,
+     -36,   -36,   -36,   -36,   -36,   -36,   -36,    19,   -36,    20,
+     328,   -20,   201,   -20,   -36,    30,   -36,   248,    33,   -20,
+     -20,   -20,   -20,   -20,   -20,   -20,   -20,   -36,   -20,   -20,
+     -20,   -36,   -36,   -36,   263,   -36,   278,   -20,    -3,   -36,
+     -20,   -18,   -18,   -18,   -18,   -18,   -18,   -18,   -18,   -36,
+     -36,   -36,    53,   -36,   -36,   178,    23,   340,   -36,    25,
+     -36,   -20,   -20,   -20,   -20,   -36,   -36,   -36,    10,   210,
+     224,   308,   293,    93,   -20,    28,   -36,    45,   -36,   -36,
+     -20,    26,   -36,    56,   232,   -36,   -36,   -36,   -36,   352,
+     -36,   -36,   -36,   -36,   -36,   108,   135,    55,   177,   -36,
+     177,   -36,   -36,   -36,   177,   150,   -36
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -663,7 +664,7 @@ static const yytype_int16 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        0,     2,     0,     5,     1,     0,     8,     3,     0,     6,
-       4,     0,     0,     0,     0,     0,     0,     0,     0,    62,
+       4,     0,     0,     0,     0,     0,     0,     0,     0,    64,
        0,    35,    36,     9,    10,     0,    22,    31,    13,    16,
       11,    12,    14,    15,    17,    18,     7,     0,    36,     0,
        0,     0,     0,     0,    57,     0,     8,     0,     0,     0,
@@ -671,29 +672,29 @@ static const yytype_int8 yydefact[] =
        0,    45,    47,    46,     0,    43,     0,     0,     0,    37,
        0,    27,    28,    29,    30,    25,    26,    23,    24,    32,
       33,    34,     0,     8,    48,     0,     0,     0,    38,     0,
-      50,     0,     0,     0,    21,     8,    44,    54,     0,     0,
-       0,    40,     0,     0,    51,     0,    58,     0,     0,    41,
-       0,     0,    55,    49,     8,    60,    63,     8,    39,    52,
-       8,     0,     0,    42,     8,    56,    59,     8,    53,     0,
-      61
+      50,     0,     0,     0,     0,    21,     8,    44,    54,     0,
+       0,     0,     0,    40,     0,     0,    51,     0,    60,    58,
+       0,     0,    41,     0,     0,    55,    49,     8,     8,    62,
+      65,     8,    39,    52,     8,     0,     0,     0,    42,     8,
+      56,    61,    59,     8,    53,     0,    63
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int16 yypgoto[] =
 {
-     -44,   -44,   -44,   -44,   -44,   -44,   -43,   -44,   -44,   -44,
-     -13,   280,   -14,   -44,   -44,   -44,   -44,   -44,   -44,   -44,
-     -44,   -44,   -44,   -44,   -44,   -44,   -44,   -44,   -44,   -44,
-     -44,   -44,   -44,   -44
+     -36,   -36,   -36,   -36,   -36,   -36,   -35,   -36,   -36,   -36,
+     -13,   339,   -24,   -36,   -36,   -36,   -36,   -36,   -36,   -36,
+     -36,   -36,   -36,   -36,   -36,   -36,   -36,   -36,   -36,   -36,
+     -36,   -36,   -36,   -36,   -36
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
-static const yytype_int8 yydefgoto[] =
+static const yytype_uint8 yydefgoto[] =
 {
        0,     2,     3,     5,     6,     9,    10,    23,    24,    48,
-      25,    26,    27,    28,    95,   110,   117,    29,    83,    30,
-      31,    32,    90,    97,   104,   124,   105,   120,    33,    34,
-     114,   122,    35,    46
+      25,    26,    27,    28,    96,   113,   121,    29,    83,    30,
+      31,    32,    90,    98,   106,   129,   107,   124,    33,    34,
+     118,   117,   127,    35,    46
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -701,78 +702,90 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int16 yytable[] =
 {
-      40,     4,    42,    68,    12,    13,    14,    47,    20,     1,
-      15,    21,    38,    16,     7,    11,    65,    17,    18,    58,
-      59,    60,    20,    19,    86,    21,    38,    39,    64,     8,
-      66,    49,    50,    51,    52,    53,    54,    55,    56,    20,
-      89,    36,    21,    22,    79,    80,    81,    12,    13,    14,
-     102,   103,   101,    15,    85,    96,    16,    87,    37,    41,
-      17,    18,    43,   -20,    44,    45,    19,    61,    62,    67,
-      70,   121,    88,    93,   123,   113,   112,   125,    98,    99,
-     100,   128,    20,   116,   129,    21,    22,   118,   127,   111,
-       0,    12,    13,    14,   115,   109,     0,    15,     0,     0,
-      16,     0,     0,     0,    17,    18,    12,    13,    14,     0,
+      40,     1,    42,    12,    13,    14,     4,    47,     7,    15,
+      20,    68,    16,    21,    38,    39,    17,    18,    58,    59,
+      60,    20,    19,    86,    21,    38,   104,   105,    64,     8,
+      66,    12,    13,    14,    79,    80,    81,    15,    20,    97,
+      16,    21,    22,    41,    17,    18,    11,    36,    89,   -20,
+      19,    67,    37,    43,    85,    44,    45,    87,    61,    62,
+      70,   103,    88,   116,    94,   120,    20,   122,   133,    21,
+      22,   115,     0,     0,     0,     0,     0,     0,    99,   100,
+     101,   102,   125,   126,     0,     0,   128,     0,     0,   130,
+       0,   114,     0,     0,   134,     0,     0,   119,   135,    12,
+      13,    14,     0,   112,     0,    15,     0,     0,    16,     0,
+       0,     0,    17,    18,    12,    13,    14,     0,    19,     0,
+      15,     0,     0,    16,     0,     0,     0,    17,    18,     0,
+       0,     0,   131,    19,    20,     0,     0,    21,    22,     0,
+       0,    12,    13,    14,     0,     0,     0,    15,     0,    20,
+      16,     0,    21,    22,    17,    18,    12,    13,    14,   132,
       19,     0,    15,     0,     0,    16,     0,     0,     0,    17,
-      18,     0,     0,     0,   126,    19,    20,     0,     0,    21,
-      22,     0,     0,    12,    13,    14,     0,     0,     0,    15,
-       0,    20,    16,     0,    21,    22,    17,    18,    12,    13,
-      14,   130,    19,     0,    15,     0,     0,    16,   106,     0,
-       0,    17,    18,     0,     0,     0,     0,    19,    20,     0,
-       0,    21,    22,    49,    50,    51,    52,    53,    54,    55,
-      56,     0,     0,    20,     0,     0,    21,    22,    49,    50,
+      18,     0,     0,     0,   136,    19,    20,     0,     0,    21,
+      22,     0,     0,    12,    13,    14,     0,    91,     0,    15,
+       0,    20,    16,     0,    21,    22,    17,    18,     0,     0,
+      92,     0,    19,     0,    93,     0,    49,    50,    51,    52,
+      53,    54,    55,    56,    65,     0,     0,     0,    20,     0,
+       0,    21,    22,   108,     0,     0,     0,     0,     0,    49,
+      50,    51,    52,    53,    54,    55,    56,   109,    49,    50,
       51,    52,    53,    54,    55,    56,     0,     0,     0,     0,
-       0,     0,     0,   119,    49,    50,    51,    52,    53,    54,
-      55,    56,     0,     0,     0,     0,     0,     0,    69,    49,
-      50,    51,    52,    53,    54,    55,    56,     0,     0,     0,
-       0,     0,     0,    82,    49,    50,    51,    52,    53,    54,
-      55,    56,     0,     0,     0,     0,     0,     0,    84,    49,
-      50,    51,    52,    53,    54,    55,    56,     0,    91,     0,
-       0,     0,    92,   108,    49,    50,    51,    52,    53,    54,
-      55,    56,   107,     0,     0,     0,     0,    49,    50,    51,
-      52,    53,    54,    55,    56,    49,    50,    51,    52,    53,
-      54,    55,    56,     0,     0,     0,    57,    49,    50,    51,
-      52,    53,    54,    55,    56,     0,     0,     0,    63,    49,
-      50,    51,    52,    53,    54,    55,    56,     0,     0,     0,
-      94,    49,    50,    51,    52,    53,    54,    55,    56,    71,
-      72,    73,    74,    75,    76,    77,    78
+       0,     0,    49,    50,    51,    52,    53,    54,    55,    56,
+      49,    50,    51,    52,    53,    54,    55,    56,     0,     0,
+       0,     0,     0,     0,     0,   123,    49,    50,    51,    52,
+      53,    54,    55,    56,     0,     0,     0,     0,     0,     0,
+      69,    49,    50,    51,    52,    53,    54,    55,    56,     0,
+       0,     0,     0,     0,     0,    82,    49,    50,    51,    52,
+      53,    54,    55,    56,     0,     0,     0,     0,     0,     0,
+      84,    49,    50,    51,    52,    53,    54,    55,    56,     0,
+       0,   110,     0,     0,     0,   111,    49,    50,    51,    52,
+      53,    54,    55,    56,    49,    50,    51,    52,    53,    54,
+      55,    56,     0,     0,     0,    57,    49,    50,    51,    52,
+      53,    54,    55,    56,     0,     0,     0,    63,    49,    50,
+      51,    52,    53,    54,    55,    56,     0,     0,     0,    95,
+      49,    50,    51,    52,    53,    54,    55,    56,    71,    72,
+      73,    74,    75,    76,    77,    78
 };
 
-static const yytype_int8 yycheck[] =
+static const yytype_int16 yycheck[] =
 {
-      13,     0,    15,    46,     6,     7,     8,    20,    41,     3,
-      12,    44,    45,    15,     4,    45,    13,    19,    20,    36,
-      37,    38,    41,    25,    26,    44,    45,    46,    41,     5,
-      43,    28,    29,    30,    31,    32,    33,    34,    35,    41,
-      83,    39,    44,    45,    58,    59,    60,     6,     7,     8,
-      16,    17,    95,    12,    67,    14,    15,    70,    45,    41,
-      19,    20,    41,    27,    39,    45,    25,    39,    39,    21,
-      27,   114,     9,    41,   117,    18,    43,   120,    91,    92,
-      93,   124,    41,    39,   127,    44,    45,    11,    13,   102,
-      -1,     6,     7,     8,   107,    10,    -1,    12,    -1,    -1,
-      15,    -1,    -1,    -1,    19,    20,     6,     7,     8,    -1,
+      13,     3,    15,     6,     7,     8,     0,    20,     4,    12,
+      41,    46,    15,    44,    45,    46,    19,    20,    36,    37,
+      38,    41,    25,    26,    44,    45,    16,    17,    41,     5,
+      43,     6,     7,     8,    58,    59,    60,    12,    41,    14,
+      15,    44,    45,    41,    19,    20,    45,    39,    83,    27,
+      25,    21,    45,    41,    67,    39,    45,    70,    39,    39,
+      27,    96,     9,    18,    41,    39,    41,    11,    13,    44,
+      45,    43,    -1,    -1,    -1,    -1,    -1,    -1,    91,    92,
+      93,    94,   117,   118,    -1,    -1,   121,    -1,    -1,   124,
+      -1,   104,    -1,    -1,   129,    -1,    -1,   110,   133,     6,
+       7,     8,    -1,    10,    -1,    12,    -1,    -1,    15,    -1,
+      -1,    -1,    19,    20,     6,     7,     8,    -1,    25,    -1,
+      12,    -1,    -1,    15,    -1,    -1,    -1,    19,    20,    -1,
+      -1,    -1,    24,    25,    41,    -1,    -1,    44,    45,    -1,
+      -1,     6,     7,     8,    -1,    -1,    -1,    12,    -1,    41,
+      15,    -1,    44,    45,    19,    20,     6,     7,     8,    24,
       25,    -1,    12,    -1,    -1,    15,    -1,    -1,    -1,    19,
       20,    -1,    -1,    -1,    24,    25,    41,    -1,    -1,    44,
-      45,    -1,    -1,     6,     7,     8,    -1,    -1,    -1,    12,
-      -1,    41,    15,    -1,    44,    45,    19,    20,     6,     7,
-       8,    24,    25,    -1,    12,    -1,    -1,    15,    13,    -1,
-      -1,    19,    20,    -1,    -1,    -1,    -1,    25,    41,    -1,
-      -1,    44,    45,    28,    29,    30,    31,    32,    33,    34,
-      35,    -1,    -1,    41,    -1,    -1,    44,    45,    28,    29,
+      45,    -1,    -1,     6,     7,     8,    -1,     9,    -1,    12,
+      -1,    41,    15,    -1,    44,    45,    19,    20,    -1,    -1,
+      22,    -1,    25,    -1,    26,    -1,    28,    29,    30,    31,
+      32,    33,    34,    35,    13,    -1,    -1,    -1,    41,    -1,
+      -1,    44,    45,    13,    -1,    -1,    -1,    -1,    -1,    28,
+      29,    30,    31,    32,    33,    34,    35,    13,    28,    29,
       30,    31,    32,    33,    34,    35,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    43,    28,    29,    30,    31,    32,    33,
-      34,    35,    -1,    -1,    -1,    -1,    -1,    -1,    42,    28,
-      29,    30,    31,    32,    33,    34,    35,    -1,    -1,    -1,
-      -1,    -1,    -1,    42,    28,    29,    30,    31,    32,    33,
-      34,    35,    -1,    -1,    -1,    -1,    -1,    -1,    42,    28,
-      29,    30,    31,    32,    33,    34,    35,    -1,    22,    -1,
-      -1,    -1,    26,    42,    28,    29,    30,    31,    32,    33,
-      34,    35,    23,    -1,    -1,    -1,    -1,    28,    29,    30,
-      31,    32,    33,    34,    35,    28,    29,    30,    31,    32,
-      33,    34,    35,    -1,    -1,    -1,    39,    28,    29,    30,
-      31,    32,    33,    34,    35,    -1,    -1,    -1,    39,    28,
-      29,    30,    31,    32,    33,    34,    35,    -1,    -1,    -1,
-      39,    28,    29,    30,    31,    32,    33,    34,    35,    49,
-      50,    51,    52,    53,    54,    55,    56
+      -1,    -1,    28,    29,    30,    31,    32,    33,    34,    35,
+      28,    29,    30,    31,    32,    33,    34,    35,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    43,    28,    29,    30,    31,
+      32,    33,    34,    35,    -1,    -1,    -1,    -1,    -1,    -1,
+      42,    28,    29,    30,    31,    32,    33,    34,    35,    -1,
+      -1,    -1,    -1,    -1,    -1,    42,    28,    29,    30,    31,
+      32,    33,    34,    35,    -1,    -1,    -1,    -1,    -1,    -1,
+      42,    28,    29,    30,    31,    32,    33,    34,    35,    -1,
+      -1,    23,    -1,    -1,    -1,    42,    28,    29,    30,    31,
+      32,    33,    34,    35,    28,    29,    30,    31,    32,    33,
+      34,    35,    -1,    -1,    -1,    39,    28,    29,    30,    31,
+      32,    33,    34,    35,    -1,    -1,    -1,    39,    28,    29,
+      30,    31,    32,    33,    34,    35,    -1,    -1,    -1,    39,
+      28,    29,    30,    31,    32,    33,    34,    35,    49,    50,
+      51,    52,    53,    54,    55,    56
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
@@ -782,17 +795,17 @@ static const yytype_int8 yystos[] =
        0,     3,    48,    49,     0,    50,    51,     4,     5,    52,
       53,    45,     6,     7,     8,    12,    15,    19,    20,    25,
       41,    44,    45,    54,    55,    57,    58,    59,    60,    64,
-      66,    67,    68,    75,    76,    79,    39,    45,    45,    46,
-      57,    41,    57,    41,    39,    45,    80,    57,    56,    28,
+      66,    67,    68,    75,    76,    80,    39,    45,    45,    46,
+      57,    41,    57,    41,    39,    45,    81,    57,    56,    28,
       29,    30,    31,    32,    33,    34,    35,    39,    36,    37,
       38,    39,    39,    39,    57,    13,    57,    21,    53,    42,
       27,    58,    58,    58,    58,    58,    58,    58,    58,    59,
       59,    59,    42,    65,    42,    57,    26,    57,     9,    53,
-      69,    22,    26,    41,    39,    61,    14,    70,    57,    57,
-      57,    53,    16,    17,    71,    73,    13,    23,    42,    10,
-      62,    57,    43,    18,    77,    57,    39,    63,    11,    43,
-      74,    53,    78,    53,    72,    53,    24,    13,    53,    53,
-      24
+      69,     9,    22,    26,    41,    39,    61,    14,    70,    57,
+      57,    57,    57,    53,    16,    17,    71,    73,    13,    13,
+      23,    42,    10,    62,    57,    43,    18,    78,    77,    57,
+      39,    63,    11,    43,    74,    53,    53,    79,    53,    72,
+      53,    24,    24,    13,    53,    53,    24
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
@@ -804,7 +817,7 @@ static const yytype_int8 yyr1[] =
       57,    58,    58,    58,    58,    59,    59,    59,    61,    60,
       62,    63,    62,    65,    64,    66,    67,    67,    69,    68,
       70,    70,    72,    71,    73,    74,    73,    75,    77,    76,
-      78,    76,    80,    79
+      78,    76,    79,    76,    81,    80
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -816,7 +829,7 @@ static const yytype_int8 yyr2[] =
        3,     1,     3,     3,     3,     1,     1,     3,     0,     9,
        0,     0,     3,     0,     6,     3,     3,     3,     0,     8,
        0,     2,     0,     5,     0,     0,     4,     2,     0,    10,
-       0,    12,     0,     8
+       0,    10,     0,    12,     0,     8
 };
 
 
@@ -1288,7 +1301,7 @@ yyreduce:
         fprintf(fichier_c, "int main() {\n");
         printf("🔧 Mbɔmbɔ génération du code C...\n");
     }
-#line 1292 "duala.tab.c"
+#line 1305 "duala.tab.c"
     break;
 
   case 3: /* programme: DEBUT $@1 bloc FIN  */
@@ -1300,7 +1313,7 @@ yyreduce:
         fclose(fichier_c);
         printf("✅ Code C généré na programme.c\n"); 
     }
-#line 1304 "duala.tab.c"
+#line 1317 "duala.tab.c"
     break;
 
   case 7: /* declaration: TYPE_ENTIER IDENTIFICATEUR POINT_VIRGULE  */
@@ -1309,7 +1322,7 @@ yyreduce:
         fprintf(fichier_c, "    int %s = 0;  // Variable déclarée\n", current_id);
         printf("📝 Variable déclarée: %s\n", current_id);
     }
-#line 1313 "duala.tab.c"
+#line 1326 "duala.tab.c"
     break;
 
   case 19: /* instruction: expression POINT_VIRGULE  */
@@ -1319,7 +1332,7 @@ yyreduce:
         printf("📝 Expression évaluée: %s\n", (yyvsp[-1].sval));
         free((yyvsp[-1].sval));
     }
-#line 1323 "duala.tab.c"
+#line 1336 "duala.tab.c"
     break;
 
   case 20: /* $@2: %empty  */
@@ -1327,7 +1340,7 @@ yyreduce:
                    {
         strcpy(affectation_var, current_id);
     }
-#line 1331 "duala.tab.c"
+#line 1344 "duala.tab.c"
     break;
 
   case 21: /* affectation: IDENTIFICATEUR $@2 AFFECTATION expression POINT_VIRGULE  */
@@ -1337,7 +1350,7 @@ yyreduce:
         printf("⬅️  Affectation: %s = %s\n", affectation_var, (yyvsp[-1].sval));
         free((yyvsp[-1].sval));
     }
-#line 1341 "duala.tab.c"
+#line 1354 "duala.tab.c"
     break;
 
   case 22: /* expression: terme  */
@@ -1345,7 +1358,7 @@ yyreduce:
           { 
         (yyval.sval) = (yyvsp[0].sval); 
     }
-#line 1349 "duala.tab.c"
+#line 1362 "duala.tab.c"
     break;
 
   case 23: /* expression: expression PLUS terme  */
@@ -1356,7 +1369,7 @@ yyreduce:
         free((yyvsp[-2].sval));
         free((yyvsp[0].sval));
     }
-#line 1360 "duala.tab.c"
+#line 1373 "duala.tab.c"
     break;
 
   case 24: /* expression: expression MOINS terme  */
@@ -1367,7 +1380,7 @@ yyreduce:
         free((yyvsp[-2].sval));
         free((yyvsp[0].sval));
     }
-#line 1371 "duala.tab.c"
+#line 1384 "duala.tab.c"
     break;
 
   case 25: /* expression: expression SUPERIEUR terme  */
@@ -1378,7 +1391,7 @@ yyreduce:
         free((yyvsp[-2].sval));
         free((yyvsp[0].sval));
     }
-#line 1382 "duala.tab.c"
+#line 1395 "duala.tab.c"
     break;
 
   case 26: /* expression: expression INFERIEUR terme  */
@@ -1389,7 +1402,7 @@ yyreduce:
         free((yyvsp[-2].sval));
         free((yyvsp[0].sval));
     }
-#line 1393 "duala.tab.c"
+#line 1406 "duala.tab.c"
     break;
 
   case 27: /* expression: expression EGAL terme  */
@@ -1400,7 +1413,7 @@ yyreduce:
         free((yyvsp[-2].sval));
         free((yyvsp[0].sval));
     }
-#line 1404 "duala.tab.c"
+#line 1417 "duala.tab.c"
     break;
 
   case 28: /* expression: expression DIFFERENT terme  */
@@ -1411,7 +1424,7 @@ yyreduce:
         free((yyvsp[-2].sval));
         free((yyvsp[0].sval));
     }
-#line 1415 "duala.tab.c"
+#line 1428 "duala.tab.c"
     break;
 
   case 29: /* expression: expression SUP_EGAL terme  */
@@ -1422,7 +1435,7 @@ yyreduce:
         free((yyvsp[-2].sval));
         free((yyvsp[0].sval));
     }
-#line 1426 "duala.tab.c"
+#line 1439 "duala.tab.c"
     break;
 
   case 30: /* expression: expression INF_EGAL terme  */
@@ -1433,7 +1446,7 @@ yyreduce:
         free((yyvsp[-2].sval));
         free((yyvsp[0].sval));
     }
-#line 1437 "duala.tab.c"
+#line 1450 "duala.tab.c"
     break;
 
   case 31: /* terme: facteur  */
@@ -1442,7 +1455,7 @@ yyreduce:
         printf("DEBUG: terme -> facteur: %s\n", (yyvsp[0].sval));
         (yyval.sval) = (yyvsp[0].sval); 
     }
-#line 1446 "duala.tab.c"
+#line 1459 "duala.tab.c"
     break;
 
   case 32: /* terme: terme FOIS facteur  */
@@ -1453,7 +1466,7 @@ yyreduce:
         free((yyvsp[-2].sval));
         free((yyvsp[0].sval));
     }
-#line 1457 "duala.tab.c"
+#line 1470 "duala.tab.c"
     break;
 
   case 33: /* terme: terme DIVISE facteur  */
@@ -1465,7 +1478,7 @@ yyreduce:
         free((yyvsp[-2].sval));
         free((yyvsp[0].sval));
     }
-#line 1469 "duala.tab.c"
+#line 1482 "duala.tab.c"
     break;
 
   case 34: /* terme: terme MODULO facteur  */
@@ -1476,7 +1489,7 @@ yyreduce:
         free((yyvsp[-2].sval));
         free((yyvsp[0].sval));
     }
-#line 1480 "duala.tab.c"
+#line 1493 "duala.tab.c"
     break;
 
   case 35: /* facteur: NOMBRE_ENTIER  */
@@ -1487,7 +1500,7 @@ yyreduce:
         sprintf((yyval.sval), "%d", (yyvsp[0].ival));
         printf("🔢 Constante: %d\n", (yyvsp[0].ival));
     }
-#line 1491 "duala.tab.c"
+#line 1504 "duala.tab.c"
     break;
 
   case 36: /* facteur: IDENTIFICATEUR  */
@@ -1497,7 +1510,7 @@ yyreduce:
         strcpy((yyval.sval), current_id);
         printf("📊 Variable utilisée: %s\n", current_id);
     }
-#line 1501 "duala.tab.c"
+#line 1514 "duala.tab.c"
     break;
 
   case 37: /* facteur: PAREN_OUV expression PAREN_FERM  */
@@ -1507,7 +1520,7 @@ yyreduce:
         sprintf((yyval.sval), "(%s)", (yyvsp[-1].sval));
         free((yyvsp[-1].sval));
     }
-#line 1511 "duala.tab.c"
+#line 1524 "duala.tab.c"
     break;
 
   case 38: /* $@3: %empty  */
@@ -1517,7 +1530,7 @@ yyreduce:
         printf("🔀 Mbɔmbɔ condition SƆ\n");
         free((yyvsp[-2].sval));
     }
-#line 1521 "duala.tab.c"
+#line 1534 "duala.tab.c"
     break;
 
   case 39: /* conditionnelle: SI PAREN_OUV expression PAREN_FERM ALORS $@3 instructions partie_sinon_opt FINSI  */
@@ -1526,7 +1539,7 @@ yyreduce:
         fprintf(fichier_c, "    }  // Suka SƆ\n");
         printf("🔚 Suka condition SƆ\n");
     }
-#line 1530 "duala.tab.c"
+#line 1543 "duala.tab.c"
     break;
 
   case 41: /* $@4: %empty  */
@@ -1535,7 +1548,7 @@ yyreduce:
         fprintf(fichier_c, "    } else {\n");
         printf("🔄 Partie KƐMA\n");
     }
-#line 1539 "duala.tab.c"
+#line 1552 "duala.tab.c"
     break;
 
   case 43: /* $@5: %empty  */
@@ -1545,7 +1558,7 @@ yyreduce:
         printf("🔄 Mbɔmbɔ boucle MBƐLƐ\n");
         free((yyvsp[-1].sval));
     }
-#line 1549 "duala.tab.c"
+#line 1562 "duala.tab.c"
     break;
 
   case 44: /* boucle_tant_que: TANT_QUE expression FAIRE $@5 instructions FINTANT  */
@@ -1554,7 +1567,7 @@ yyreduce:
         fprintf(fichier_c, "    }  // Suka MBƐLƐ\n");
         printf("🔚 Suka boucle MBƐLƐ\n");
     }
-#line 1558 "duala.tab.c"
+#line 1571 "duala.tab.c"
     break;
 
   case 45: /* lecture: LIRE IDENTIFICATEUR POINT_VIRGULE  */
@@ -1564,7 +1577,7 @@ yyreduce:
         fprintf(fichier_c, "    scanf(\"%%d\", &%s);\n", current_id);
         printf("📥 Yɛnɛ: %s\n", current_id);
     }
-#line 1568 "duala.tab.c"
+#line 1581 "duala.tab.c"
     break;
 
   case 46: /* ecriture: ECRIRE expression POINT_VIRGULE  */
@@ -1574,7 +1587,7 @@ yyreduce:
         printf("📤 Kɔma expression\n");
         free((yyvsp[-1].sval));
     }
-#line 1578 "duala.tab.c"
+#line 1591 "duala.tab.c"
     break;
 
   case 47: /* ecriture: ECRIRE CHAINE_CARACTERE POINT_VIRGULE  */
@@ -1584,7 +1597,7 @@ yyreduce:
         printf("📤 Kɔma chaine: %s\n", (yyvsp[-1].sval));
         free((yyvsp[-1].sval));
     }
-#line 1588 "duala.tab.c"
+#line 1601 "duala.tab.c"
     break;
 
   case 48: /* $@6: %empty  */
@@ -1594,7 +1607,7 @@ yyreduce:
         printf("🔀 NDƆŊ (switch)\n");
         free((yyvsp[-1].sval));
     }
-#line 1598 "duala.tab.c"
+#line 1611 "duala.tab.c"
     break;
 
   case 49: /* structure_selon: SELON PAREN_OUV expression PAREN_FERM $@6 liste_cas partie_defaut_opt FINSELON  */
@@ -1603,7 +1616,7 @@ yyreduce:
         fprintf(fichier_c, "    } // Suka NDƆŊ\n");
         printf("🔚 Suka NDƆŊ\n");
     }
-#line 1607 "duala.tab.c"
+#line 1620 "duala.tab.c"
     break;
 
   case 52: /* $@7: %empty  */
@@ -1613,7 +1626,7 @@ yyreduce:
         printf("📋 KƐS %s\n", (yyvsp[-1].sval));
         free((yyvsp[-1].sval));
     }
-#line 1617 "duala.tab.c"
+#line 1630 "duala.tab.c"
     break;
 
   case 55: /* $@8: %empty  */
@@ -1622,7 +1635,7 @@ yyreduce:
         fprintf(fichier_c, "        default:\n");
         printf("📋 KƐS BƆSƆ\n");
     }
-#line 1626 "duala.tab.c"
+#line 1639 "duala.tab.c"
     break;
 
   case 57: /* sortir_instruction: SORTIR POINT_VIRGULE  */
@@ -1631,12 +1644,35 @@ yyreduce:
         fprintf(fichier_c, "        break;\n");
         printf("🚪 BIMA (break)\n");
     }
-#line 1635 "duala.tab.c"
+#line 1648 "duala.tab.c"
     break;
 
   case 58: /* $@9: %empty  */
-#line 300 "duala.y"
+#line 301 "duala.y"
                                                          {
+        char *var = strdup((yyvsp[-5].sval));  // Copie de l'identifiant
+        fprintf(fichier_c, "    for (%s = %s; %s <= %s; %s++) {\n", 
+                var, (yyvsp[-3].sval), var, (yyvsp[-1].sval), var);
+        printf("🔄 PƆ %s na %s a %s\n", var, (yyvsp[-3].sval), (yyvsp[-1].sval));
+        free((yyvsp[-5].sval)); free((yyvsp[-3].sval)); free((yyvsp[-1].sval));
+        strcpy(affectation_var, var); // utile si réutilisation
+        free(var);
+    }
+#line 1662 "duala.tab.c"
+    break;
+
+  case 59: /* boucle_pour: POUR IDENTIFICATEUR DE expression A expression FAIRE $@9 instructions FINPOUR  */
+#line 309 "duala.y"
+                           {
+        fprintf(fichier_c, "    }  // Suka PƆ\n");
+        printf("🔚 Suka PƆ\n");
+    }
+#line 1671 "duala.tab.c"
+    break;
+
+  case 60: /* $@10: %empty  */
+#line 315 "duala.y"
+                                                             {
         char *var = strdup((yyvsp[-5].sval));  // Copie de l'identifiant
         fprintf(fichier_c, "    for (%s = %s; %s <= %s; %s++) {\n", 
                 var, (yyvsp[-3].sval), var, (yyvsp[-1].sval), var);
@@ -1645,20 +1681,20 @@ yyreduce:
         strcpy(affectation_var, var); // utile si réutilisation
         free(var);
     }
-#line 1649 "duala.tab.c"
+#line 1685 "duala.tab.c"
     break;
 
-  case 59: /* boucle_pour: POUR IDENTIFICATEUR DE expression A expression FAIRE $@9 instructions FINPOUR  */
-#line 308 "duala.y"
+  case 61: /* boucle_pour: POUR IDENTIFICATEUR DE expression ALORS expression FAIRE $@10 instructions FINPOUR  */
+#line 323 "duala.y"
                            {
         fprintf(fichier_c, "    }  // Suka PƆ\n");
         printf("🔚 Suka PƆ\n");
     }
-#line 1658 "duala.tab.c"
+#line 1694 "duala.tab.c"
     break;
 
-  case 60: /* $@10: %empty  */
-#line 313 "duala.y"
+  case 62: /* $@11: %empty  */
+#line 328 "duala.y"
                                                                        {
         char *var = strdup((yyvsp[-6].sval));  // Copie de l'identifiant
         fprintf(fichier_c, "    for (%s = %s; %s <= %s; %s += %s) {\n", 
@@ -1667,39 +1703,39 @@ yyreduce:
         free((yyvsp[-6].sval)); free((yyvsp[-4].sval)); free((yyvsp[-2].sval)); free((yyvsp[0].sval));
         free(var);
     }
-#line 1671 "duala.tab.c"
+#line 1707 "duala.tab.c"
     break;
 
-  case 61: /* boucle_pour: POUR IDENTIFICATEUR DE expression JUSQUA expression PAS expression $@10 FAIRE instructions FINPOUR  */
-#line 320 "duala.y"
+  case 63: /* boucle_pour: POUR IDENTIFICATEUR DE expression JUSQUA expression PAS expression $@11 FAIRE instructions FINPOUR  */
+#line 335 "duala.y"
                                  {
         fprintf(fichier_c, "    }  // Suka PƆ na mbɛn\n");
         printf("🔚 Suka PƆ na mbɛn\n");
     }
-#line 1680 "duala.tab.c"
+#line 1716 "duala.tab.c"
     break;
 
-  case 62: /* $@11: %empty  */
-#line 328 "duala.y"
+  case 64: /* $@12: %empty  */
+#line 343 "duala.y"
             {
         fprintf(fichier_c, "    do {\n");
         printf("🔄 SƆŊƆLƆ (do-while)\n");
     }
-#line 1689 "duala.tab.c"
+#line 1725 "duala.tab.c"
     break;
 
-  case 63: /* boucle_repeter: REPETER $@11 instructions JUSQUA PAREN_OUV expression PAREN_FERM POINT_VIRGULE  */
-#line 331 "duala.y"
+  case 65: /* boucle_repeter: REPETER $@12 instructions JUSQUA PAREN_OUV expression PAREN_FERM POINT_VIRGULE  */
+#line 346 "duala.y"
                                                                         {
         fprintf(fichier_c, "    } while (%s);\n", (yyvsp[-2].sval));
         printf("🔚 TƐMBƐLƐ (condition)\n");
         free((yyvsp[-2].sval));
     }
-#line 1699 "duala.tab.c"
+#line 1735 "duala.tab.c"
     break;
 
 
-#line 1703 "duala.tab.c"
+#line 1739 "duala.tab.c"
 
       default: break;
     }
@@ -1892,7 +1928,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 339 "duala.y"
+#line 354 "duala.y"
 
 
 void yyerror(const char *s) {

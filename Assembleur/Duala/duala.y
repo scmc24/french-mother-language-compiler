@@ -57,7 +57,12 @@ programme:
     } 
     bloc 
     FIN { 
-        fprintf(fichier_asm, "    ret\n");
+        /* Add proper function epilogue */
+        fprintf(fichier_asm, "    ; Fin du programme\n");
+        fprintf(fichier_asm, "    mov eax, 0          ; Code de retour 0 (succès)\n");
+        fprintf(fichier_asm, "    mov esp, ebp        ; Restauration du pointeur de pile\n");
+        fprintf(fichier_asm, "    pop ebp             ; Restauration du pointeur de base\n");
+        fprintf(fichier_asm, "    ret                 ; Retour au système d'exploitation\n");
         
         /* Add string literals and for loop variables to data section by reopening and inserting */
         if (string_count > 0 || for_limit_count > 0) {
@@ -113,14 +118,11 @@ programme:
 bloc:
     declarations { 
         fprintf(fichier_asm, "\nsection .text\n");
-        fprintf(fichier_asm, "    global _start\n");
+        fprintf(fichier_asm, "    global main\n");
         fprintf(fichier_asm, "    extern printf, scanf\n");
-        fprintf(fichier_asm, "_start:\n");
-        fprintf(fichier_asm, "    call main\n");
-        fprintf(fichier_asm, "    mov eax, 1\n");
-        fprintf(fichier_asm, "    mov ebx, 0\n");
-        fprintf(fichier_asm, "    int 0x80\n");
         fprintf(fichier_asm, "main:\n");
+        fprintf(fichier_asm, "    push ebp\n");
+        fprintf(fichier_asm, "    mov ebp, esp\n");
     } instructions
     ;
 
@@ -151,6 +153,7 @@ instruction:
     | boucle_tant_que
     | boucle_pour
     | boucle_repeter
+    | expression POINT_VIRGULE
     ;
 
 affectation:
@@ -212,6 +215,33 @@ expression_comp:
         fprintf(fichier_asm, "    pop eax\n");
         fprintf(fichier_asm, "    cmp eax, ebx\n");
         fprintf(fichier_asm, "    sete al\n");
+        fprintf(fichier_asm, "    movzx eax, al\n");
+        fprintf(fichier_asm, "    push eax\n");
+    }
+    | expression_arith DIFFERENT expression_arith {
+        fprintf(fichier_asm, "    ; Comparaison !=\n");
+        fprintf(fichier_asm, "    pop ebx\n");
+        fprintf(fichier_asm, "    pop eax\n");
+        fprintf(fichier_asm, "    cmp eax, ebx\n");
+        fprintf(fichier_asm, "    setne al\n");
+        fprintf(fichier_asm, "    movzx eax, al\n");
+        fprintf(fichier_asm, "    push eax\n");
+    }
+    | expression_arith INF_EGAL expression_arith {
+        fprintf(fichier_asm, "    ; Comparaison <=\n");
+        fprintf(fichier_asm, "    pop ebx\n");
+        fprintf(fichier_asm, "    pop eax\n");
+        fprintf(fichier_asm, "    cmp eax, ebx\n");
+        fprintf(fichier_asm, "    setle al\n");
+        fprintf(fichier_asm, "    movzx eax, al\n");
+        fprintf(fichier_asm, "    push eax\n");
+    }
+    | expression_arith SUP_EGAL expression_arith {
+        fprintf(fichier_asm, "    ; Comparaison >=\n");
+        fprintf(fichier_asm, "    pop ebx\n");
+        fprintf(fichier_asm, "    pop eax\n");
+        fprintf(fichier_asm, "    cmp eax, ebx\n");
+        fprintf(fichier_asm, "    setge al\n");
         fprintf(fichier_asm, "    movzx eax, al\n");
         fprintf(fichier_asm, "    push eax\n");
     }
@@ -284,9 +314,15 @@ conditionnelle:
         fprintf(fichier_asm, "    ; Debut SI\n");
         fprintf(fichier_asm, "    pop eax\n");
         fprintf(fichier_asm, "    test eax, eax\n");
-        fprintf(fichier_asm, "    jz fin_si_%d\n", etiq);
+        fprintf(fichier_asm, "    jz sinon_%d\n", etiq);  /* Saut vers SINON si condition fausse */
         printf("Mbɔmbɔ condition SƆ\n");
-    } instructions partie_sinon_opt FINSI {
+    } instruction SINON {
+        int etiq = etiquette_stack[stack_ptr-1];
+        fprintf(fichier_asm, "    jmp fin_si_%d\n", etiq);  /* Saut par-dessus le SINON */
+        fprintf(fichier_asm, "sinon_%d:\n", etiq);
+        fprintf(fichier_asm, "    ; Debut SINON\n");
+        printf("Partie KƐMA\n");
+    } instruction FINSI {
         int etiq = etiquette_stack[--stack_ptr];
         fprintf(fichier_asm, "fin_si_%d:\n", etiq);
         fprintf(fichier_asm, "    ; Fin SI\n");
@@ -296,14 +332,7 @@ conditionnelle:
 
 partie_sinon_opt:
     /* vide */
-    | SINON {
-        int etiq = etiquette_stack[stack_ptr-1];
-        fprintf(fichier_asm, "    jmp fin_si_%d\n", etiq);
-        fprintf(fichier_asm, "sinon_%d:\n", etiq);
-        printf("Partie KƐMA\n");
-    } instructions {
-        // La partie sinon est terminée, on va vers fin_si
-    }
+    | SINON
     ;
 
 boucle_tant_que:
@@ -345,7 +374,7 @@ lecture:
         fprintf(fichier_asm, "    push %s\n", current_id);
         fprintf(fichier_asm, "    push input_format\n");
         fprintf(fichier_asm, "    call scanf\n");
-        fprintf(fichier_asm, "    add esp, 8\n");
+        fprintf(fichier_asm, "    add esp, 8          ; Restauration de la pile après scanf\n");
         printf("Yɛnɛ: %s\n", current_id);
     }
     ;
@@ -369,7 +398,7 @@ ecriture:
             fprintf(fichier_asm, "    push format_int\n");
         }
         fprintf(fichier_asm, "    call printf\n");
-        fprintf(fichier_asm, "    add esp, 8\n");
+        fprintf(fichier_asm, "    add esp, 8          ; Restauration de la pile après printf\n");
         printf("Kɔma expression\n");
     }
     ;
@@ -428,13 +457,25 @@ sortir_instruction:
 
 boucle_pour:
     boucle_pour_init pas_opt SALA instructions FINPOUR {
-        int etiq = etiquette_stack[--stack_ptr];
+        int etiq = etiquette_stack[stack_ptr-1];  // Don't pop yet, we still need it
         char *var = current_id;
-        /* Use the step value */
-        fprintf(fichier_asm, "    mov eax, [pas_pour_%d]\n", etiq);
-        fprintf(fichier_asm, "    add [%s], eax\n", var);
+        
+        // Generate the loop increment and condition check
+        fprintf(fichier_asm, "    ; Incrémentation du compteur et vérification de la condition\n");
+        
+        // Increment the loop variable
+        fprintf(fichier_asm, "    mov eax, [%s]\n", var);
+        fprintf(fichier_asm, "    add eax, 1  ; Incrémenter la variable de boucle\n");
+        fprintf(fichier_asm, "    mov [%s], eax\n", var);
+        
+        // Jump back to the start of the loop
         fprintf(fichier_asm, "    jmp debut_pour_%d\n", etiq);
+        
+        // End of loop label
         fprintf(fichier_asm, "fin_pour_%d:\n", etiq);
+        
+        // Pop the loop counter from the stack
+        stack_ptr--;
         printf("<- Fin POUR\n");
     };
 
@@ -454,28 +495,35 @@ boucle_pour_init:
     POUR IDENTIFICATEUR DE expression A expression {
         char *var = current_id;
         etiquette_counter++;
-        etiquette_stack[stack_ptr++] = etiquette_counter;
         int etiq = etiquette_counter;
+        etiquette_stack[stack_ptr++] = etiq;
         
-        /* Track this for loop limit variable */
+        // Track this for loop limit variable
         for_limit_labels[for_limit_count++] = etiq;
         
-        fprintf(fichier_asm, "    ; POUR %s\n", var);
+        fprintf(fichier_asm, "    ; Initialisation de la boucle POUR %s\n", var);
         
-        /* Store the limit value */
-        fprintf(fichier_asm, "    pop ebx\n");  /* limit */
-        fprintf(fichier_asm, "    pop eax\n");  /* start value */
-        fprintf(fichier_asm, "    mov [%s], eax\n", var);
-        fprintf(fichier_asm, "    mov [limite_pour_%d], ebx\n", etiq);
-        /* Default step is 1 */
-        fprintf(fichier_asm, "    mov dword [pas_pour_%d], 1\n", etiq);
+        // Get the start and limit values from the stack
+        fprintf(fichier_asm, "    pop ebx\n");  // limit value
+        fprintf(fichier_asm, "    pop eax\n");  // start value
         
+        // Store the values
+        fprintf(fichier_asm, "    mov [%s], eax      ; Valeur initiale de %s\n", var, var);
+        fprintf(fichier_asm, "    mov [limite_pour_%d], ebx  ; Limite de la boucle\n", etiq);
+        
+        // Default step is 1 (will be overridden if PAS is specified)
+        fprintf(fichier_asm, "    mov dword [pas_pour_%d], 1  ; Pas par défaut\n", etiq);
+        
+        // Start of the loop with condition check
         fprintf(fichier_asm, "debut_pour_%d:\n", etiq);
+        
+        // Check if we should continue the loop
+        // Compare loop variable with limit (i <= limit)
         fprintf(fichier_asm, "    mov eax, [%s]\n", var);
         fprintf(fichier_asm, "    cmp eax, [limite_pour_%d]\n", etiq);
-        /* Check if we've passed the limit (handles both incrementing and decrementing) */
-        fprintf(fichier_asm, "    jg fin_pour_%d\n", etiq);
-        printf("-> POUR %s\n", var);
+        fprintf(fichier_asm, "    jg fin_pour_%d  ; Si >, sortir de la boucle\n", etiq);
+        
+        printf("-> POUR %s (étiquette: %d)\n", var, etiq);
     }
     ;
 

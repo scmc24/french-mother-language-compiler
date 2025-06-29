@@ -297,7 +297,22 @@ sortir_instruction:
     ;
 
 boucle_pour:
+    /* Variante avec A (ex: pɔ i na 1 a 10 sala ... sukapɔ) */
     POUR IDENTIFICATEUR DE expression A expression FAIRE {
+        char *var = strdup($2);  // Copie de l'identifiant
+        fprintf(fichier_c, "    for (%s = %s; %s <= %s; %s++) {\n", 
+                var, $4, var, $6, var);
+        printf("🔄 PƆ %s na %s a %s\n", var, $4, $6);
+        free($2); free($4); free($6);
+        strcpy(affectation_var, var); // utile si réutilisation
+        free(var);
+    } instructions FINPOUR {
+        fprintf(fichier_c, "    }  // Suka PƆ\n");
+        printf("🔚 Suka PƆ\n");
+    }
+    |
+    /* Variante avec ALORS (ex: pɔ i na 1 tɛ 10 sala ... sukapɔ) */
+    POUR IDENTIFICATEUR DE expression ALORS expression FAIRE {
         char *var = strdup($2);  // Copie de l'identifiant
         fprintf(fichier_c, "    for (%s = %s; %s <= %s; %s++) {\n", 
                 var, $4, var, $6, var);

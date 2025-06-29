@@ -18,9 +18,9 @@ char current_id[100];
 "tɛ"            { return ALORS; }
 "kɛma"          { return SINON; }
 "sukasi"        { return FINSI; }
-"mbɛlɛ"         { return TANT_QUE; }
-"sala"          { return FAIRE; }
-"sukambɛlɛ"     { return FINTANT; }
+"mbɛlɛ"         { return MBELE; }
+"sala"          { return SALA; }
+"sukambɛlɛ"     { return SUKAMBELESE; }
 
 "ndɔŋ"          { return SELON; }
 "kɛs"           { return CAS; }
