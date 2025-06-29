@@ -1,0 +1,36 @@
+debut
+    entier precision;     
+    entier x;             
+    entier fx;            
+    entier fpx;           
+    entier dx;            
+    entier iteration;
+    
+    x <- 1500;           
+    precision <- 10;     
+    iteration <- 0;
+    
+    ecrire "Methode de Newton pour trouver sqrt(2)";
+    ecrire "Valeur initiale: x = 1.500";
+    
+    pour iteration de 1 a precision faire
+        fx <- (x * x) / 1000 - 2000;    
+        
+        fpx <- 2 * x;
+        
+        dx <- (fx * 1000) / fpx;        
+        x <- x - dx;
+        
+        ecrire "Iteration";
+        ecrire iteration;
+        ecrire "x =";
+        ecrire x;
+        ecrire "f(x) =";
+        ecrire fx;
+    finpour
+    
+    ecrire "Resultat final (en millièmes):";
+    ecrire x;
+    ecrire "sqrt(2) approxime =";
+    ecrire x;
+fin

@@ -26,9 +26,11 @@ int string_counter = 0;
 %token AFFECTATION EGAL DIFFERENT SUP_EGAL INF_EGAL SUPERIEUR INFERIEUR
 %token PLUS MOINS FOIS DIVISE MODULO
 %token POINT_VIRGULE VIRGULE PAREN_OUV PAREN_FERM DEUX_POINTS
+%token QUESTION
 %token NOMBRE_ENTIER IDENTIFICATEUR CHAINE_CARACTERES
 
 %nonassoc INFERIEUR SUPERIEUR EGAL DIFFERENT SUP_EGAL INF_EGAL
+%right QUESTION DEUX_POINTS
 %left PLUS MOINS
 %left FOIS DIVISE MODULO
 %nonassoc PAREN_OUV PAREN_FERM
@@ -137,6 +139,7 @@ affectation:
 expression:
     expression_arith
     | expression_comp
+    | expression_ternaire
     ;
 
 expression_arith:
@@ -203,6 +206,38 @@ expression_comp:
         fprintf(fichier_asm, "    setge al\n");
         fprintf(fichier_asm, "    movzx eax, al\n");
         fprintf(fichier_asm, "    push eax\n");
+    }
+    ;
+
+/* NOUVELLE RÈGLE: Opérateur ternaire */
+expression_ternaire:
+    expression QUESTION expression DEUX_POINTS expression {
+        int etiq = etiquette_counter++;
+        
+        /* La pile contient maintenant (du haut vers le bas) :
+         * - expression_sinon (expression après :)
+         * - expression_alors (expression après ?)
+         * - condition (première expression)
+         */
+        
+        fprintf(fichier_asm, "    pop ecx\n");     /* expression_sinon */
+        fprintf(fichier_asm, "    pop ebx\n");     /* expression_alors */
+        fprintf(fichier_asm, "    pop eax\n");     /* condition */
+        
+        fprintf(fichier_asm, "    test eax, eax\n");
+        fprintf(fichier_asm, "    jz ternaire_sinon_%d\n", etiq);
+        
+        /* Si condition vraie : utiliser expression_alors */
+        fprintf(fichier_asm, "    push ebx\n");
+        fprintf(fichier_asm, "    jmp ternaire_fin_%d\n", etiq);
+        
+        /* Si condition fausse : utiliser expression_sinon */
+        fprintf(fichier_asm, "ternaire_sinon_%d:\n", etiq);
+        fprintf(fichier_asm, "    push ecx\n");
+        
+        fprintf(fichier_asm, "ternaire_fin_%d:\n", etiq);
+        
+        printf("Operateur ternaire - etiquette %d\n", etiq);
     }
     ;
 
@@ -452,7 +487,7 @@ void yyerror(const char *s) {
 }
 
 int main() {
-    printf("=== Compilateur Duala avec Chaines ===\n");
+    printf("=== Compilateur Francais avec Chaines ===\n");
     printf("Entrez votre programme:\n");
     return yyparse();
 }

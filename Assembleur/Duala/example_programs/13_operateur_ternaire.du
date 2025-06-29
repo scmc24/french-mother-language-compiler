@@ -1,0 +1,11 @@
+mbɔmbɔ
+    ndambo a;
+    ndambo b;
+    ndambo max;
+    
+    yɛnɛ a;
+    yɛnɛ b;
+    
+    max <- (a > b) ? a : b;
+    kɔma max;
+suka
