@@ -10,9 +10,7 @@ section .data
     temp_switch_0 dd 0
     temp_switch_1 dd 0
     temp_switch_2 dd 0
-    a dd 0
-    b dd 0
-    resultat dd 0
+    nombre dd 0
 
 section .text
     global _start
@@ -23,32 +21,29 @@ _start:
     mov ebx, 0
     int 0x80
 main:
+debut_repeter_0:
     push input_msg
     call printf
     add esp, 4
-    push a
+    push nombre
     push input_format
     call scanf
     add esp, 8
-    push input_msg
-    call printf
-    add esp, 4
-    push b
-    push input_format
-    call scanf
-    add esp, 8
-    push dword [a]
-    push dword [b]
-    pop ebx
-    pop eax
-    sub eax, ebx
-    push eax
-    pop eax
-    mov [resultat], eax
-    push dword [resultat]
+    push dword [nombre]
     pop eax
     push eax
     push format_int
     call printf
     add esp, 8
+    push dword [nombre]
+    push 0
+    pop ebx
+    pop eax
+    cmp eax, ebx
+    sete al
+    movzx eax, al
+    push eax
+    pop eax
+    test eax, eax
+    jz debut_repeter_0
     ret

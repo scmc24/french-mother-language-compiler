@@ -12,7 +12,6 @@ section .data
     temp_switch_2 dd 0
     a dd 0
     b dd 0
-    resultat dd 0
 
 section .text
     global _start
@@ -41,14 +40,24 @@ main:
     push dword [b]
     pop ebx
     pop eax
-    sub eax, ebx
+    cmp eax, ebx
+    setne al
+    movzx eax, al
     push eax
     pop eax
-    mov [resultat], eax
-    push dword [resultat]
-    pop eax
-    push eax
-    push format_int
+    test eax, eax
+    jz sinon_0
+    push string_0
+    push format_string
     call printf
     add esp, 8
+    jmp fin_si_0
+sinon_0:
+    push string_1
+    push format_string
+    call printf
+    add esp, 8
+fin_si_0:
     ret
+    string_0 db "Les nombres sont differents", 0
+    string_1 db "Les nombres sont egaux", 0

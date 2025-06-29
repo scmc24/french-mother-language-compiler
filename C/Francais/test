@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "duala.h"
+#include "francais.h"
 
 char current_id[100];
 char current_string[1000];

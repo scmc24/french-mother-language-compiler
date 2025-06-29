@@ -10,9 +10,8 @@ section .data
     temp_switch_0 dd 0
     temp_switch_1 dd 0
     temp_switch_2 dd 0
-    a dd 0
-    b dd 0
-    resultat dd 0
+    i dd 0
+    limite dd 0
 
 section .text
     global _start
@@ -26,29 +25,39 @@ main:
     push input_msg
     call printf
     add esp, 4
-    push a
+    push limite
     push input_format
     call scanf
     add esp, 8
-    push input_msg
-    call printf
-    add esp, 4
-    push b
-    push input_format
-    call scanf
-    add esp, 8
-    push dword [a]
-    push dword [b]
+    push 1
+    pop eax
+    mov [i], eax
+debut_boucle_0:
+    push dword [i]
+    push dword [limite]
     pop ebx
     pop eax
-    sub eax, ebx
+    cmp eax, ebx
+    setle al
+    movzx eax, al
     push eax
     pop eax
-    mov [resultat], eax
-    push dword [resultat]
+    test eax, eax
+    jz fin_boucle_0
+    push dword [i]
     pop eax
     push eax
     push format_int
     call printf
     add esp, 8
+    push dword [i]
+    push 1
+    pop ebx
+    pop eax
+    add eax, ebx
+    push eax
+    pop eax
+    mov [i], eax
+    jmp debut_boucle_0
+fin_boucle_0:
     ret

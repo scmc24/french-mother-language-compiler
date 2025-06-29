@@ -1,14 +1,17 @@
-; Programme en duala compile
+; Programme francais avec chaines
 section .data
     format_int db '%d', 10, 0
-    format_str db '%s', 10, 0
+    format_string db '%s', 10, 0
     input_format db '%d', 0
-    input_msg db 'Tɔlɛ ndambo: ', 0
+    input_msg db 'Entrez un nombre: ', 0
+    temp_limite_0 dd 0
+    temp_limite_1 dd 0
+    temp_limite_2 dd 0
+    temp_switch_0 dd 0
+    temp_switch_1 dd 0
+    temp_switch_2 dd 0
     a dd 0
     b dd 0
-
-    str_0 db "Les nombres sont egaux", 0
-    str_1 db "Les nombres sont differents", 0
 
 section .text
     global _start
@@ -19,7 +22,6 @@ _start:
     mov ebx, 0
     int 0x80
 main:
-    ; Lecture de a
     push input_msg
     call printf
     add esp, 4
@@ -27,7 +29,6 @@ main:
     push input_format
     call scanf
     add esp, 8
-    ; Lecture de b
     push input_msg
     call printf
     add esp, 4
@@ -35,39 +36,28 @@ main:
     push input_format
     call scanf
     add esp, 8
-    ; Variable a
     push dword [a]
-    ; Variable b
     push dword [b]
-    ; Comparaison ==
     pop ebx
     pop eax
     cmp eax, ebx
     sete al
     movzx eax, al
     push eax
-    ; Debut SI
     pop eax
     test eax, eax
-    jz fin_si_0
-    ; Chaine "Les nombres sont egaux"
-    push str_0
-    ; Ecriture
-    pop eax
-    push eax
-    push format_str
+    jz sinon_0
+    push string_0
+    push format_string
     call printf
     add esp, 8
     jmp fin_si_0
 sinon_0:
-    ; Chaine "Les nombres sont differents"
-    push str_1
-    ; Ecriture
-    pop eax
-    push eax
-    push format_str
+    push string_1
+    push format_string
     call printf
     add esp, 8
 fin_si_0:
-    ; Fin SI
     ret
+    string_0 db "Les nombres sont egaux", 0
+    string_1 db "Les nombres sont differents", 0

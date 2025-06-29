@@ -1,9 +1,15 @@
-; Programme en duala compile
+; Programme francais avec chaines
 section .data
     format_int db '%d', 10, 0
-    format_str db '%s', 10, 0
+    format_string db '%s', 10, 0
     input_format db '%d', 0
-    input_msg db 'Tɔlɛ ndambo: ', 0
+    input_msg db 'Entrez un nombre: ', 0
+    temp_limite_0 dd 0
+    temp_limite_1 dd 0
+    temp_limite_2 dd 0
+    temp_switch_0 dd 0
+    temp_switch_1 dd 0
+    temp_switch_2 dd 0
     a dd 0
     b dd 0
     resultat dd 0
@@ -17,7 +23,6 @@ _start:
     mov ebx, 0
     int 0x80
 main:
-    ; Lecture de a
     push input_msg
     call printf
     add esp, 4
@@ -25,7 +30,6 @@ main:
     push input_format
     call scanf
     add esp, 8
-    ; Lecture de b
     push input_msg
     call printf
     add esp, 4
@@ -33,21 +37,15 @@ main:
     push input_format
     call scanf
     add esp, 8
-    ; Variable a
     push dword [a]
-    ; Variable b
     push dword [b]
-    ; Addition
     pop ebx
     pop eax
     add eax, ebx
     push eax
-    ; Affectation a resultat
     pop eax
     mov [resultat], eax
-    ; Variable resultat
     push dword [resultat]
-    ; Ecriture
     pop eax
     push eax
     push format_int
