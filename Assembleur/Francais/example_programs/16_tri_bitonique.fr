@@ -1,0 +1,24 @@
+debut
+    entier tab[10];
+    entier i;
+    entier j;
+    entier temp;
+    
+    pour i de 0 a 9 faire
+        lire tab[i];
+    finpour
+    
+    pour i de 0 a 8 faire
+        pour j de i+1 a 9 faire
+            si tab[i] > tab[j] faire
+                temp <- tab[i];
+                tab[i] <- tab[j];
+                tab[j] <- temp;
+            finsi
+        finpour
+    finpour
+    
+    pour i de 0 a 9 faire
+        ecrire tab[i];
+    finpour
+fin

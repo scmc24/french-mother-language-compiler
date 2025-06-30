@@ -1,0 +1,19 @@
+debut
+    entier p;
+    entier q;
+    entier pgcd;
+    entier temp;
+    
+    lire p;
+    lire q;
+    
+    tant_que (q != 0) faire
+        temp <- p % q;
+        p <- q;
+        q <- temp;  
+    fintant
+    
+    pgcd <- p;
+    
+    ecrire pgcd;
+fin

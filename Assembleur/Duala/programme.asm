@@ -10,9 +10,13 @@ section .data
     temp_switch_0 dd 0
     temp_switch_1 dd 0
     temp_switch_2 dd 0
-    a dd 0
-    b dd 0
-    max dd 0
+    n dd 0
+    i dd 0
+    produit_scalaire dd 0
+    x1 dd 0
+    x2 dd 0
+    y1 dd 0
+    y2 dd 0
 
 section .text
     global _start
@@ -26,43 +30,110 @@ main:
     push input_msg
     call printf
     add esp, 4
-    push a
+    push n
+    push input_format
+    call scanf
+    add esp, 8
+    push 0
+    pop eax
+    mov [produit_scalaire], eax
+    push dword [n]
+    pop eax
+    mov [temp_switch_0], eax
+    push 1
+    pop ebx
+    mov eax, [temp_switch_0]
+    cmp eax, ebx
+    jne cas_suivant_1
+    push input_msg
+    call printf
+    add esp, 4
+    push x1
     push input_format
     call scanf
     add esp, 8
     push input_msg
     call printf
     add esp, 4
-    push b
+    push y1
     push input_format
     call scanf
     add esp, 8
-    push dword [a]
-    push dword [b]
+    push dword [x1]
+    push dword [y1]
     pop ebx
     pop eax
-    cmp eax, ebx
-    setg al
-    movzx eax, al
+    imul eax, ebx
     push eax
-    push dword [a]
-    push dword [b]
-    pop ecx
+    pop eax
+    mov [produit_scalaire], eax
+    jmp fin_selon_0
+    jmp fin_selon_0
+cas_suivant_1:
+    push 2
+    pop ebx
+    mov eax, [temp_switch_0]
+    cmp eax, ebx
+    jne cas_suivant_2
+    push input_msg
+    call printf
+    add esp, 4
+    push x1
+    push input_format
+    call scanf
+    add esp, 8
+    push input_msg
+    call printf
+    add esp, 4
+    push x2
+    push input_format
+    call scanf
+    add esp, 8
+    push input_msg
+    call printf
+    add esp, 4
+    push y1
+    push input_format
+    call scanf
+    add esp, 8
+    push input_msg
+    call printf
+    add esp, 4
+    push y2
+    push input_format
+    call scanf
+    add esp, 8
+    push dword [x1]
+    push dword [y1]
     pop ebx
     pop eax
-    test eax, eax
-    jz ternaire_sinon_0
-    push ebx
-    jmp ternaire_fin_0
-ternaire_sinon_0:
-    push ecx
-ternaire_fin_0:
+    imul eax, ebx
+    push eax
+    push dword [x2]
+    push dword [y2]
+    pop ebx
     pop eax
-    mov [max], eax
-    push dword [max]
+    imul eax, ebx
+    push eax
+    pop ebx
+    pop eax
+    add eax, ebx
+    push eax
+    pop eax
+    mov [produit_scalaire], eax
+    jmp fin_selon_0
+    jmp fin_selon_0
+cas_suivant_2:
+    push string_0
+    push format_string
+    call printf
+    add esp, 8
+fin_selon_0:
+    push dword [produit_scalaire]
     pop eax
     push eax
     push format_int
     call printf
     add esp, 8
     ret
+    string_0 db "Dimension non supportée", 0

@@ -1481,7 +1481,7 @@ yyreduce:
         
         fprintf(fichier_asm, "ternaire_fin_%d:\n", etiq);
         
-        printf("SUKA na ternaire - sukasi %d\n", etiq);
+        printf("Operation ternaire - Valeur %d\n", etiq);
     }
 #line 1487 "francais.tab.c"
     break;

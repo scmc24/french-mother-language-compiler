@@ -1,0 +1,19 @@
+mbɔmbɔ
+    ndambo p;
+    ndambo q;
+    ndambo pgcd;
+    ndambo temp;
+    
+    yɛnɛ p;
+    yɛnɛ q;
+    
+    mbɛlɛ (q != 0) sala
+        temp <- p % q;
+        p <- q;
+        q <- temp;
+    sukambɛlɛ
+    
+    pgcd <- p;
+    
+    kɔma pgcd;
+suka

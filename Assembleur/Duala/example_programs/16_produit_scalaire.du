@@ -1,0 +1,36 @@
+mbɔmbɔ
+    ndambo n;
+    ndambo i;
+    ndambo produit_scalaire;
+
+    ndambo x1;
+    ndambo x2;
+
+    ndambo y1;
+    ndambo y2;
+    
+    yɛnɛ n;
+    
+    produit_scalaire <- 0;
+    
+    ndɔŋ (n)
+        kɛs 1:
+            yɛnɛ x1;
+            yɛnɛ y1;
+            produit_scalaire <- x1 * y1;
+            bima;
+            
+        kɛs 2:
+            yɛnɛ x1;
+            yɛnɛ x2;
+            yɛnɛ y1;
+            yɛnɛ y2;
+            produit_scalaire <- x1 * y1 + x2 * y2;
+            bima;
+             
+        bɔsɔ:
+            kɔma "Dimension non supportée";
+    sukandɔŋ
+    
+    kɔma produit_scalaire;
+suka

@@ -174,3 +174,21 @@ Le compilateur affiche des messages en français et duala:
 
 ## Contributeurs
 - ZOGO ABOUMA ZOZIME ACHAIRE (https://github.com/Achaire-Zogo)
+
+
+Zauthentik 
+
+Ancienne Methode gemini
+Nouvelle Methode Plus efficasse.
+
+
+->Probleme sur le business plan
+->Verifier les cni deja filme .
+->Gestion de projet.
+->
+
+Paiement Par Carte.
+
+->tu dis que la demande est grande, qu'est ce que les gens demandes exactement.
+->l'Afrique a un manque de porte monnaie virtuel 
+->

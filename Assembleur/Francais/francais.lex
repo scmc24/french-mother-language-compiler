@@ -4,6 +4,7 @@
 #include <string.h>
 #include "francais.h"
 
+extern FILE *fichier_asm;
 char current_id[100];
 char current_string[1000];
 %}
@@ -52,12 +53,15 @@ char current_string[1000];
 ","             { return VIRGULE; }
 "("             { return PAREN_OUV; }
 ")"             { return PAREN_FERM; }
+"["             { return PAREN_OUV; }
+"]"             { return PAREN_FERM; }
 ":"             { return DEUX_POINTS; }
 "?"             { return QUESTION; }
 [0-9]+          { yylval = atoi(yytext); return NOMBRE_ENTIER; }
 
-\"[^\"]*\"      { 
-    strcpy(current_string, yytext); 
+\"[^"]*\"      { 
+    strncpy(current_string, yytext, sizeof(current_string)-1);
+    current_string[sizeof(current_string)-1] = '\0';
     return CHAINE_CARACTERES; 
 }
 

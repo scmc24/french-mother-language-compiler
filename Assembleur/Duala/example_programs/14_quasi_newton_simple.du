@@ -1,0 +1,82 @@
+mbɔmbɔ
+    ndambo x;
+    ndambo x_new;
+    ndambo grad;
+    ndambo grad_new;
+    ndambo hess;
+    ndambo step;
+    ndambo tolerance;
+    ndambo max_iter;
+    ndambo iter;
+    ndambo delta_x;
+    ndambo delta_grad;
+    ndambo continuer;
+    
+    kɔma "=== ALGORITHME DE QUASI-NEWTON ===";
+    kɔma "Minimisation de f(x) = x² - 4x + 3";
+    
+    kɔma "Point initial:";
+    yɛnɛ x;
+    
+    hess <- 1;
+    tolerance <- 1;
+    max_iter <- 20;
+    iter <- 0;
+    continuer <- 1;
+    
+    kɔma "--- Itérations ---";
+    
+    mbɛlɛ continuer == 1 sala
+        iter <- iter + 1;
+        
+        kɔma "Itération";
+        kɔma iter;
+        kɔma "x =";
+        kɔma x;
+        
+        grad <- 2 * x - 4;
+        kɔma "Gradient =";
+        kɔma grad;
+        
+        sɔ (grad < tolerance)
+            kɔma "Convergence atteinte!";
+            continuer <- 0;
+        sukasi
+        
+        sɔ (iter >= max_iter)
+            kɔma "Nombre maximum d'itérations atteint";
+            continuer <- 0;
+        sukasi
+        
+        sɔ (continuer == 1)
+            step <- 0 - grad / hess;
+            kɔma "Pas =";
+            kɔma step;
+            
+            x_new <- x + step;
+            kɔma "Nouveau x =";
+            kɔma x_new;
+            
+            grad_new <- 2 * x_new - 4;
+            
+            delta_x <- x_new - x;
+            delta_grad <- grad_new - grad;
+            
+            sɔ (delta_x != 0)
+                hess <- delta_grad / delta_x;
+                kɔma "Nouvelle hessienne =";
+                kɔma hess;
+            sukasi
+            
+            x <- x_new;
+        sukasi
+    sukambɛlɛ
+    
+    kɔma "=== RÉSULTAT ===";
+    kɔma "Solution trouvée: x =";
+    kɔma x;
+    kɔma "Valeur de la fonction: f(x) =";
+    kɔma x * x - 4 * x + 3;
+    kɔma "Nombre d'itérations:";
+    kɔma iter;
+suka

@@ -7,6 +7,6 @@ debut
     si (c > b) alors
         ecrire "Premier nombre plus grand";
     sinon
-        ecrire "Premier nombre plus petit ou egal";
+        ecrire "Premier nombre plus petit";
     finsi
 fin
