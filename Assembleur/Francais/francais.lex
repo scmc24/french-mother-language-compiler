@@ -53,7 +53,7 @@ char current_string[1000];
 "("             { return PAREN_OUV; }
 ")"             { return PAREN_FERM; }
 ":"             { return DEUX_POINTS; }
-
+"?"             { return QUESTION; }
 [0-9]+          { yylval = atoi(yytext); return NOMBRE_ENTIER; }
 
 \"[^\"]*\"      { 

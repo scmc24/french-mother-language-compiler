@@ -67,10 +67,10 @@ char current_string[1000];
     return CHAINE_CARACTERES; 
 }
 
-[a-zA-Z][a-zA-Z0-9_]* { strcpy(current_id, yytext); return IDENTIFICATEUR; }
+[a-zA-Z_àáâãäåæçèéêëìíîïñòóôõöøùúûüýÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžɔɛ][a-zA-Z0-9_àáâãäåæçèéêëìíîïñòóôõöøùúûüýÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžɔɛ]* { strcpy(current_id, yytext); return IDENTIFICATEUR; }
 
 [ \t\n]+        { }
-.               { printf("Caractere non reconnu: %s\n", yytext); }
+.               { printf("Kɛraatɛrɛ kɛnaa wɛnɛ: %s\n", yytext); }
 
 %%
 

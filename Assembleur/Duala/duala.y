@@ -29,6 +29,7 @@ int string_counter = 0;
 %token QUESTION
 %token NOMBRE_ENTIER IDENTIFICATEUR CHAINE_CARACTERES
 
+
 %nonassoc INFERIEUR SUPERIEUR EGAL DIFFERENT SUP_EGAL INF_EGAL
 %right QUESTION DEUX_POINTS
 %left PLUS MOINS
@@ -42,12 +43,12 @@ programme:
         fichier_temp = fopen("temp_strings.asm", "w");
         
         fichier_asm = fopen("programme.asm", "w");
-        fprintf(fichier_asm, "; Programme francais avec chaines\n");
+        fprintf(fichier_asm, "; Duala\n");
         fprintf(fichier_asm, "section .data\n");
         fprintf(fichier_asm, "    format_int db '%%d', 10, 0\n");
         fprintf(fichier_asm, "    format_string db '%%s', 10, 0\n");
         fprintf(fichier_asm, "    input_format db '%%d', 0\n");
-        fprintf(fichier_asm, "    input_msg db 'Entrez un nombre: ', 0\n");
+        fprintf(fichier_asm, "    input_msg db 'Tol  na mb m b  mbɔmbɔ? ', 0\n");
         fprintf(fichier_asm, "    temp_limite_0 dd 0\n");
         fprintf(fichier_asm, "    temp_limite_1 dd 0\n");
         fprintf(fichier_asm, "    temp_limite_2 dd 0\n");
@@ -56,7 +57,7 @@ programme:
         fprintf(fichier_asm, "    temp_switch_2 dd 0\n");
         
         string_counter = 0;
-        printf("Debut de compilation avec chaines...\n");
+        printf("Mb m b  compilation na mb m ...\n");
     } 
     bloc 
     FIN { 
@@ -75,7 +76,7 @@ programme:
         remove("temp_strings.asm");
         
         fclose(fichier_asm);
-        printf("Compilation terminee avec succes!\n"); 
+        printf("Mb m b  m compilation na sukamb !\n"); 
     }
     ;
 
@@ -104,7 +105,7 @@ declarations:
 declaration:
     TYPE_ENTIER IDENTIFICATEUR POINT_VIRGULE {
         fprintf(fichier_asm, "    %s dd 0\n", current_id);
-        printf("Variable declaree: %s\n", current_id);
+        printf("Mb mb  na %s\n", current_id);
     }
     ;
 
@@ -132,7 +133,7 @@ affectation:
     } AFFECTATION expression POINT_VIRGULE {
         fprintf(fichier_asm, "    pop eax\n");
         fprintf(fichier_asm, "    mov [%s], eax\n", affectation_var);
-        printf("Affectation a: %s\n", affectation_var);
+        printf("Sawa na: %s\n", affectation_var);
     }
     ;
 
@@ -237,7 +238,7 @@ expression_ternaire:
         
         fprintf(fichier_asm, "ternaire_fin_%d:\n", etiq);
         
-        printf("Operateur ternaire - etiquette %d\n", etiq);
+        printf("SUKA na ternaire - sukasi %d\n", etiq);
     }
     ;
 
@@ -268,11 +269,11 @@ terme:
 facteur:
     NOMBRE_ENTIER {
         fprintf(fichier_asm, "    push %d\n", yylval);
-        printf("Constante: %d\n", yylval);
+        printf("Konstante: %d\n", yylval);
     }
     | IDENTIFICATEUR {
         fprintf(fichier_asm, "    push dword [%s]\n", current_id);
-        printf("Variable utilisee: %s\n", current_id);
+        printf("Tol  na %s\n", current_id);
     }
     | PAREN_OUV expression PAREN_FERM
     ;
@@ -284,11 +285,11 @@ conditionnelle:
         fprintf(fichier_asm, "    pop eax\n");
         fprintf(fichier_asm, "    test eax, eax\n");
         fprintf(fichier_asm, "    jz sinon_%d\n", etiq);
-        printf("Debut condition SI\n");
+        printf("Mb mb  s  SI\n");
     } instructions partie_sinon_opt FINSI {
         int etiq = etiquette_stack[--stack_ptr];
         fprintf(fichier_asm, "fin_si_%d:\n", etiq);
-        printf("Fin condition SI\n");
+        printf("Suka na SI\n");
     }
     ;
 
@@ -301,7 +302,7 @@ partie_sinon_opt:
         int etiq = etiquette_stack[stack_ptr-1];
         fprintf(fichier_asm, "    jmp fin_si_%d\n", etiq);
         fprintf(fichier_asm, "sinon_%d:\n", etiq);
-        printf("Partie SINON\n");
+        printf("Mb mba na mb mba SINON\n");
     } instructions
     ;
 
@@ -312,11 +313,11 @@ structure_selon:
         etiquette_stack[stack_ptr++] = etiq;
         fprintf(fichier_asm, "    pop eax\n");
         fprintf(fichier_asm, "    mov [temp_switch_%d], eax\n", etiq % 3);
-        printf("SELON (switch) - etiquette %d\n", etiq);
+        printf("Suka na selon - etiquette %d\n", etiq);
     } liste_cas partie_defaut_opt FINSELON {
         int etiq = etiquette_stack[--stack_ptr];
         fprintf(fichier_asm, "fin_selon_%d:\n", etiq);
-        printf("Fin SELON - etiquette %d\n", etiq);
+        printf("Suka na selon -  %d\n", etiq);
     }
     ;
 
@@ -367,7 +368,7 @@ sortir_instruction:
                 etiq = etiquette_stack[stack_ptr-2];
             }
             fprintf(fichier_asm, "    jmp fin_selon_%d\n", etiq);
-            printf("SORTIR (break) vers fin_selon_%d\n", etiq);
+            printf("SUKA (break) na fin_selon_%d\n", etiq);
         }
     }
     ;
@@ -377,7 +378,7 @@ boucle_tant_que:
         int etiq = etiquette_counter++;
         etiquette_stack[stack_ptr++] = etiq;
         fprintf(fichier_asm, "debut_boucle_%d:\n", etiq);
-        printf("Debut boucle TANT_QUE\n");
+        printf("Mb l  boucle TANT_QUE\n");
     } PAREN_OUV expression PAREN_FERM FAIRE {
         int etiq = etiquette_stack[stack_ptr-1];
         fprintf(fichier_asm, "    pop eax\n");
@@ -387,7 +388,7 @@ boucle_tant_que:
         int etiq = etiquette_stack[--stack_ptr];
         fprintf(fichier_asm, "    jmp debut_boucle_%d\n", etiq);
         fprintf(fichier_asm, "fin_boucle_%d:\n", etiq);
-        printf("Fin boucle TANT_QUE\n");
+        printf("Suka boucle TANT_QUE\n");
     }
     ;
 
@@ -409,7 +410,7 @@ boucle_pour:
         fprintf(fichier_asm, "    cmp eax, [temp_limite_%d]\n", etiq % 3);
         fprintf(fichier_asm, "    jg fin_pour_%d\n", etiq);       /* Si variable > limite, sortir */
         
-        printf("POUR %s de [valeur] a [limite]\n", affectation_var);
+        printf("Sɔŋɔlɔ %s de [valeur] a [limite]\n", affectation_var);
     } instructions FINPOUR {
         int etiq = etiquette_stack[--stack_ptr];
         
@@ -421,7 +422,7 @@ boucle_pour:
         fprintf(fichier_asm, "    jmp debut_pour_%d\n", etiq);
         fprintf(fichier_asm, "fin_pour_%d:\n", etiq);
         
-        printf("Fin POUR\n");
+        printf("Sɔŋɔlɔ na sɔŋɔlɔ\n");
     }
     ;
 
@@ -430,7 +431,7 @@ boucle_repeter:
         int etiq = etiquette_counter++;
         etiquette_stack[stack_ptr++] = etiq;
         fprintf(fichier_asm, "debut_repeter_%d:\n", etiq);
-        printf("REPETER (do-while)\n");
+        printf("SUKA (faire-jusqu ')\n");
     } instructions JUSQUA PAREN_OUV expression PAREN_FERM POINT_VIRGULE {
         int etiq = etiquette_stack[--stack_ptr];
         
@@ -438,7 +439,7 @@ boucle_repeter:
         fprintf(fichier_asm, "    test eax, eax\n");
         fprintf(fichier_asm, "    jz debut_repeter_%d\n", etiq);
         
-        printf("JUSQUA (condition)\n");
+        printf("SUKA (condition)\n");
     }
     ;
 
@@ -451,7 +452,7 @@ lecture:
         fprintf(fichier_asm, "    push input_format\n");
         fprintf(fichier_asm, "    call scanf\n");
         fprintf(fichier_asm, "    add esp, 8\n");
-        printf("Lecture de: %s\n", current_id);
+        printf("Tol  na %s\n", current_id);
     }
     ;
 
@@ -462,7 +463,7 @@ ecriture:
         fprintf(fichier_asm, "    push format_int\n");
         fprintf(fichier_asm, "    call printf\n");
         fprintf(fichier_asm, "    add esp, 8\n");
-        printf("Ecriture d'une expression numerique\n");
+        printf("Kɔma na mbɔmbɔ: %s\n", current_id);
     }
     ;
 
@@ -475,7 +476,7 @@ ecriture_chaine:
         fprintf(fichier_asm, "    call printf\n");
         fprintf(fichier_asm, "    add esp, 8\n");
         
-        printf("Ecriture d'une chaine: %s\n", current_string);
+        printf("Mbɔmbɔ na mbɔmbɔ: %s\n", current_string);
         string_counter++;
     }
     ;
@@ -483,11 +484,11 @@ ecriture_chaine:
 %%
 
 void yyerror(const char *s) {
-    fprintf(stderr, "Erreur de syntaxe: %s\n", s);
+    fprintf(stderr, "Mbɔmbɔ na nde: %s\n", s);
 }
 
 int main() {
-    printf("=== Compilateur Francais avec Chaines ===\n");
-    printf("Entrez votre programme:\n");
+    printf("=== Kompilatɔr Duala na Sawa ===\n");
+    printf("Tɔlɛ programme na wo:\n");
     return yyparse();
 }

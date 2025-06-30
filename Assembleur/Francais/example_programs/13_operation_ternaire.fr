@@ -1,0 +1,11 @@
+debut
+    entier t;
+    entier b;
+    entier max;
+    
+    lire t;
+    lire b;
+    
+    max <- (t > b) ? t : b;
+    ecrire max;
+fin

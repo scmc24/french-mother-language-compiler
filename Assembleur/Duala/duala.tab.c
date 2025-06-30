@@ -592,13 +592,13 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    41,    41,    41,    83,    83,    99,   101,   105,   111,
-     113,   117,   118,   119,   120,   121,   122,   123,   124,   125,
-     126,   130,   130,   140,   141,   142,   146,   147,   153,   162,
-     170,   178,   186,   194,   202,   214,   245,   246,   252,   259,
-     269,   273,   277,   281,   281,   296,   300,   300,   310,   310,
-     323,   325,   329,   329,   353,   355,   355,   361,   376,   381,
-     376,   395,   397,   395,   429,   429,   446,   459,   470
+       0,    42,    42,    42,    84,    84,   100,   102,   106,   112,
+     114,   118,   119,   120,   121,   122,   123,   124,   125,   126,
+     127,   131,   131,   141,   142,   143,   147,   148,   154,   163,
+     171,   179,   187,   195,   203,   215,   246,   247,   253,   260,
+     270,   274,   278,   282,   282,   297,   301,   301,   311,   311,
+     324,   326,   330,   330,   354,   356,   356,   362,   377,   382,
+     377,   396,   398,   396,   430,   430,   447,   460,   471
 };
 #endif
 
@@ -1254,17 +1254,17 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* $@1: %empty  */
-#line 41 "duala.y"
+#line 42 "duala.y"
           { 
         fichier_temp = fopen("temp_strings.asm", "w");
         
         fichier_asm = fopen("programme.asm", "w");
-        fprintf(fichier_asm, "; Programme francais avec chaines\n");
+        fprintf(fichier_asm, "; Duala\n");
         fprintf(fichier_asm, "section .data\n");
         fprintf(fichier_asm, "    format_int db '%%d', 10, 0\n");
         fprintf(fichier_asm, "    format_string db '%%s', 10, 0\n");
         fprintf(fichier_asm, "    input_format db '%%d', 0\n");
-        fprintf(fichier_asm, "    input_msg db 'Entrez un nombre: ', 0\n");
+        fprintf(fichier_asm, "    input_msg db 'Tol  na mb m b  mbɔmbɔ? ', 0\n");
         fprintf(fichier_asm, "    temp_limite_0 dd 0\n");
         fprintf(fichier_asm, "    temp_limite_1 dd 0\n");
         fprintf(fichier_asm, "    temp_limite_2 dd 0\n");
@@ -1273,13 +1273,13 @@ yyreduce:
         fprintf(fichier_asm, "    temp_switch_2 dd 0\n");
         
         string_counter = 0;
-        printf("Debut de compilation avec chaines...\n");
+        printf("Mb m b  compilation na mb m ...\n");
     }
 #line 1279 "duala.tab.c"
     break;
 
   case 3: /* programme: DEBUT $@1 bloc FIN  */
-#line 62 "duala.y"
+#line 63 "duala.y"
         { 
         /* Insérer les chaînes du fichier temporaire */
         fclose(fichier_temp);
@@ -1296,13 +1296,13 @@ yyreduce:
         remove("temp_strings.asm");
         
         fclose(fichier_asm);
-        printf("Compilation terminee avec succes!\n"); 
+        printf("Mb m b  m compilation na sukamb !\n"); 
     }
 #line 1302 "duala.tab.c"
     break;
 
   case 4: /* $@2: %empty  */
-#line 83 "duala.y"
+#line 84 "duala.y"
                  { 
         fprintf(fichier_asm, "\nsection .text\n");
         fprintf(fichier_asm, "    global _start\n");
@@ -1318,7 +1318,7 @@ yyreduce:
     break;
 
   case 5: /* bloc: declarations $@2 instructions  */
-#line 93 "duala.y"
+#line 94 "duala.y"
                    {
         /* CORRECTION: Ajout du return à la fin de main */
         fprintf(fichier_asm, "    ret\n");
@@ -1327,16 +1327,16 @@ yyreduce:
     break;
 
   case 8: /* declaration: TYPE_ENTIER IDENTIFICATEUR POINT_VIRGULE  */
-#line 105 "duala.y"
+#line 106 "duala.y"
                                              {
         fprintf(fichier_asm, "    %s dd 0\n", current_id);
-        printf("Variable declaree: %s\n", current_id);
+        printf("Mb mb  na %s\n", current_id);
     }
 #line 1336 "duala.tab.c"
     break;
 
   case 21: /* $@3: %empty  */
-#line 130 "duala.y"
+#line 131 "duala.y"
                    {
         strcpy(affectation_var, current_id);
     }
@@ -1344,17 +1344,17 @@ yyreduce:
     break;
 
   case 22: /* affectation: IDENTIFICATEUR $@3 AFFECTATION expression POINT_VIRGULE  */
-#line 132 "duala.y"
+#line 133 "duala.y"
                                            {
         fprintf(fichier_asm, "    pop eax\n");
         fprintf(fichier_asm, "    mov [%s], eax\n", affectation_var);
-        printf("Affectation a: %s\n", affectation_var);
+        printf("Sawa na: %s\n", affectation_var);
     }
 #line 1354 "duala.tab.c"
     break;
 
   case 27: /* expression_arith: expression_arith PLUS terme  */
-#line 147 "duala.y"
+#line 148 "duala.y"
                                   {
         fprintf(fichier_asm, "    pop ebx\n");
         fprintf(fichier_asm, "    pop eax\n");
@@ -1365,7 +1365,7 @@ yyreduce:
     break;
 
   case 28: /* expression_arith: expression_arith MOINS terme  */
-#line 153 "duala.y"
+#line 154 "duala.y"
                                    {
         fprintf(fichier_asm, "    pop ebx\n");
         fprintf(fichier_asm, "    pop eax\n");
@@ -1376,7 +1376,7 @@ yyreduce:
     break;
 
   case 29: /* expression_comp: expression_arith SUPERIEUR expression_arith  */
-#line 162 "duala.y"
+#line 163 "duala.y"
                                                 {
         fprintf(fichier_asm, "    pop ebx\n");
         fprintf(fichier_asm, "    pop eax\n");
@@ -1389,7 +1389,7 @@ yyreduce:
     break;
 
   case 30: /* expression_comp: expression_arith INFERIEUR expression_arith  */
-#line 170 "duala.y"
+#line 171 "duala.y"
                                                   {
         fprintf(fichier_asm, "    pop ebx\n");
         fprintf(fichier_asm, "    pop eax\n");
@@ -1402,7 +1402,7 @@ yyreduce:
     break;
 
   case 31: /* expression_comp: expression_arith EGAL expression_arith  */
-#line 178 "duala.y"
+#line 179 "duala.y"
                                              {
         fprintf(fichier_asm, "    pop ebx\n");
         fprintf(fichier_asm, "    pop eax\n");
@@ -1415,7 +1415,7 @@ yyreduce:
     break;
 
   case 32: /* expression_comp: expression_arith DIFFERENT expression_arith  */
-#line 186 "duala.y"
+#line 187 "duala.y"
                                                   {
         fprintf(fichier_asm, "    pop ebx\n");
         fprintf(fichier_asm, "    pop eax\n");
@@ -1428,7 +1428,7 @@ yyreduce:
     break;
 
   case 33: /* expression_comp: expression_arith INF_EGAL expression_arith  */
-#line 194 "duala.y"
+#line 195 "duala.y"
                                                  {
         fprintf(fichier_asm, "    pop ebx\n");
         fprintf(fichier_asm, "    pop eax\n");
@@ -1441,7 +1441,7 @@ yyreduce:
     break;
 
   case 34: /* expression_comp: expression_arith SUP_EGAL expression_arith  */
-#line 202 "duala.y"
+#line 203 "duala.y"
                                                  {
         fprintf(fichier_asm, "    pop ebx\n");
         fprintf(fichier_asm, "    pop eax\n");
@@ -1454,7 +1454,7 @@ yyreduce:
     break;
 
   case 35: /* expression_ternaire: expression QUESTION expression DEUX_POINTS expression  */
-#line 214 "duala.y"
+#line 215 "duala.y"
                                                           {
         int etiq = etiquette_counter++;
         
@@ -1481,13 +1481,13 @@ yyreduce:
         
         fprintf(fichier_asm, "ternaire_fin_%d:\n", etiq);
         
-        printf("Operateur ternaire - etiquette %d\n", etiq);
+        printf("SUKA na ternaire - sukasi %d\n", etiq);
     }
 #line 1487 "duala.tab.c"
     break;
 
   case 37: /* terme: terme FOIS facteur  */
-#line 246 "duala.y"
+#line 247 "duala.y"
                          {
         fprintf(fichier_asm, "    pop ebx\n");
         fprintf(fichier_asm, "    pop eax\n");
@@ -1498,7 +1498,7 @@ yyreduce:
     break;
 
   case 38: /* terme: terme DIVISE facteur  */
-#line 252 "duala.y"
+#line 253 "duala.y"
                            {
         fprintf(fichier_asm, "    pop ebx\n");
         fprintf(fichier_asm, "    pop eax\n");
@@ -1510,7 +1510,7 @@ yyreduce:
     break;
 
   case 39: /* terme: terme MODULO facteur  */
-#line 259 "duala.y"
+#line 260 "duala.y"
                            {
         fprintf(fichier_asm, "    pop ebx\n");
         fprintf(fichier_asm, "    pop eax\n");
@@ -1522,48 +1522,48 @@ yyreduce:
     break;
 
   case 40: /* facteur: NOMBRE_ENTIER  */
-#line 269 "duala.y"
+#line 270 "duala.y"
                   {
         fprintf(fichier_asm, "    push %d\n", yylval);
-        printf("Constante: %d\n", yylval);
+        printf("Konstante: %d\n", yylval);
     }
 #line 1531 "duala.tab.c"
     break;
 
   case 41: /* facteur: IDENTIFICATEUR  */
-#line 273 "duala.y"
+#line 274 "duala.y"
                      {
         fprintf(fichier_asm, "    push dword [%s]\n", current_id);
-        printf("Variable utilisee: %s\n", current_id);
+        printf("Tol  na %s\n", current_id);
     }
 #line 1540 "duala.tab.c"
     break;
 
   case 43: /* $@4: %empty  */
-#line 281 "duala.y"
+#line 282 "duala.y"
                                              {
         int etiq = etiquette_counter++;
         etiquette_stack[stack_ptr++] = etiq;
         fprintf(fichier_asm, "    pop eax\n");
         fprintf(fichier_asm, "    test eax, eax\n");
         fprintf(fichier_asm, "    jz sinon_%d\n", etiq);
-        printf("Debut condition SI\n");
+        printf("Mb mb  s  SI\n");
     }
 #line 1553 "duala.tab.c"
     break;
 
   case 44: /* conditionnelle: SI PAREN_OUV expression PAREN_FERM ALORS $@4 instructions partie_sinon_opt FINSI  */
-#line 288 "duala.y"
+#line 289 "duala.y"
                                           {
         int etiq = etiquette_stack[--stack_ptr];
         fprintf(fichier_asm, "fin_si_%d:\n", etiq);
-        printf("Fin condition SI\n");
+        printf("Suka na SI\n");
     }
 #line 1563 "duala.tab.c"
     break;
 
   case 45: /* partie_sinon_opt: %empty  */
-#line 296 "duala.y"
+#line 297 "duala.y"
                {
         int etiq = etiquette_stack[stack_ptr-1];
         fprintf(fichier_asm, "sinon_%d:\n", etiq);
@@ -1572,40 +1572,40 @@ yyreduce:
     break;
 
   case 46: /* $@5: %empty  */
-#line 300 "duala.y"
+#line 301 "duala.y"
             {
         int etiq = etiquette_stack[stack_ptr-1];
         fprintf(fichier_asm, "    jmp fin_si_%d\n", etiq);
         fprintf(fichier_asm, "sinon_%d:\n", etiq);
-        printf("Partie SINON\n");
+        printf("Mb mba na mb mba SINON\n");
     }
 #line 1583 "duala.tab.c"
     break;
 
   case 48: /* $@6: %empty  */
-#line 310 "duala.y"
+#line 311 "duala.y"
                                           {
         int etiq = etiquette_counter++;
         etiquette_stack[stack_ptr++] = etiq;
         fprintf(fichier_asm, "    pop eax\n");
         fprintf(fichier_asm, "    mov [temp_switch_%d], eax\n", etiq % 3);
-        printf("SELON (switch) - etiquette %d\n", etiq);
+        printf("Suka na selon - etiquette %d\n", etiq);
     }
 #line 1595 "duala.tab.c"
     break;
 
   case 49: /* structure_selon: SELON PAREN_OUV expression PAREN_FERM $@6 liste_cas partie_defaut_opt FINSELON  */
-#line 316 "duala.y"
+#line 317 "duala.y"
                                            {
         int etiq = etiquette_stack[--stack_ptr];
         fprintf(fichier_asm, "fin_selon_%d:\n", etiq);
-        printf("Fin SELON - etiquette %d\n", etiq);
+        printf("Suka na selon -  %d\n", etiq);
     }
 #line 1605 "duala.tab.c"
     break;
 
   case 52: /* $@7: %empty  */
-#line 329 "duala.y"
+#line 330 "duala.y"
                                {
         int etiq_selon = etiquette_stack[stack_ptr-1];  /* Étiquette du selon parent */
         int cas_etiq = etiquette_counter++;
@@ -1625,7 +1625,7 @@ yyreduce:
     break;
 
   case 53: /* cas_simple: CAS expression DEUX_POINTS $@7 instructions  */
-#line 343 "duala.y"
+#line 344 "duala.y"
                    {
         int cas_etiq = etiquette_stack[--stack_ptr];
         int etiq_selon = etiquette_stack[stack_ptr-1];
@@ -1638,7 +1638,7 @@ yyreduce:
     break;
 
   case 55: /* $@8: %empty  */
-#line 355 "duala.y"
+#line 356 "duala.y"
                          {
         printf("CAS DEFAUT\n");
     }
@@ -1646,7 +1646,7 @@ yyreduce:
     break;
 
   case 57: /* sortir_instruction: SORTIR POINT_VIRGULE  */
-#line 361 "duala.y"
+#line 362 "duala.y"
                          {
         if (stack_ptr > 0) {
             /* Trouver l'étiquette du selon le plus proche */
@@ -1656,25 +1656,25 @@ yyreduce:
                 etiq = etiquette_stack[stack_ptr-2];
             }
             fprintf(fichier_asm, "    jmp fin_selon_%d\n", etiq);
-            printf("SORTIR (break) vers fin_selon_%d\n", etiq);
+            printf("SUKA (break) na fin_selon_%d\n", etiq);
         }
     }
 #line 1663 "duala.tab.c"
     break;
 
   case 58: /* $@9: %empty  */
-#line 376 "duala.y"
+#line 377 "duala.y"
              {
         int etiq = etiquette_counter++;
         etiquette_stack[stack_ptr++] = etiq;
         fprintf(fichier_asm, "debut_boucle_%d:\n", etiq);
-        printf("Debut boucle TANT_QUE\n");
+        printf("Mb l  boucle TANT_QUE\n");
     }
 #line 1674 "duala.tab.c"
     break;
 
   case 59: /* $@10: %empty  */
-#line 381 "duala.y"
+#line 382 "duala.y"
                                             {
         int etiq = etiquette_stack[stack_ptr-1];
         fprintf(fichier_asm, "    pop eax\n");
@@ -1685,18 +1685,18 @@ yyreduce:
     break;
 
   case 60: /* boucle_tant_que: TANT_QUE $@9 PAREN_OUV expression PAREN_FERM FAIRE $@10 instructions FINTANT  */
-#line 386 "duala.y"
+#line 387 "duala.y"
                            {
         int etiq = etiquette_stack[--stack_ptr];
         fprintf(fichier_asm, "    jmp debut_boucle_%d\n", etiq);
         fprintf(fichier_asm, "fin_boucle_%d:\n", etiq);
-        printf("Fin boucle TANT_QUE\n");
+        printf("Suka boucle TANT_QUE\n");
     }
 #line 1696 "duala.tab.c"
     break;
 
   case 61: /* $@11: %empty  */
-#line 395 "duala.y"
+#line 396 "duala.y"
                         {
         strcpy(affectation_var, current_id);
     }
@@ -1704,7 +1704,7 @@ yyreduce:
     break;
 
   case 62: /* $@12: %empty  */
-#line 397 "duala.y"
+#line 398 "duala.y"
                                        {
         int etiq = etiquette_counter++;
         etiquette_stack[stack_ptr++] = etiq;
@@ -1720,13 +1720,13 @@ yyreduce:
         fprintf(fichier_asm, "    cmp eax, [temp_limite_%d]\n", etiq % 3);
         fprintf(fichier_asm, "    jg fin_pour_%d\n", etiq);       /* Si variable > limite, sortir */
         
-        printf("POUR %s de [valeur] a [limite]\n", affectation_var);
+        printf("Sɔŋɔlɔ %s de [valeur] a [limite]\n", affectation_var);
     }
 #line 1726 "duala.tab.c"
     break;
 
   case 63: /* boucle_pour: POUR IDENTIFICATEUR $@11 DE expression A expression FAIRE $@12 instructions FINPOUR  */
-#line 413 "duala.y"
+#line 414 "duala.y"
                            {
         int etiq = etiquette_stack[--stack_ptr];
         
@@ -1738,24 +1738,24 @@ yyreduce:
         fprintf(fichier_asm, "    jmp debut_pour_%d\n", etiq);
         fprintf(fichier_asm, "fin_pour_%d:\n", etiq);
         
-        printf("Fin POUR\n");
+        printf("Sɔŋɔlɔ na sɔŋɔlɔ\n");
     }
 #line 1744 "duala.tab.c"
     break;
 
   case 64: /* $@13: %empty  */
-#line 429 "duala.y"
+#line 430 "duala.y"
             {
         int etiq = etiquette_counter++;
         etiquette_stack[stack_ptr++] = etiq;
         fprintf(fichier_asm, "debut_repeter_%d:\n", etiq);
-        printf("REPETER (do-while)\n");
+        printf("SUKA (faire-jusqu ')\n");
     }
 #line 1755 "duala.tab.c"
     break;
 
   case 65: /* boucle_repeter: REPETER $@13 instructions JUSQUA PAREN_OUV expression PAREN_FERM POINT_VIRGULE  */
-#line 434 "duala.y"
+#line 435 "duala.y"
                                                                         {
         int etiq = etiquette_stack[--stack_ptr];
         
@@ -1763,13 +1763,13 @@ yyreduce:
         fprintf(fichier_asm, "    test eax, eax\n");
         fprintf(fichier_asm, "    jz debut_repeter_%d\n", etiq);
         
-        printf("JUSQUA (condition)\n");
+        printf("SUKA (condition)\n");
     }
 #line 1769 "duala.tab.c"
     break;
 
   case 66: /* lecture: LIRE IDENTIFICATEUR POINT_VIRGULE  */
-#line 446 "duala.y"
+#line 447 "duala.y"
                                       {
         fprintf(fichier_asm, "    push input_msg\n");
         fprintf(fichier_asm, "    call printf\n");
@@ -1778,26 +1778,26 @@ yyreduce:
         fprintf(fichier_asm, "    push input_format\n");
         fprintf(fichier_asm, "    call scanf\n");
         fprintf(fichier_asm, "    add esp, 8\n");
-        printf("Lecture de: %s\n", current_id);
+        printf("Tol  na %s\n", current_id);
     }
 #line 1784 "duala.tab.c"
     break;
 
   case 67: /* ecriture: ECRIRE expression POINT_VIRGULE  */
-#line 459 "duala.y"
+#line 460 "duala.y"
                                     {
         fprintf(fichier_asm, "    pop eax\n");
         fprintf(fichier_asm, "    push eax\n");
         fprintf(fichier_asm, "    push format_int\n");
         fprintf(fichier_asm, "    call printf\n");
         fprintf(fichier_asm, "    add esp, 8\n");
-        printf("Ecriture d'une expression numerique\n");
+        printf("Kɔma na mbɔmbɔ: %s\n", current_id);
     }
 #line 1797 "duala.tab.c"
     break;
 
   case 68: /* ecriture_chaine: ECRIRE CHAINE_CARACTERES POINT_VIRGULE  */
-#line 470 "duala.y"
+#line 471 "duala.y"
                                            {
         fprintf(fichier_temp, "    string_%d db %s, 0\n", string_counter, current_string);
         
@@ -1806,7 +1806,7 @@ yyreduce:
         fprintf(fichier_asm, "    call printf\n");
         fprintf(fichier_asm, "    add esp, 8\n");
         
-        printf("Ecriture d'une chaine: %s\n", current_string);
+        printf("Mbɔmbɔ na mbɔmbɔ: %s\n", current_string);
         string_counter++;
     }
 #line 1813 "duala.tab.c"
@@ -2006,15 +2006,15 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 483 "duala.y"
+#line 484 "duala.y"
 
 
 void yyerror(const char *s) {
-    fprintf(stderr, "Erreur de syntaxe: %s\n", s);
+    fprintf(stderr, "Mbɔmbɔ na nde: %s\n", s);
 }
 
 int main() {
-    printf("=== Compilateur Francais avec Chaines ===\n");
-    printf("Entrez votre programme:\n");
+    printf("=== Kompilatɔr Duala na Sawa ===\n");
+    printf("Tɔlɛ programme na wo:\n");
     return yyparse();
 }

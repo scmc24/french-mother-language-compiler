@@ -1,16 +1,16 @@
-; Programme francais avec chaines
+; Duala
 section .data
     format_int db '%d', 10, 0
     format_string db '%s', 10, 0
     input_format db '%d', 0
-    input_msg db 'Entrez un nombre: ', 0
+    input_msg db 'Tol  na mb m b  mbɔmbɔ? ', 0
     temp_limite_0 dd 0
     temp_limite_1 dd 0
     temp_limite_2 dd 0
     temp_switch_0 dd 0
     temp_switch_1 dd 0
     temp_switch_2 dd 0
-    c dd 0
+    a dd 0
     b dd 0
     max dd 0
 
@@ -26,7 +26,7 @@ main:
     push input_msg
     call printf
     add esp, 4
-    push c
+    push a
     push input_format
     call scanf
     add esp, 8
@@ -37,7 +37,7 @@ main:
     push input_format
     call scanf
     add esp, 8
-    push dword [c]
+    push dword [a]
     push dword [b]
     pop ebx
     pop eax
@@ -45,31 +45,21 @@ main:
     setg al
     movzx eax, al
     push eax
+    push dword [a]
+    push dword [b]
+    pop ecx
+    pop ebx
     pop eax
     test eax, eax
-    jz sinon_0
-    push dword [c]
+    jz ternaire_sinon_0
+    push ebx
+    jmp ternaire_fin_0
+ternaire_sinon_0:
+    push ecx
+ternaire_fin_0:
     pop eax
     mov [max], eax
     push dword [max]
-    pop eax
-    push eax
-    push format_int
-    call printf
-    add esp, 8
-    jmp fin_si_0
-sinon_0:
-    push dword [b]
-    pop eax
-    mov [max], eax
-    push dword [max]
-    pop eax
-    push eax
-    push format_int
-    call printf
-    add esp, 8
-fin_si_0:
-    push 999
     pop eax
     push eax
     push format_int

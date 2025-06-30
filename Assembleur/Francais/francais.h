@@ -95,9 +95,10 @@ extern int yydebug;
     PAREN_OUV = 296,               /* PAREN_OUV  */
     PAREN_FERM = 297,              /* PAREN_FERM  */
     DEUX_POINTS = 298,             /* DEUX_POINTS  */
-    NOMBRE_ENTIER = 299,           /* NOMBRE_ENTIER  */
-    IDENTIFICATEUR = 300,          /* IDENTIFICATEUR  */
-    CHAINE_CARACTERES = 301        /* CHAINE_CARACTERES  */
+    QUESTION = 299,                /* QUESTION  */
+    NOMBRE_ENTIER = 300,           /* NOMBRE_ENTIER  */
+    IDENTIFICATEUR = 301,          /* IDENTIFICATEUR  */
+    CHAINE_CARACTERES = 302        /* CHAINE_CARACTERES  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif

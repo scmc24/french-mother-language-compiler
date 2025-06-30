@@ -1,5 +1,0 @@
-debut
-    entier x;
-    x <- 42;
-    ecrire x;
-fin
